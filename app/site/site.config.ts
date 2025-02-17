@@ -19,6 +19,10 @@ const routes: Routes[] = [{
 {
     name: "live",
     url: "/live"
+},
+{
+    name: "sports",
+    url: "/sports"
 }]
 
 //icons that used for header
@@ -47,4 +51,6 @@ const navIcons: navIcon[] = [{
 
 const version = "1.0.0";
 
-export { routes, navIcons };
+const imageUrl = "https://www.nytimes.com/";
+
+export { routes, navIcons, imageUrl };
