@@ -1,13 +1,11 @@
 import React from 'react';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { imageUrl } from '@/app/site/site.config';
-import { Headline } from '../types/headline.types';
+import { Headline, HeadlineProps } from '../types/headline.types';
 
-interface SwiperCardProps {
-    headline: Headline;
-}
 
-const SwiperCard: React.FC<SwiperCardProps> = ({ headline }) => {
+
+const SwiperCard: React.FC<HeadlineProps> = ({ headline }) => {
     return (
         <div className="relative h-full">
             {/* Image */}
