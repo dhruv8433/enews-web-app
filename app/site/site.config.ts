@@ -45,4 +45,6 @@ const navIcons: navIcon[] = [{
 }
 ];
 
+const version = "1.0.0";
+
 export { routes, navIcons };
