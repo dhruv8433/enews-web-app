@@ -14,7 +14,7 @@ export default function Home() {
       <ListCategoryContainer />
 
       {/* business and career section */}
-      {/* <BusinessAndCareerGrid /> */}
+      <BusinessAndCareerGrid />
 
       {/* education section */}
       <EducationSection />
