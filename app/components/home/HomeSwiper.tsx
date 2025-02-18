@@ -13,8 +13,7 @@ export default function HomeSwiper() {
     // Fetch data
     const { error, headlines, loading } = useHeadlines('headlines');
 
-    console.log("Headlines Data:", headlines); // Debugging
-
+    // console.log("Headlines Data:", headlines); // Debugging
     return (
         <div className="my-4">
             <Grid container spacing={2}>
@@ -25,7 +24,7 @@ export default function HomeSwiper() {
                     ) : error ? (
                         <div className="text-center text-red-500">Error fetching headlines: {error}</div>
                     ) : headlines.length > 0 ? (
-                        <MySwiperPagination className="h-[700px] w-full  rounded-xl">
+                        <MySwiperPagination className="h-[700px] w-full rounded-xl">
                             {headlines.map((headline: any) => (
                                 <SwiperSlide key={headline._id} className="h-full">
                                     <SwiperCard headline={headline} />

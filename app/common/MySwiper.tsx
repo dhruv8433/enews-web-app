@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { Swiper } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Autoplay, EffectFlip, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-flip';
 import { TypeSwiper } from '../types/swiper.types';
 
 const MySwiperPagination: React.FC<TypeSwiper> = ({ children, className = '' }) => {
@@ -14,7 +15,8 @@ const MySwiperPagination: React.FC<TypeSwiper> = ({ children, className = '' }) 
         dynamicBullets: true,
         clickable: true,
       }}
-      modules={[Pagination]}
+      autoplay={true}
+      modules={[Pagination, Autoplay]}
       className={`mySwiper h-full ${className}`}
     >
       {children}
@@ -22,4 +24,19 @@ const MySwiperPagination: React.FC<TypeSwiper> = ({ children, className = '' }) 
   );
 };
 
-export { MySwiperPagination };
+const MySwiperFlipEffect: React.FC<TypeSwiper> = ({ children, className = '' }) => {
+  return (
+    <Swiper
+    effect={'flip'}
+    grabCursor={true}
+    pagination={true}
+    modules={[EffectFlip, Pagination, Autoplay]}
+    className={`mySwiper h-[500px] ${className}`}
+    autoplay={true}
+    >
+      {children}
+    </Swiper>
+  )
+}
+
+export { MySwiperPagination, MySwiperFlipEffect };
