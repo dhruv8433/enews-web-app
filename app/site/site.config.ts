@@ -53,4 +53,23 @@ const version = "1.0.0";
 
 const imageUrl = "https://www.nytimes.com/";
 
-export { routes, navIcons, imageUrl };
+const categorys = [
+    "All",
+    "Technology",
+    "Sports",
+    "Business",
+    "Health",
+    "Family",
+    "Social",
+    "War",
+    "Education",
+    "Headlines",
+    "Car",
+    "Travel",
+    "Science",
+    "Religion",
+    "Politics",
+    "Environment",
+  ];
+
+export { routes, navIcons, imageUrl, categorys };
