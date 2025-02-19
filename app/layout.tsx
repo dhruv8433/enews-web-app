@@ -1,9 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import LargeContainer from "./common/LargeContainer";
 import GlobalAdvertise from "./components/headers/GlobalAdvertise";
 import Navbar from "./components/Nav/Navbar";
+import { Toaster } from 'react-hot-toast'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +33,10 @@ export default function RootLayout({
         <GlobalAdvertise />
         <Navbar />
         {children}
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
       </body>
     </html>
   );
