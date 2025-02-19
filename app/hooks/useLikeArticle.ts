@@ -25,9 +25,7 @@ const useLikeArticle = (article: Article) => {
 
   // 🔹 Get Firebase-safe article ID
   const getArticleId = () => {
-    console.log("articles.getArticle", article)
     if (!article || !article._id) return null;
-    console.log("articles.getArticle", article?._id)
     return article._id.replace(/[^a-zA-Z0-9-_]/g, "_");
   };
 
