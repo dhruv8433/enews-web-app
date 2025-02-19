@@ -83,7 +83,7 @@ const DetailedNews: React.FC = () => {
                 {/* Action Buttons */}
                 <div className="flex items-center justify-end space-x-4 mt-6">
                     {/* Add to Favorites */}
-                    <LikeButton />
+                    <LikeButton article={article} />
 
                     {/* Read Later */}
                     <IconButton color={readLater ? 'primary' : 'default'} onClick={handleReadLater}>
