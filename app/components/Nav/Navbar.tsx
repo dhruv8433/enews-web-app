@@ -13,9 +13,23 @@ import { routes } from '@/app/site/site.config'
 import { Box, Drawer, IconButton } from '@mui/material'
 import LargeContainer from '@/app/common/LargeContainer'
 import PhoneNavDrawer from '@/app/overlays/PhoneNavDrawer'
+import { signInWithGoogle } from '@/app/service/Auth.google'
+import toast from 'react-hot-toast'
 
 const Navbar: React.FC = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
+
+    // google login logic
+    const handleLogin = async () => {
+        try {
+            const {refreshToken} = await signInWithGoogle();
+            toast.success("Login successful!");
+            // Cookies.set("user", "loggedIn", { expires: 1 });
+        } catch (error) {
+            toast.error("Login failed!");
+        }
+    };
+
     return (
         <div className='bg-white py-4'>
             <LargeContainer>
@@ -44,7 +58,7 @@ const Navbar: React.FC = () => {
                         <Box display={{ xs: "none", md: "flex" }}>
                             <MyInput name='search' placeholder='Search...' type='text' className='p-2 rounded' />
                         </Box>
-                        <MyButtons title='Login' onClick={() => console.log('login')} className='p-2 rounded' />
+                        <MyButtons title='Login' onClick={() => handleLogin()} className='p-2 rounded' />
                     </div>
 
                 </div>
