@@ -18,15 +18,15 @@ import slugify from 'slugify';
 
 const SwiperCard: React.FC<HeadlineProps> = ({ headline }) => {
     return (
-        // this link redirect to detaile/id page of headline and store object as string in localstorage.
-        <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
-            {/* Main container with a relative position for overlay placement */}
-            <div className="relative h-full">
+        //Main container with a relative position for overlay placement
+        <div className="relative h-full" >
+            {/* toogle action button */}
+            <div className="absolute right-1 top-1 bg-white z-10 rounded-full">
+                <LikeButton article={headline} /> {/* Like button for bookmarking articles */}
+            </div>
+            {/*  this link redirect to detaile/id page of headline and store object as string in localstorage. */}
+            <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
 
-                {/* toogle action button */}
-                <div className="absolute right-1 top-1 bg-white z-10 rounded-full">
-                    <LikeButton /> {/* Like button for bookmarking articles */}
-                </div>
                 {/* Background Image Section */}
                 <img
                     src={imageUrl + headline.multimedia[0]?.url} /** Constructs the image URL dynamically */
@@ -66,8 +66,8 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline }) => {
                         </p>
                     </div>
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
     );
 }
 

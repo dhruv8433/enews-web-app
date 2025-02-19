@@ -1,23 +1,22 @@
 import React from 'react';
-import { HeadlineProps } from '../types/headline.types';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { imageUrl } from '../site/site.config';
-import LikeButton from './LikeButton';
 import Link from 'next/link';
 import slugify from 'slugify';
+import LikeButton from './LikeButton';
+import { imageUrl } from '../site/site.config';
+import { HeadlineProps } from '../types/headline.types';
 
 const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
     return (
-        // this link redirect to detaile/id page of headline and store object as string in localstorage.
-        <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
-            <div className="group relative shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+        <div className="group relative shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+            {/* toogle action button */}
+            <div className="absolute right-1 top-1 bg-white z-10 rounded-full">
+                <LikeButton article={headline} /> {/* Like button for bookmarking articles */}
+            </div>
+            {/* // this link redirect to detaile/id page of headline and store object as string in localstorage. */}
+            <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
                 {/* Image Container with Title Overlay */}
                 <div className="relative w-full h-60 overflow-hidden">
 
-                    {/* toogle action button */}
-                    <div className="absolute right-1 top-1 bg-white z-10 rounded-full">
-                        <LikeButton /> {/* Like button for bookmarking articles */}
-                    </div>
 
                     <img
                         src={imageUrl + headline.multimedia[0]?.url}
@@ -34,8 +33,8 @@ const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
                 </div>
 
 
-            </div>
-        </Link>
+            </Link>
+        </div>
     );
 };
 

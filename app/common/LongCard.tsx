@@ -8,14 +8,14 @@ import slugify from "slugify";
 
 const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
     return (
-        // this link redirect to detaile/id page of headline and store object as string in localstorage.
-        <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
-            <div className="max-w-3xl h-[400px] bg-white shadow-lg rounded-xl overflow-hidden transition-transform duration-300 hover:shadow-2xl group hover:cursor-pointer">
+        <div className="max-w-3xl h-[400px] bg-white shadow-lg rounded-xl overflow-hidden transition-transform duration-300 hover:shadow-2xl group hover:cursor-pointer">
+            {/* toogle action button */}
+            <div className="absolute ml-[310px] mt-[10px] bg-white z-10 rounded-full">
+                <LikeButton article={headline} /> {/* Like button for bookmarking articles */}
+            </div>
+            {/* this link redirect to detaile/id page of headline and store object as string in localstorage. */}
+            <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
 
-                {/* toogle action button */}
-                <div className="absolute ml-[310px] mt-[10px] bg-white z-10 rounded-full">
-                    <LikeButton /> {/* Like button for bookmarking articles */}
-                </div>
 
                 {/* Article Image */}
                 <div className="relative w-full h-52 rounded-xl">
@@ -46,8 +46,8 @@ const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
                     </div>
 
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
     );
 };
 

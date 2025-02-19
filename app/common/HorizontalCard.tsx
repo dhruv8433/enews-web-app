@@ -18,16 +18,15 @@ import slugify from "slugify";
 
 const HorizontalCard: React.FC<HeadlineProps> = ({ headline }) => {
   return (
-    // this link redirect to detaile/id page of headline and store object as string in localstorage.
-    <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
-      
+    // {/* Main card container with a side-by-side layout */}
+    <div className="">
       {/* toogle action button */}
       <div className="absolute ml-2 mt-2 bg-white z-10 rounded-full">
-        <LikeButton /> {/* Like button for bookmarking articles */}
+        <LikeButton article={headline} /> {/* Like button for bookmarking articles */}
       </div>
 
-      {/* Main card container with a side-by-side layout */}
-      <div className="flex items-center bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:shadow-xl my-4 group hover:cursor-pointer">
+      {/* this link redirect to detaile/id page of headline and store object as string in localstorage. */}
+      <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))} className="flex items-center bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:shadow-xl my-4 group hover:cursor-pointer">
 
         {/* Left: Image Section */}
         <div className="w-1/3 h-40 overflow-hidden p-2">
@@ -62,8 +61,8 @@ const HorizontalCard: React.FC<HeadlineProps> = ({ headline }) => {
             {headline.headline.main} {/* Displays the main headline */}
           </h3>
         </div>
-      </div>
-    </Link >
+      </Link >
+    </div>
   );
 };
 
