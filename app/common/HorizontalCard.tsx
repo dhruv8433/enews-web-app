@@ -13,10 +13,14 @@ import { HeadlineProps } from "../types/headline.types";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { imageUrl } from "../site/site.config";
 import LikeButton from "./LikeButton";
+import Link from "next/link";
+import slugify from "slugify";
 
 const HorizontalCard: React.FC<HeadlineProps> = ({ headline }) => {
   return (
-    <div>
+    // this link redirect to detaile/id page of headline and store object as string in localstorage.
+    <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
+      
       {/* toogle action button */}
       <div className="absolute ml-2 mt-2 bg-white z-10 rounded-full">
         <LikeButton /> {/* Like button for bookmarking articles */}
@@ -59,7 +63,7 @@ const HorizontalCard: React.FC<HeadlineProps> = ({ headline }) => {
           </h3>
         </div>
       </div>
-    </div>
+    </Link >
   );
 };
 
