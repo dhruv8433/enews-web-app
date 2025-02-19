@@ -9,13 +9,11 @@ import { Breadcrumbs, IconButton } from '@mui/material';
 import { Bookmark, Share, Print, SaveAlt, Favorite } from '@mui/icons-material'; // MUI Icons
 import { useRouter } from 'next/navigation';
 import LikeButton from './LikeButton';
+import ReadLaterButton from './ReadLaterButton';
 
 const DetailedNews: React.FC = () => {
     const [isClient, setIsClient] = useState(false);
     const [article, setArticle] = useState<any>(null);
-    const [isFavorite, setIsFavorite] = useState(false);
-    const [readLater, setReadLater] = useState(false);
-    const router = useRouter();
 
     useEffect(() => {
         setIsClient(true);
@@ -28,16 +26,6 @@ const DetailedNews: React.FC = () => {
     if (!isClient) return null;
 
     if (!article) return <p className="text-center text-gray-500">No article found.</p>;
-
-    const handleFavorite = () => {
-        setIsFavorite(!isFavorite);
-        // Optionally save this in localStorage or a database
-    };
-
-    const handleReadLater = () => {
-        setReadLater(!readLater);
-        // Optionally save this in localStorage or a database
-    };
 
     const handlePrint = () => {
         window.print();
@@ -85,10 +73,7 @@ const DetailedNews: React.FC = () => {
                     {/* Add to Favorites */}
                     <LikeButton article={article} />
 
-                    {/* Read Later */}
-                    <IconButton color={readLater ? 'primary' : 'default'} onClick={handleReadLater}>
-                        <Bookmark />
-                    </IconButton>
+                    <ReadLaterButton article={article} />
 
                     {/* Print */}
                     <IconButton color="default" onClick={handlePrint}>
