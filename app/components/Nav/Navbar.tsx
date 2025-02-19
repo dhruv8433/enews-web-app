@@ -1,11 +1,7 @@
-/**
- * @file Navbar.tsx
- */
-
 'use client'
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Menu } from '@mui/icons-material'
 import MyInput from '@/app/common/MyInput'
 import MyButtons from '@/app/common/MyButtons'
@@ -15,21 +11,43 @@ import LargeContainer from '@/app/common/LargeContainer'
 import PhoneNavDrawer from '@/app/overlays/PhoneNavDrawer'
 import { signInWithGoogle } from '@/app/service/Auth.google'
 import toast from 'react-hot-toast'
+import { redirect, useRouter } from 'next/navigation'
 
 const Navbar: React.FC = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
+    const [userInfo, setUserInfo] = useState<any>(null);
+    const [searchPrompt, setSearchPrompt] = useState('');
+    const router = useRouter(); // Initialize router
 
-    // google login logic
+    // Load user from localStorage
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                setUserInfo(JSON.parse(storedUser));
+            }
+        }
+    }, []);
+
+    // Google login logic
     const handleLogin = async () => {
         try {
-            const {refreshToken} = await signInWithGoogle();
+            const user = await signInWithGoogle();
+            localStorage.setItem('user', JSON.stringify(user)); // Store user in localStorage
+            setUserInfo(user);
             toast.success("Login successful!");
-            // Cookies.set("user", "loggedIn", { expires: 1 });
         } catch (error) {
             toast.error("Login failed!");
         }
     };
 
+    // Handle search on Enter key
+    const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && searchPrompt.trim() !== '') {
+            router.push(`/query?q=${encodeURIComponent(searchPrompt)}`);
+        }
+    };
+    
     return (
         <div className='bg-white py-4'>
             <LargeContainer>
@@ -37,33 +55,44 @@ const Navbar: React.FC = () => {
                     <div className='flex items-center'>
                         {/* Menu icon for responsive screen */}
                         <Box display={{ xs: "block", md: "none" }}>
-                            <IconButton onClick={() => setOpenDrawer(true)}> {/* Open drawer when we click on icon */}
+                            <IconButton onClick={() => setOpenDrawer(true)}>
                                 <Menu />
                             </IconButton>
                         </Box>
 
-                        {/* logo and title */}
+                        {/* Logo and title */}
                         <Link href={'/'} className="flex items-center gap-2 group">
-                            <img src="/asset/logo.png" alt="" className='h-14 w-14 items-center object-cover group-hover:animate-spin' />
+                            <img src="/asset/logo.png" alt="Logo" className='h-14 w-14 object-cover group-hover:animate-spin' />
                             <h1 className='font-bold text-2xl hover:cursor-pointer hover:text-blue-700'>ENews</h1>
                         </Link>
                     </div>
 
-                    {/* navigation */}
+                    {/* Navigation */}
                     <Box display={{ xs: "none", md: "flex" }} className="routes gap-5">
-                        {routes.map((route, index) => (<Link href={route.url} key={index} className='hover:cursor-pointer hover:text-blue-700'>{route.name}</Link>))}
+                        {routes.map((route, index) => (
+                            <Link href={route.url} key={index} className='hover:cursor-pointer hover:text-blue-700'>{route.name}</Link>
+                        ))}
                     </Box>
 
-                    <div className="buttons flex gap-2">
+                    {/* User Section */}
+                    <div className="buttons flex gap-2 items-center">
                         <Box display={{ xs: "none", md: "flex" }}>
-                            <MyInput name='search' placeholder='Search...' type='text' className='p-2 rounded' />
+                            <MyInput name='search' placeholder='Search...' type='text' className='p-2 rounded' value={searchPrompt} onChange={(e) => setSearchPrompt(e.target.value)} onKeyDown={handleSearchKeyPress} />
                         </Box>
-                        <MyButtons title='Login' onClick={() => handleLogin()} className='p-2 rounded' />
-                    </div>
 
+                        {userInfo ? (
+                            <div className='flex items-center gap-2'>
+                                <img src={userInfo?.photoURL || ''} alt="User" className='h-10 w-10 rounded-full' />
+                                <h3 className='font-medium'>{userInfo.displayName}</h3>
+                            </div>
+                        ) : (
+                            <MyButtons title='Sign in' onClick={handleLogin} className='p-2 rounded' />
+                        )}
+                    </div>
                 </div>
             </LargeContainer>
-            {/* Drawer section that open while menu icon clicked */}
+
+            {/* Drawer section */}
             <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
                 <div className="phone-drawer w-52">
                     <PhoneNavDrawer />
@@ -73,4 +102,4 @@ const Navbar: React.FC = () => {
     )
 }
 
-export default Navbar
+export default Navbar;
