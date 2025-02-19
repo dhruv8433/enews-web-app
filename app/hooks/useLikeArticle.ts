@@ -4,16 +4,9 @@ import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast"; // ✅ Add toast for feedback
 import { auth, db } from "../site/firebase.config";
+import { Headline } from "../types/headline.types";
 
-interface Article {
-  _id: string;
-  headline: string;
-  abstract: string;
-  pub_date: string;
-  multimedia?: { url: string }[];
-}
-
-const useLikeArticle = (article: Article) => {
+const useLikeArticle = (article: Headline) => {
   const [user] = useAuthState(auth);
   const [isFavorite, setIsFavorite] = useState(false);
 

@@ -12,16 +12,6 @@ import { IconButton } from "@mui/material";
 import React from "react";
 import useLikeArticle from "../hooks/useLikeArticle";
 
-interface LikeButtonProps {
-  article: {
-    _id: string;
-    headline: string;
-    abstract: string;
-    pub_date: string;
-    multimedia?: { url: string }[];
-  };
-}
-
 const LikeButton: React.FC<any> = ({ article }) => {
 
   const { isFavorite, toggleFavorite } = useLikeArticle(article);
