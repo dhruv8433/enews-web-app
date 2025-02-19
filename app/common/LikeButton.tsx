@@ -1,6 +1,6 @@
 /**
  * @file LikeButton.tsx
- * @description A toggleable heart button component that switches between outlined and filled states when clicked.
+ * @description Like button that saves articles in Firebase Firestore.
  * 
  * @component
  * @author Dhruv Soni
@@ -9,18 +9,28 @@
 
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
+import useLikeArticle from "../hooks/useLikeArticle";
 
-const LikeButton: React.FC = () => {
-  // State to track liked/unliked status
-  const [liked, setLiked] = useState(false);
+interface LikeButtonProps {
+  article: {
+    _id: string;
+    headline: string;
+    abstract: string;
+    pub_date: string;
+    multimedia?: { url: string }[];
+  };
+}
 
+const LikeButton: React.FC<any> = ({ article }) => {
+
+  const { isFavorite, toggleFavorite } = useLikeArticle(article);
   return (
     <IconButton
-      onClick={() => setLiked(!liked)}
+      onClick={toggleFavorite}
       className="text-red-500 text-2xl transition-transform duration-200 hover:scale-110 w-min"
     >
-      {liked ? <Favorite color="error"/> : <FavoriteBorder color="error"/>}
+      {isFavorite ? <Favorite color="error" /> : <FavoriteBorder color="error" />}
     </IconButton>
   );
 };
