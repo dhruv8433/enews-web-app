@@ -1,7 +1,7 @@
 import React from 'react';
 import { TypeInput } from '../types/input.types'
 
-const MyInput: React.FC<TypeInput> = ({ type, placeholder, name, onChange, className, value }) => {
+const MyInput: React.FC<TypeInput> = ({ type, placeholder, name, onChange, className, value, onKeyDown }) => {
 
     return (
         <input
@@ -10,6 +10,7 @@ const MyInput: React.FC<TypeInput> = ({ type, placeholder, name, onChange, class
             name={name}
             value={value}
             onChange={onChange}
+            onKeyDown={onKeyDown}
             className={`border p-2 rounded ${className}`} />
     )
 }

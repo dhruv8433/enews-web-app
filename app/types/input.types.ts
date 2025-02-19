@@ -5,4 +5,5 @@ export type TypeInput = {
     value?: string,
     onChange?: (e: any) => void,
     className: string
+    onKeyDown?: (e: any) => void
 }
