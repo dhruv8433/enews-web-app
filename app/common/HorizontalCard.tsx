@@ -9,14 +9,14 @@
  */
 
 import React from "react";
-import { HeadlineProps } from "../types/headline.types";
+import { Headline, HeadlineProps } from "../types/headline.types";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { imageUrl } from "../site/site.config";
 import LikeButton from "./LikeButton";
 import Link from "next/link";
 import slugify from "slugify";
 
-const HorizontalCard: React.FC<HeadlineProps> = ({ headline }) => {
+const HorizontalCard = ({ headline, isProfilePage }: { headline: Headline, isProfilePage: boolean }) => {
   return (
     // {/* Main card container with a side-by-side layout */}
     <div className="">
@@ -31,7 +31,7 @@ const HorizontalCard: React.FC<HeadlineProps> = ({ headline }) => {
         {/* Left: Image Section */}
         <div className="w-1/3 h-40 overflow-hidden p-2">
           <img
-            src={imageUrl + headline.multimedia[0]?.url} // Constructs the image URL dynamically 
+            src={imageUrl + (isProfilePage ? headline?.imageUrl : headline?.multimedia?.[0]?.url || "")}
             alt={headline.headline.main} // Provides alternative text for accessibility 
             className="w-[300px] h-full object-cover transition-transform duration-300 group-hover:scale-110 rounded" // Applies zoom effect on hover 
           />
