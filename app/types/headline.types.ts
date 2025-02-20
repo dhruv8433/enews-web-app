@@ -6,6 +6,7 @@ export type Headline = {
   multimedia: { url?: string }[];
   pub_date: string;
   abstract: string;
+  imageUrl?: string;
 };
 
 

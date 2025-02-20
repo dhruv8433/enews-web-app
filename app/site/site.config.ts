@@ -3,7 +3,7 @@
  * 2025, All rights reserved
  */
 
-import { Facebook, GitHub, Instagram, LinkedIn, Twitter } from '@mui/icons-material'
+import { BookmarkBorder, DeleteOutline, Facebook, FavoriteBorder, GitHub, Instagram, LinkedIn, LogoutOutlined, MapsUgcOutlined, NotificationsOutlined, Twitter } from '@mui/icons-material'
 import { Routes } from '../types/routes.types';
 import { navIcon } from '../types/navicon.types';
 
@@ -70,6 +70,15 @@ const categorys = [
     "Religion",
     "Politics",
     "Environment",
-  ];
+];
 
-export { routes, navIcons, imageUrl, categorys };
+const profileLinks = [
+    { name: "Favorites", icon: FavoriteBorder , route: "favorites" },
+    { name: "Read Later", icon: BookmarkBorder, route: "read-later" },
+    { name: "Comments", icon: MapsUgcOutlined, route: "comments" },
+    { name: "Notifications", icon: NotificationsOutlined , route: "notifications" },
+    { name: "Delete Account", icon: DeleteOutline, route: "delete-account", danger: true },
+    { name: "Logout", icon: LogoutOutlined, route: "logout", danger: true },
+];
+
+export { routes, navIcons, imageUrl, categorys, profileLinks };
