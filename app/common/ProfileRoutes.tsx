@@ -2,20 +2,12 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Divider } from "@mui/material";
 import { profileLinks } from "../site/site.config";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../site/firebase.config";
 
 
 const ProfileRoutes = () => {
-    const [user, setUser] = useState<any>(null);
-
-    // Load user from localStorage
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const storedUser = localStorage.getItem('user');
-            if (storedUser) {
-                setUser(JSON.parse(storedUser));
-            }
-        }
-    }, []);
+    const [user] = useAuthState(auth);
 
     return (
         <motion.div
@@ -26,7 +18,12 @@ const ProfileRoutes = () => {
         >
             {/* User Info */}
             <div className="flex flex-col items-center gap-2 mb-4">
-                <img src={user?.photoURL} alt="User Avatar" className="w-32 h-32 rounded-full border-4 border-blue-500 shadow-md" />
+                <img
+                    src={user?.photoURL ?? "/default-avatar.png"}
+                    alt="User Avatar"
+                    className="w-32 h-32 rounded-full border-4 border-blue-500 shadow-md"
+                />
+
                 <div className="text-center">
                     <h2 className="text-lg font-semibold text-gray-900">{user?.displayName}</h2>
                     <p className="text-sm text-gray-500">{user?.email}</p>

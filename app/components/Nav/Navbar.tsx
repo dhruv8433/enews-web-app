@@ -12,29 +12,19 @@ import PhoneNavDrawer from '@/app/overlays/PhoneNavDrawer'
 import { signInWithGoogle } from '@/app/service/Auth.google'
 import toast from 'react-hot-toast'
 import { redirect, useRouter } from 'next/navigation'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '@/app/site/firebase.config'
 
 const Navbar: React.FC = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
-    const [userInfo, setUserInfo] = useState<any>(null);
+    const [userInfo] = useAuthState(auth);
     const [searchPrompt, setSearchPrompt] = useState('');
     const router = useRouter(); // Initialize router
-
-    // Load user from localStorage
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const storedUser = localStorage.getItem('user');
-            if (storedUser) {
-                setUserInfo(JSON.parse(storedUser));
-            }
-        }
-    }, []);
 
     // Google login logic
     const handleLogin = async () => {
         try {
-            const user = await signInWithGoogle();
-            localStorage.setItem('user', JSON.stringify(user)); // Store user in localStorage
-            setUserInfo(user);
+            await signInWithGoogle();
             toast.success("Login successful!");
         } catch (error) {
             toast.error("Login failed!");
@@ -47,7 +37,7 @@ const Navbar: React.FC = () => {
             router.push(`/query?q=${encodeURIComponent(searchPrompt)}`);
         }
     };
-    
+
     return (
         <div className='bg-white py-4'>
             <LargeContainer>
