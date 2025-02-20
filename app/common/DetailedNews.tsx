@@ -6,10 +6,11 @@ import { motion } from 'framer-motion';
 import { imageUrl } from '../site/site.config';
 import Link from 'next/link';
 import { Breadcrumbs, IconButton } from '@mui/material';
-import { Bookmark, Share, Print, SaveAlt, Favorite } from '@mui/icons-material'; // MUI Icons
+import { Bookmark, ShareOutlined, PrintOutlined, MapsUgcOutlined } from '@mui/icons-material'; // MUI Icons
 import { useRouter } from 'next/navigation';
 import LikeButton from './LikeButton';
 import ReadLaterButton from './ReadLaterButton';
+import CommentCard from './CommentCard';
 
 const DetailedNews: React.FC = () => {
     const [isClient, setIsClient] = useState(false);
@@ -73,16 +74,22 @@ const DetailedNews: React.FC = () => {
                     {/* Add to Favorites */}
                     <LikeButton article={article} />
 
+                    {/* Read later action button */}
                     <ReadLaterButton article={article} />
 
                     {/* Print */}
                     <IconButton color="default" onClick={handlePrint}>
-                        <Print />
+                        <PrintOutlined />
                     </IconButton>
 
                     {/* Share */}
                     <IconButton color="default" onClick={handleShare}>
-                        <Share />
+                        <ShareOutlined />
+                    </IconButton>
+
+                    {/* comment */}
+                    <IconButton color="default" onClick={handleShare}>
+                        <MapsUgcOutlined />
                     </IconButton>
                 </div>
             </motion.div>
@@ -95,9 +102,6 @@ const DetailedNews: React.FC = () => {
                 className="mx-auto rounded-xl mt-10"
                 id="articleContent"
             >
-
-
-
                 {/* 📌 article Image */}
                 {article.multimedia?.length > 0 && (
                     <div className="w-full h-[500px] relative rounded-lg overflow-hidden">
@@ -154,6 +158,19 @@ const DetailedNews: React.FC = () => {
                     Read Full article →
                 </motion.a>
             </motion.div>
+
+            {/* TODO Comments - 1 to 5 here and view more than open drawer */}
+            <div className="custom-heading breadcrumb">
+                <div className="p-[5px] bg-blue-700 w-40 flex justify-center text-white">
+                    Comments
+                </div>
+            </div>
+
+            <CommentCard
+                user={{ name: "John Doe", avatar: "https://th.bing.com/th/id/OIP.SDUEWR2xbOGEcMXOg6vWYAAAAA?rs=1&pid=ImgDetMain" }}
+                comment="This is an amazing article! Thanks for sharing."
+                timestamp="2 hours ago"
+            />
         </div>
     );
 };
