@@ -14,15 +14,15 @@ const routes: Routes[] = [{
 },
 {
     name: "Popular",
-    url: '/popular'
+    url: '/query?q=popular'
 },
 {
     name: "live",
-    url: "/live"
+    url: "/query?q=live"
 },
 {
     name: "sports",
-    url: "/sports"
+    url: "/query?q=sports"
 }]
 
 //icons that used for header

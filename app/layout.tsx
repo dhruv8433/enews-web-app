@@ -2,8 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import GlobalAdvertise from "./components/headers/GlobalAdvertise";
-import Navbar from "./components/Nav/Navbar";
+import Navbar from "./components/nav/Navbar";
 import { Toaster } from 'react-hot-toast'
+import Footer from "./components/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
           position="top-center"
           reverseOrder={false}
         />
+        <Footer />
       </body>
     </html>
   );
