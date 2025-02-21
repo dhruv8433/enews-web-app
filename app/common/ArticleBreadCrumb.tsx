@@ -79,7 +79,7 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                 </div>
             </motion.div>
 
-            <Backdrop open={openModel} onClick={() => setOpenModel(false)} className='z-20'>
+            <Backdrop open={openModel} className='z-20'>
                 <CommentModal articleId={filterdId} onClose={() => setOpenModel(false)} />
             </Backdrop>
         </div>

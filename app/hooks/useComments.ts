@@ -1,98 +1,60 @@
-import { useState, useEffect, useCallback } from "react";
-import {
-  collection,
-  query,
-  orderBy,
-  limit,
-  startAfter,
-  addDoc,
-  serverTimestamp,
-  getDocs,
-} from "firebase/firestore";
+import { useState, useEffect } from "react";
+import { collection, addDoc, serverTimestamp, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../site/firebase.config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../site/firebase.config";
-
-interface Comment {
-  id: string;
-  userId: string;
-  username: string;
-  comment: string;
-  createdAt: any;
-}
-
-const COMMENTS_PER_PAGE = 5; // Number of comments per page
+import { Comment } from "../types/comment.type";
 
 const useComments = (articleId: string) => {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [lastDoc, setLastDoc] = useState<any>(null);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [user] = useAuthState(auth);
+    const [comments, setComments] = useState<Comment[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [user] = useAuthState(auth);
 
-  // Fetch comments with pagination
-  const fetchComments = useCallback(async (loadMore = false) => {
-    if (!articleId) return;
+    async function fetchComments() {
+        if (!articleId) return;
 
-    setLoading(true);
-    try {
-      let commentsQuery = query(
-        collection(db, "articles", articleId, "comments"),
-        orderBy("createdAt", "desc"),
-        limit(COMMENTS_PER_PAGE)
-      );
+        setLoading(true);
+        // for doc ref path
+        const commentsRef = collection(db, "articles", articleId, "comments");
+        // for order coment based on time 
+        const commentOrder = query(commentsRef, orderBy("createdAt", "desc"))
+        // get comments from doc
+        const unsubscribe = onSnapshot(commentOrder, (snapshot) => {
+            const newComments = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            })) as Comment[];
 
-      if (loadMore && lastDoc) {
-        commentsQuery = query(
-          collection(db, "articles", articleId, "comments"),
-          orderBy("createdAt", "desc"),
-          startAfter(lastDoc),
-          limit(COMMENTS_PER_PAGE)
-        );
-      }
+            setComments(newComments);
+            setLoading(false);
+        });
 
-      const snapshot = await getDocs(commentsQuery);
-
-      const newComments = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as Comment[];
-
-      console.log(`Comments fetched: ${newComments.length}`);
-
-      setComments((prev) => (loadMore ? [...prev, ...newComments] : newComments));
-      setLastDoc(snapshot.docs[snapshot.docs.length - 1]);
-    } catch (error) {
-      console.error("Error fetching comments:", error);
+        return () => unsubscribe();
     }
-    setLoading(false);
-  }, [articleId, lastDoc]);
 
-  // Add comment
-  const addComment = async (commentText: string) => {
-    if (!user) return alert("You must be logged in to comment!");
-    if (!commentText.trim()) return;
+    useEffect(() => {
+        fetchComments();
+    }, [articleId]);
 
-    try {
-      await addDoc(collection(db, "articles", articleId, "comments"), {
-        userId: user.uid,
-        username: user.displayName || "Anonymous",
-        comment: commentText,
-        createdAt: serverTimestamp(),
-      });
+    // Add comment
+    const addComment = async (commentText: string) => {
+        if (!user) return alert("You must be logged in to comment!");
+        if (!commentText.trim()) return;
 
-      fetchComments(); // Refresh comments after adding a new one
-    } catch (error) {
-      console.error("Error adding comment:", error);
-    }
-  };
+        try {
+            await addDoc(collection(db, "articles", articleId, "comments"), {
+                userId: user.uid,
+                username: user.displayName || "Anonymous",
+                comment: commentText,
+                createdAt: serverTimestamp(),
+            });
+            await fetchComments();
+        } catch (error) {
+            console.error("Error adding comment:", error);
+        }
+    };
 
-  // Fetch comments on mount
-  useEffect(() => {
-    fetchComments();
-  }, [fetchComments]);
-
-  return { comments, loading, hasMore, fetchComments, addComment };
+    return { comments, loading, addComment };
 };
 
 export default useComments;
