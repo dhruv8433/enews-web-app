@@ -1,8 +1,5 @@
 export type CommentCardProps = {
-    user: {
-        name: string;
-        avatar: string;
-    };
+    user: string;
     comment: string;
     timestamp: string;
 }
