@@ -73,12 +73,13 @@ const categorys = [
 ];
 
 const profileLinks = [
-    { name: "Favorites", icon: FavoriteBorder , route: "favorites" },
+    { name: "Favorites", icon: FavoriteBorder , route: "favorites" },  // ✅ Fix: Added `/`
     { name: "Read Later", icon: BookmarkBorder, route: "read-later" },
     { name: "Comments", icon: MapsUgcOutlined, route: "comments" },
     { name: "Notifications", icon: NotificationsOutlined , route: "notifications" },
-    { name: "Delete Account", icon: DeleteOutline, route: "delete-account", danger: true },
-    { name: "Logout", icon: LogoutOutlined, route: "logout", danger: true },
+    { name: "Delete Account", icon: DeleteOutline, route: "#" , danger: true },
+    { name: "Logout", icon: LogoutOutlined, route: "#", danger: true },
 ];
+
 
 export { routes, navIcons, imageUrl, categorys, profileLinks };

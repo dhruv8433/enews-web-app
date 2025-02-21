@@ -4,6 +4,7 @@ import { Divider } from "@mui/material";
 import { profileLinks } from "../site/site.config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../site/firebase.config";
+import Link from "next/link";
 
 
 const ProfileRoutes = () => {
@@ -39,17 +40,17 @@ const ProfileRoutes = () => {
                 {profileLinks.map((link, index) => {
                     const IconComponent = link.icon;
                     return (
-                        <motion.a
-                            key={index}
-                            href={link.route}
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ type: "spring", stiffness: 300 }}
-                            className={`flex items-center gap-3 p-3 rounded-lg text-gray-700 transition ${link.danger ? "text-red-600 hover:bg-red-100" : "hover:bg-gray-100"
-                                }`}
-                        >
-                            <span className="text-lg"><IconComponent /></span>
-                            <span className="text-sm font-medium">{link.name}</span>
-                        </motion.a>
+                        <Link key={index} href={'/profile/' + link.route}>
+                            <motion.a
+                                whileHover={{ scale: 1.05 }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                                className={`flex items-center gap-3 p-3 rounded-lg text-gray-700 transition ${link.danger ? "text-red-600 hover:bg-red-100" : "hover:bg-gray-100"
+                                    }`}
+                            >
+                                <span className="text-lg"><IconComponent /></span>
+                                <span className="text-sm font-medium">{link.name}</span>
+                            </motion.a>
+                        </Link>
                     )
                 })}
             </div>

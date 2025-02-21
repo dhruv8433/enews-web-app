@@ -71,10 +71,10 @@ const Navbar: React.FC = () => {
                         </Box>
 
                         {userInfo ? (
-                            <div className='flex items-center gap-2'>
+                            <Link href={`/profile/favorites`} className='flex items-center gap-2'>
                                 <img src={userInfo?.photoURL || ''} alt="User" className='h-10 w-10 rounded-full' />
                                 <h3 className='font-medium'>{userInfo.displayName}</h3>
-                            </div>
+                            </Link>
                         ) : (
                             <MyButtons title='Sign in' onClick={handleLogin} className='p-2 rounded' />
                         )}
