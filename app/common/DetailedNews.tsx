@@ -4,6 +4,7 @@ import CommentCard from './CommentCard';
 import ArticleInfo from './ArticleInfo';
 import React, { useEffect, useState } from 'react';
 import ArticleBreadCrumb from './ArticleBreadCrumb';
+import useComments from '../hooks/useComments';
 
 const DetailedNews: React.FC = () => {
     const [isClient, setIsClient] = useState(false);
@@ -16,6 +17,17 @@ const DetailedNews: React.FC = () => {
             setArticle(JSON.parse(data));
         }
     }, []);
+
+    const articleId = article?._id ? article._id.replace(/[^a-zA-Z0-9]/g, '_') : null;
+    const { comments, fetchComments, loading } = useComments(articleId);
+
+
+    useEffect(() => {
+        if (article) {
+            fetchComments();
+        }
+    }, [article]);
+
 
     if (!isClient) return null;
 
@@ -35,11 +47,16 @@ const DetailedNews: React.FC = () => {
                 </div>
             </div>
 
-            <CommentCard
-                user={"Dhruv"}
-                comment="This is an amazing article! Thanks for sharing."
-                timestamp="2 hours ago"
-            />
+            {
+                comments.map((comment) => (
+                    <CommentCard
+                        user={comment.username}
+                        comment={comment.comment}
+                        timestamp="2 hours ago"
+                    />
+                ))
+            }
+
         </div>
     );
 };

@@ -7,6 +7,11 @@ export type Headline = {
   pub_date: string;
   abstract: string;
   imageUrl?: string;
+  byline?: { original: string };
+  web_url?: string;
+  keywords?: { value: string }[];
+  source?: string;
+  section_name?: string;
 };
 
 
