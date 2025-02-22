@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { HeadlineProps } from '../types/headline.types'
 import Image from 'next/image'
 import { imageUrl } from '../site/site.config'
+import Link from 'next/link'
 
 const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
     return (
@@ -62,15 +63,15 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
             <p className="mt-4 text-gray-700 leading-relaxed">{headline?.abstract}</p>
 
             {/* 🔗 Read More */}
-            <motion.a
-                href={headline?.web_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                className="block text-blue-600 mt-4 font-semibold hover:bg-blue-800 hover:text-white w-max p-2 rounded"
-            >
-                Read Full article →
-            </motion.a>
+            <Link href={headline?.web_url ?? "#"} target="_blank" rel="noopener noreferrer">
+                <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="block text-blue-600 mt-4 font-semibold hover:bg-blue-800 hover:text-white w-max p-2 rounded"
+                >
+                    Read Full Article →
+                </motion.div>
+            </Link>
+
         </motion.div>)
 }
 
