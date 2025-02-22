@@ -3,12 +3,13 @@ import { signInWithGoogle } from '../service/Auth.google';
 import toast from 'react-hot-toast';
 import { Google } from '@mui/icons-material';
 
-const GoogleButton = () => {
+const GoogleButton = ({ CloseModel }: { CloseModel: (close: boolean) => void }) => {
     // Google login logic
     const handleLogin = async () => {
         try {
             await signInWithGoogle();
             toast.success("Login successful!");
+            CloseModel(false);
         } catch (error) {
             toast.error("Login failed!");
         }
