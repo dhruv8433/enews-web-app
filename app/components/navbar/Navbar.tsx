@@ -11,7 +11,6 @@ import { routes } from '@/app/site/site.config'
 import { Backdrop, Box, Drawer, IconButton } from '@mui/material'
 import LargeContainer from '@/app/common/LargeContainer'
 import PhoneNavDrawer from '@/app/overlays/PhoneNavDrawer'
-import { signInWithGoogle } from '@/app/service/Auth.google'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/app/site/firebase.config'
 import SignupModal from '@/app/overlays/SignupModal'
@@ -66,7 +65,7 @@ const Navbar: React.FC = () => {
 
                         {userInfo ? (
                             <Link href={`/profile/favorites`} className='flex items-center gap-2'>
-                                <img src={userInfo?.photoURL || ''} alt="User" className='h-10 w-10 rounded-full' />
+                                <img src={userInfo?.photoURL || 'https://cdn3.iconfinder.com/data/icons/web-design-and-development-2-6/512/87-1024.png'} alt="User" className='h-10 w-10 rounded-full border-2' />
                                 <h3 className='font-medium'>{userInfo.displayName}</h3>
                             </Link>
                         ) : (

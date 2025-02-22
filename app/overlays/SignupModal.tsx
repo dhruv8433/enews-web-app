@@ -1,10 +1,9 @@
+import { X } from "lucide-react";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { X } from "lucide-react";
-import { Google } from "@mui/icons-material";
-import { signInWithGoogle } from "../service/Auth.google";
-import toast from "react-hot-toast";
 import GoogleButton from "../common/GoogleButton";
+import { handleSignUp } from "../service/Auth.Firebase";
+import toast from "react-hot-toast";
 
 const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () => void, setLoginModal: (value: boolean) => void, setSignupModal: (value: boolean) => void }) => {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -13,15 +12,15 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    // Google login logic
-    const handleLogin = async () => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         try {
-            await signInWithGoogle();
-            toast.success("Login successful!");
+            await handleSignUp(form.name, form.email, form.password)
         } catch (error) {
-            toast.error("Login failed!");
+            console.error("Error signing up:", error);
+            // toast.error("An error occurred during sign-up. Please try again.");
         }
-    };
+    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
@@ -45,7 +44,7 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                 </h2>
 
                 {/* Form Fields */}
-                <form className="mt-5 space-y-4">
+                <form className="mt-5 space-y-4" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-gray-600 text-sm font-medium">Full Name</label>
                         <input
