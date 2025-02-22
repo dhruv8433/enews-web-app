@@ -8,28 +8,22 @@ import MyInput from '@/app/common/MyInput'
 import { useRouter } from 'next/navigation'
 import MyButtons from '@/app/common/MyButtons'
 import { routes } from '@/app/site/site.config'
-import { Box, Drawer, IconButton } from '@mui/material'
+import { Backdrop, Box, Drawer, IconButton } from '@mui/material'
 import LargeContainer from '@/app/common/LargeContainer'
 import PhoneNavDrawer from '@/app/overlays/PhoneNavDrawer'
 import { signInWithGoogle } from '@/app/service/Auth.google'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/app/site/firebase.config'
+import SignupModal from '@/app/overlays/SignupModal'
+import LoginModal from '@/app/overlays/LoginModal'
 
 const Navbar: React.FC = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
     const [userInfo] = useAuthState(auth);
     const [searchPrompt, setSearchPrompt] = useState('');
-    const router = useRouter(); // Initialize router
-
-    // Google login logic
-    const handleLogin = async () => {
-        try {
-            await signInWithGoogle();
-            toast.success("Login successful!");
-        } catch (error) {
-            toast.error("Login failed!");
-        }
-    };
+    const [openModal, setOpenModal] = useState(false);
+    const [openLoginModal, setOpenLoginModal] = useState(false);
+    const router = useRouter(); // Initialize router   
 
     // Handle search on Enter key
     const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -76,10 +70,19 @@ const Navbar: React.FC = () => {
                                 <h3 className='font-medium'>{userInfo.displayName}</h3>
                             </Link>
                         ) : (
-                            <MyButtons title='Sign in' onClick={handleLogin} className='p-2 rounded' />
+                            <MyButtons title='Sign in' onClick={() => setOpenModal(true)} className='p-2 rounded' />
                         )}
                     </div>
                 </div>
+                <Backdrop open={openModal} className='z-20'>
+                    <SignupModal onClose={() => setOpenModal(false)} setLoginModal={setOpenLoginModal} />
+                </Backdrop>
+
+                <Backdrop open={openLoginModal} className='z-20'>
+                    <LoginModal onClose={() => setOpenLoginModal(false)} setSignupModel={setOpenModal} />
+                </Backdrop>
+
+
             </LargeContainer>
 
             {/* Drawer section */}
