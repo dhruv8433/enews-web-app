@@ -63,7 +63,7 @@ const Footer = () => {
                     <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 mt-6">
                         <p>&copy; {new Date().getFullYear()} NewsDaily. All rights reserved.</p>
                         <p>
-                            Made with ❤️ by <a href="https://github.com/dhruvrsoni04" className="hover:text-red-500">Dhruv Soni</a>
+                            Made with ❤️ by <a href="https://github.com/dhruv8433" className="hover:text-red-500">Dhruv Soni</a>
                         </p>
                     </div>
                 </div>

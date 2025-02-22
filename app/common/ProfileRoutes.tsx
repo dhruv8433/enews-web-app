@@ -41,7 +41,7 @@ const ProfileRoutes = () => {
                     const IconComponent = link.icon;
                     return (
                         <Link key={index} href={'/profile/' + link.route}>
-                            <motion.a
+                            <motion.div
                                 whileHover={{ scale: 1.05 }}
                                 transition={{ type: "spring", stiffness: 300 }}
                                 className={`flex items-center gap-3 p-3 rounded-lg text-gray-700 transition ${link.danger ? "text-red-600 hover:bg-red-100" : "hover:bg-gray-100"
@@ -49,7 +49,7 @@ const ProfileRoutes = () => {
                             >
                                 <span className="text-lg"><IconComponent /></span>
                                 <span className="text-sm font-medium">{link.name}</span>
-                            </motion.a>
+                            </motion.div>
                         </Link>
                     )
                 })}
