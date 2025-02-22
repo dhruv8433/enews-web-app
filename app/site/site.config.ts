@@ -50,6 +50,7 @@ const navIcons: navIcon[] = [{
 ];
 
 const version = "1.0.0";
+const siteName = "ENews";
 
 const imageUrl = "https://www.nytimes.com/";
 
@@ -82,4 +83,4 @@ const profileLinks = [
 ];
 
 
-export { routes, navIcons, imageUrl, categorys, profileLinks };
+export { routes, navIcons, imageUrl, categorys, profileLinks, siteName };

@@ -8,6 +8,8 @@ import { HeadlineProps } from '../types/headline.types'
 import { Backdrop, Box, Breadcrumbs, IconButton } from '@mui/material'
 import { MapsUgcOutlined, PrintOutlined, ShareOutlined } from '@mui/icons-material'
 import CommentModal from './CommentModel'
+import { siteName } from '../site/site.config'
+import slugify from 'slugify'
 
 const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
     const [openModel, setOpenModel] = useState<boolean>(false);
@@ -34,6 +36,8 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
 
     const filterdId = headline._id.replace(/[^a-zA-Z0-9]/g, '_');
 
+    document.title = `${siteName} | ${slugify(headline.abstract, { lower: true })}`;
+
     return (
         <div>{/* Breadcrumb */}
             <motion.div
@@ -42,7 +46,7 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                 transition={{ duration: 0.5 }}
                 className="text-gray-600 mt-5 "
             >
-                <Box flexDirection={{md: "row"}} className="">
+                <Box flexDirection={{ md: "row" }} className="">
                     <h1 className="text-2xl font-semibold text-blue-800">{turncatedTitle}</h1>
                     <Breadcrumbs className='flex flex-col'>
                         <Link href={`/`} className="hover:underline">

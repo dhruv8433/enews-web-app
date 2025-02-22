@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import React, { Suspense } from 'react';
 import LongCard from '../common/LongCard';
 import LargeContainer from '../common/LargeContainer';
+import { siteName } from '../site/site.config';
 
 const QueryContent = () => {
     const searchParams = useSearchParams();
@@ -13,6 +14,7 @@ const QueryContent = () => {
     console.log("q:", q);
     
     const { error, headlines, loading } = useHeadlines(q);
+    document.title = `${siteName} | ${q}`;
 
     return (
         <>

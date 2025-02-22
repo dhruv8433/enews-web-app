@@ -14,6 +14,7 @@ const DetailedNews: React.FC = () => {
     const [article, setArticle] = useState<any>(null);
     const [page, setPage] = useState(1); // Track the current page
 
+    
     useEffect(() => {
         setIsClient(true);
         const data = localStorage.getItem('article');
