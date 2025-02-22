@@ -8,17 +8,18 @@ import slugify from "slugify";
 
 const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
     return (
-        <div className="max-w-3xl h-[400px] bg-white shadow-lg rounded-xl overflow-hidden transition-transform duration-300 hover:shadow-2xl group hover:cursor-pointer">
-            {/* toogle action button */}
-            <div className="absolute ml-[310px] mt-[10px] bg-white z-10 rounded-full">
-                <LikeButton article={headline} /> {/* Like button for bookmarking articles */}
+        <div className="relative max-w-3xl h-[400px] bg-white shadow-lg rounded-xl overflow-hidden transition-transform duration-300 hover:shadow-2xl group hover:cursor-pointer">
+            
+            {/* Like Button - Positioned in the top-right corner */}
+            <div className="absolute top-3 right-3 bg-white p-1 rounded-full shadow-md z-10">
+                <LikeButton article={headline} isProfile={false} />
             </div>
-            {/* this link redirect to detaile/id page of headline and store object as string in localstorage. */}
+
+            {/* This link redirects to detail/id page and stores the object in localStorage */}
             <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
-
-
+                
                 {/* Article Image */}
-                <div className="relative w-full h-52 rounded-xl">
+                <div className="relative w-full h-52 rounded-xl overflow-hidden">
                     <img
                         src={headline.multimedia[0]?.url ? imageUrl + headline.multimedia[0].url : "/placeholder.jpg"}
                         alt={headline.headline.main}
@@ -38,13 +39,11 @@ const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
                             : headline.headline.main}
                     </h2>
 
-
                     {/* Date */}
                     <div className="flex items-center text-gray-600 text-sm gap-2">
                         <CalendarMonthIcon fontSize="small" className="text-gray-400" />
                         <p>{new Date(headline.pub_date).toLocaleDateString()}</p>
                     </div>
-
                 </div>
             </Link>
         </div>
