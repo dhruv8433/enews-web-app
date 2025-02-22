@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import GoogleButton from "../common/GoogleButton";
 
-const LoginModal = ({ onClose, setSignupModel }: { onClose: () => void, setSignupModel: (value: boolean) => void }) => {
+const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () => void, setSignupModel: (value: boolean) => void, setLoginModel: (value: boolean) => void }) => {
     const [form, setForm] = useState({ email: "", password: "" });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +85,7 @@ const LoginModal = ({ onClose, setSignupModel }: { onClose: () => void, setSignu
                 </p>
 
                 {/* Google login */}
-                <GoogleButton />
+                <GoogleButton CloseModel={setLoginModel} />
             </motion.div>
         </div>
     );

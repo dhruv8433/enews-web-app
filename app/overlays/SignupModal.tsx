@@ -6,7 +6,7 @@ import { signInWithGoogle } from "../service/Auth.google";
 import toast from "react-hot-toast";
 import GoogleButton from "../common/GoogleButton";
 
-const SignupModal = ({ onClose, setLoginModal }: { onClose: () => void, setLoginModal: (value: boolean) => void }) => {
+const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () => void, setLoginModal: (value: boolean) => void, setSignupModal: (value: boolean) => void }) => {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -106,7 +106,7 @@ const SignupModal = ({ onClose, setLoginModal }: { onClose: () => void, setLogin
                 </p>
 
                 {/* Google login */}
-                <GoogleButton />
+                <GoogleButton CloseModel={setSignupModal} />
             </motion.div>
         </div>
     );

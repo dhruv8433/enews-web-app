@@ -75,11 +75,11 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
                 <Backdrop open={openModal} className='z-20'>
-                    <SignupModal onClose={() => setOpenModal(false)} setLoginModal={setOpenLoginModal} />
+                    <SignupModal onClose={() => setOpenModal(false)} setLoginModal={setOpenLoginModal} setSignupModal={setOpenModal} />
                 </Backdrop>
 
                 <Backdrop open={openLoginModal} className='z-20'>
-                    <LoginModal onClose={() => setOpenLoginModal(false)} setSignupModel={setOpenModal} />
+                    <LoginModal onClose={() => setOpenLoginModal(false)} setSignupModel={setOpenModal} setLoginModel={setOpenLoginModal} />
                 </Backdrop>
 
 
