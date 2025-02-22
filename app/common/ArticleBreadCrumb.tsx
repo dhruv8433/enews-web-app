@@ -5,7 +5,7 @@ import LikeButton from './LikeButton'
 import { motion } from 'framer-motion'
 import ReadLaterButton from './ReadLaterButton'
 import { HeadlineProps } from '../types/headline.types'
-import { Backdrop, Breadcrumbs, IconButton } from '@mui/material'
+import { Backdrop, Box, Breadcrumbs, IconButton } from '@mui/material'
 import { MapsUgcOutlined, PrintOutlined, ShareOutlined } from '@mui/icons-material'
 import CommentModal from './CommentModel'
 
@@ -40,11 +40,11 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-gray-600 mt-5 flex justify-between items-center"
+                className="text-gray-600 mt-5 "
             >
-                <div className="">
+                <Box flexDirection={{md: "row"}} className="">
                     <h1 className="text-2xl font-semibold text-blue-800">{turncatedTitle}</h1>
-                    <Breadcrumbs>
+                    <Breadcrumbs className='flex flex-col'>
                         <Link href={`/`} className="hover:underline">
                             Home
                         </Link>
@@ -53,11 +53,11 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                         </Link>
                         <p className="text-blue-800">{turncatedTitle}</p>
                     </Breadcrumbs>
-                </div>
+                </Box>
                 {/* Action Buttons */}
                 <div className="flex items-center justify-end space-x-4 mt-6">
                     {/* Add to Favorites */}
-                    <LikeButton article={headline} />
+                    <LikeButton article={headline} isProfile={false} />
 
                     {/* Read later action button */}
                     <ReadLaterButton article={headline} />

@@ -17,7 +17,9 @@ const ConditionRender = ({ option }: { option: string }) => {
     else if (option === 'notifications') {
         return <UserNotifications />
     }
-
+    else {
+        return <UserFavs />
+    }
 }
 
 export default ConditionRender
