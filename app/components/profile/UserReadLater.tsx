@@ -19,7 +19,7 @@ const UserReadLater = () => {
       ) : (
         <div>
           {readLater.map((article: any, index) => (
-            <HorizontalCard key={index} headline={article.headline} isProfilePage={true} />
+            <HorizontalCard key={index} headline={article.headline} isProfilePage={true} onRemove={() => ""} />
           ))}
         </div>
       )}

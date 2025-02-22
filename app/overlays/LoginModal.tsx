@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import GoogleButton from "../common/GoogleButton";
+import { handleLogin } from "../service/Auth.Firebase";
 
 const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () => void, setSignupModel: (value: boolean) => void, setLoginModel: (value: boolean) => void }) => {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -9,6 +10,16 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            await handleLogin(form.email, form.password)
+        } catch (error) {
+            console.error("Error signing up:", error);
+            // toast.error("An error occurred during sign-up. Please try again.");
+        }
+    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
@@ -32,7 +43,7 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
                 </h2>
 
                 {/* Form Fields */}
-                <form className="mt-5 space-y-4">
+                <form className="mt-5 space-y-4" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-gray-600 text-sm font-medium">
                             Email

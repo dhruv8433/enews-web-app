@@ -22,7 +22,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline }) => {
         <div className="relative h-full" >
             {/* toogle action button */}
             <div className="absolute right-1 top-1 bg-white z-10 rounded-full">
-                <LikeButton article={headline} /> {/* Like button for bookmarking articles */}
+                <LikeButton article={headline} isProfile={false}/> {/* Like button for bookmarking articles */}
             </div>
             {/*  this link redirect to detaile/id page of headline and store object as string in localstorage. */}
             <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>

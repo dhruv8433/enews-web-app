@@ -19,7 +19,7 @@ const BusinessSection = () => {
             {/* cards */}
             {
                 loading ? <h1>loading</h1> : error ? <div className="
-                bg-red-500 ">Error {error}</div> : headlines.slice(0, 3).map((headline) => <HorizontalCard key={headline._id} headline={headline} isProfilePage={false} />)
+                bg-red-500 ">Error {error}</div> : headlines.slice(0, 3).map((headline) => <HorizontalCard key={headline._id} headline={headline} isProfilePage={false} onRemove={() => ""}/>)
             }
         </div>
     )

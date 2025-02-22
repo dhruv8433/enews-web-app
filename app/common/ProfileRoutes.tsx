@@ -49,7 +49,7 @@ const ProfileRoutes = () => {
             {/* User Info */}
             <div className="flex flex-col items-center gap-2 mb-4">
                 <img
-                    src={user?.photoURL ?? "/default-avatar.png"}
+                    src={user?.photoURL ?? "https://cdn3.iconfinder.com/data/icons/web-design-and-development-2-6/512/87-1024.png"}
                     alt="User Avatar"
                     className="w-32 h-32 rounded-full border-4 border-blue-500 shadow-md"
                 />
