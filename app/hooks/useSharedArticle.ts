@@ -3,12 +3,13 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../site/firebase.config";
 import { Headline } from "../types/headline.types";
 import slugify from "slugify";
+import notifications from "../constants/notifications";
 
 // Custom hook to fetch and save articles
 const useSharedArticle = (articleSlug?: string) => {
     const [article, setArticle] = useState<Headline | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<{ message: string; details?: string } | null>(null);
 
     useEffect(() => {
         if (!articleSlug) return;
@@ -22,11 +23,17 @@ const useSharedArticle = (articleSlug?: string) => {
                 if (docSnap.exists()) {
                     setArticle(docSnap.data() as Headline);
                 } else {
-                    setError("Article not found.");
+                    setError({
+                        message: notifications.error.newsFetchFailed.message,
+                        details: notifications.error.newsFetchFailed.description,
+                    });
                 }
             } catch (err) {
                 console.error("Error fetching article:", err);
-                setError("Failed to fetch article.");
+                setError({
+                    message: notifications.error.newsFetchFailed.message,
+                    details: (err as Error).message || notifications.error.newsFetchFailed.description,
+                });
             } finally {
                 setLoading(false);
             }

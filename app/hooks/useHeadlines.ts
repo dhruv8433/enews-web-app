@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { getSpecificQueryNews } from '@/app/service/getSpecificQueryNews';
+import notifications from '../constants/notifications';
 
 // Create the useHeadlines hook
 const useHeadlines = (query: string) => {
     const [headlines, setHeadlines] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<{ message: string; details?: string } | null>(null);
 
     useEffect(() => {
         const fetchHeadlines = async () => {
@@ -28,7 +29,10 @@ const useHeadlines = (query: string) => {
                 sessionStorage.setItem(query, JSON.stringify(data.docs)); // Store in sessionStorage
                 setHeadlines(data.docs); // Assuming data.docs is the array of headlines
             } catch (err) {
-                setError('Failed to fetch headlines');
+                setError({
+                    message: notifications.error.newsFetchFailed.message,
+                    details: (err as Error).message || notifications.error.newsFetchFailed.description,
+                });
             } finally {
                 setLoading(false);
             }
