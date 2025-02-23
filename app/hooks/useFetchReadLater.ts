@@ -44,7 +44,7 @@ const useFetchReadLater = () => {
                     message: notifications.error.bookmarkedNewsFetchFailed.message,
                     details: (err as Error).message || notifications.error.bookmarkedNewsFetchFailed.description,
                 });
-                toast.error("Could not load Read Later.");
+                toast.error(notifications.error.bookmarkedNewsFetchFailed.description);
             } finally {
                 setLoading(false);
             }

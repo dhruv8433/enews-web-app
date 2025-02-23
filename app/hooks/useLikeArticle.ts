@@ -35,12 +35,13 @@ const useLikeArticle = (article: Headline) => {
   // 🔹 Toggle like/unlike article
   const toggleFavorite = async () => {
     if (!user) {
-      toast.error("Please log in to save favorites.");
+      toast.error(notifications.error.loginToSaveFavorite.description);
       return;
     }
     const articleId = getArticleId();
     if (!articleId) {
-      toast.error("Article ID is missing.");
+      toast.error(notifications.error.articleIdMissing.description);
+      console.error("Article ID is missing.", articleId);
       return;
     }
     const docRef = doc(db, `users/${user.email}/favorites/${articleId}`);

@@ -36,12 +36,12 @@ const useReadLater = (article: Headline) => {
   // Toggle read later status
   const toggleReadLater = async () => {
     if (!user) {
-      toast.error("Please log in to save articles for later.");
+      toast.error(notifications.error.loginToSaveBookmark.description);
       return;
     }
     const articleId = getArticleId();
     if (!articleId) {
-      toast.error("Article ID is missing.");
+      toast.error(notifications.error.articleIdMissing.description);
       return;
     }
     const docRef = doc(db, `users/${user.email}/read_later/${articleId}`);
