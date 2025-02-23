@@ -1,0 +1,27 @@
+# Label for changes in Next.js project using TypeScript (TSX only)
+
+pages:
+  - "pages/**/*.tsx"
+
+components:
+  - "components/**/*.tsx"
+
+styles:
+  - "styles/**/*.css"
+  - "styles/**/*.scss"
+
+utils:
+  - "utils/**/*.ts"
+
+config:
+  - "next.config.js"
+  - "tsconfig.json"
+
+tests:
+  - "__tests__/**/*.test.tsx"
+  - "__tests__/**/*.test.ts"
+  - "jest.config.js"
+
+docs:
+  - "*.md"
+  - "docs/**"
