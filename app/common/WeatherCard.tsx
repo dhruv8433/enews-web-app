@@ -19,7 +19,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ city }) => {
 
     if (error) {
         return (
-            <div className="h-60 w-80 flex items-center justify-center bg-red-300 text-white rounded-lg shadow-md">
+            <div className="h-60 w-80 flex items-center justify-center bg-red-300 text-white rounded-xl shadow-md">
                 {error}
             </div>
         );

@@ -1,11 +1,25 @@
 'use client'
 
+import ErrorComponent from '@/app/common/ErrorComponent';
 import HorizontalCard from '@/app/common/HorizontalCard';
+import { HorizontalCardSkeleton } from '@/app/common/Skeleton.Site';
 import useHeadlines from '@/app/hooks/useHeadlines'
 import React from 'react'
 
 const BusinessSection = () => {
     const { loading, headlines, error } = useHeadlines("business");
+
+    // if any error occure than render error compoonent
+    if (error) return <ErrorComponent error={error} />;
+
+    // if loading then render skeletons
+    const skeletonContainer = loading ? (
+        Array.from({ length: 3 }).map((_, index) =>
+            <div className="my-2" key={index}>
+                <HorizontalCardSkeleton isProfilePage={false} />
+            </div>
+        )
+    ) : null;
 
     return (
         <div>
@@ -16,10 +30,11 @@ const BusinessSection = () => {
                 </div>
             </div>
 
+            {skeletonContainer}
+
             {/* cards */}
             {
-                loading ? <h1>loading</h1> : error ? <div className="
-                bg-red-500 ">Error {error}</div> : headlines.slice(0, 3).map((headline) => <HorizontalCard key={headline._id} headline={headline} isProfilePage={false} onRemove={() => ""}/>)
+                !loading && headlines.slice(0, 3).map((headline) => <HorizontalCard key={headline._id} headline={headline} isProfilePage={false} onRemove={() => ""} />)
             }
         </div>
     )

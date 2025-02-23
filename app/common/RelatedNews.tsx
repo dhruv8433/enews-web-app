@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import useHeadlines from '../hooks/useHeadlines';
 import SmallCard from './SmallCard';
+import ErrorComponent from './ErrorComponent';
+import { SmallCardSkeleton } from './Skeleton.Site';
 
 const RelatedNews = () => {
     const [isClient, setIsClient] = useState(false);
@@ -19,6 +21,13 @@ const RelatedNews = () => {
 
     if (!article) return <p className="text-center text-gray-500">No article found.</p>;
 
+    const smallCardSkeletons = loading ?
+        Array.from({ length: 3 }).map((_, index) => (<SmallCardSkeleton key={index} />))
+        : null;
+
+    // any error occure than 
+    if (error) return <ErrorComponent error={error} />;
+
     return (
         <div>
             <div className="custom-heading breadcrumb">
@@ -27,18 +36,14 @@ const RelatedNews = () => {
                 </div>
             </div>
 
+            {smallCardSkeletons}
+
             <div className="">
-                {loading ? (
-                    <h1>loading</h1>
-                ) : error ? (
-                    <div className="bg-red-500">Error {error}</div>
-                ) : (
-                    headlines.slice(0, 5).map((article, index) => (
-                        <div className="my-2" key={index} >
-                            <SmallCard headline={article} />
-                        </div>
-                    ))
-                )}
+                {headlines.length > 0 && headlines.slice(0, 5).map((article, index) => (
+                    <div className="my-2" key={index} >
+                        <SmallCard headline={article} />
+                    </div>
+                ))}
             </div>
         </div>
     );
