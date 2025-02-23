@@ -107,6 +107,22 @@ const notifications = {
         userNotFound: {
             message: "User not found!",
             description: "We couldn't find your account. Please sign up to continue.",
+        },
+        emailAlreadyExists: {
+            message: "Email already in use!",
+            description: "This email is already registered. Please use a different email.",
+        },
+        loginToSaveFavorite: {
+            message: "Login to save favorites!",
+            description: "Please log in to save your favorite articles.",
+        },
+        loginToSaveBookmark: {
+            message: "Login to save bookmarks!",
+            description: "Please log in to save your bookmarked articles.",
+        },
+        articleIdMissing: {
+            message: "Article ID missing!",
+            description: "The article ID is missing. Please try again. Check console for more information.",
         }
     },
 };
