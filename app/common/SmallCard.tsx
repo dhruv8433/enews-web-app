@@ -4,6 +4,7 @@ import slugify from 'slugify';
 import LikeButton from './LikeButton';
 import { imageUrl } from '../site/site.config';
 import { HeadlineProps } from '../types/headline.types';
+import { handleShareArticle } from '../service/ShareArticleService';
 
 const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
     return (
@@ -13,11 +14,9 @@ const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
                 <LikeButton article={headline} isProfile={false}/> {/* Like button for bookmarking articles */}
             </div>
             {/* // this link redirect to detaile/id page of headline and store object as string in localstorage. */}
-            <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`} onClick={() => localStorage.setItem("article", JSON.stringify(headline))}>
+            <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`}>
                 {/* Image Container with Title Overlay */}
-                <div className="relative w-full h-60 overflow-hidden">
-
-
+                <div className="relative w-full h-60 overflow-hidden" onClick={() => handleShareArticle(headline)}>
                     <img
                         src={imageUrl + headline.multimedia[0]?.url}
                         alt={headline.headline.main}
@@ -31,8 +30,6 @@ const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
                         </h3>
                     </div>
                 </div>
-
-
             </Link>
         </div>
     );
