@@ -14,80 +14,71 @@ import slugify from 'slugify'
 const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
     const [openModel, setOpenModel] = useState<boolean>(false);
 
-    const handlePrint = () => {
-        window.print();
-    };
+    if (!headline) {
+        return <p className="text-gray-500">Loading article details...</p>;
+    }
+
+    const handlePrint = () => window.print();
 
     const handleShare = () => {
         if (navigator.share) {
             navigator.share({
-                title: headline.headline?.main,
-                text: headline.abstract,
+                title: headline?.headline?.main || "Article",
+                text: headline?.abstract || "",
                 url: window.location.href,
             });
         } else {
-            // If Web Share API isn't available, open a share dialog
-            const shareUrl = `https://twitter.com/intent/tweet?text=${headline.headline?.main}&url=${window.location.href}`;
+            const shareUrl = `https://twitter.com/intent/tweet?text=${headline?.headline?.main || "Article"}&url=${window.location.href}`;
             window.open(shareUrl, '_blank');
         }
     };
 
-    const turncatedTitle = headline.abstract.length > 40 ? headline.abstract.slice(0, 40) + "..." : headline.abstract;
+    const truncatedTitle = headline?.abstract?.length > 40 
+        ? headline.abstract.slice(0, 40) + "..." 
+        : headline?.abstract || "No Title";
 
-    const filterdId = headline._id.replace(/[^a-zA-Z0-9]/g, '_');
+    const filteredId = headline?._id?.replace(/[^a-zA-Z0-9]/g, '_') || "";
 
-    document.title = `${siteName} | ${slugify(headline.abstract, { lower: true })}`;
+    document.title = `${siteName} | ${slugify(headline?.abstract || "Untitled", { lower: true })}`;
 
     return (
-        <div>{/* Breadcrumb */}
+        <div>
+            {/* Breadcrumb */}
             <motion.div
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-gray-600 mt-5 "
+                className="text-gray-600 mt-5"
             >
-                <Box flexDirection={{ md: "row" }} className="">
-                    <h1 className="text-2xl font-semibold text-blue-800">{turncatedTitle}</h1>
+                <Box flexDirection={{ md: "row" }}>
+                    <h1 className="text-2xl font-semibold text-blue-800">{truncatedTitle}</h1>
                     <Breadcrumbs className='flex flex-col'>
-                        <Link href={`/`} className="hover:underline">
-                            Home
-                        </Link>
-                        <Link href={`/query?q=${headline?.section_name}`} className="hover:underline">
-                            {headline?.section_name}
-                        </Link>
-                        <p className="text-blue-800">{turncatedTitle}</p>
+                        <Link href={`/`} className="hover:underline">Home</Link>
+                        {headline?.section_name && (
+                            <Link href={`/query?q=${headline.section_name}`} className="hover:underline">
+                                {headline.section_name}
+                            </Link>
+                        )}
+                        <p className="text-blue-800">{truncatedTitle}</p>
                     </Breadcrumbs>
                 </Box>
+
                 {/* Action Buttons */}
                 <div className="flex items-center justify-end space-x-4 mt-6">
-                    {/* Add to Favorites */}
                     <LikeButton article={headline} isProfile={false} />
-
-                    {/* Read later action button */}
                     <ReadLaterButton article={headline} />
-
-                    {/* Print */}
-                    <IconButton color="default" onClick={handlePrint}>
-                        <PrintOutlined />
-                    </IconButton>
-
-                    {/* Share */}
-                    <IconButton color="default" onClick={handleShare}>
-                        <ShareOutlined />
-                    </IconButton>
-
-                    {/* comment */}
-                    <IconButton color="default" onClick={() => setOpenModel(true)}>
-                        <MapsUgcOutlined />
-                    </IconButton>
+                    <IconButton color="default" onClick={handlePrint}><PrintOutlined /></IconButton>
+                    <IconButton color="default" onClick={handleShare}><ShareOutlined /></IconButton>
+                    <IconButton color="default" onClick={() => setOpenModel(true)}><MapsUgcOutlined /></IconButton>
                 </div>
             </motion.div>
 
+            {/* Comment Modal */}
             <Backdrop open={openModel} className='z-20'>
-                <CommentModal articleId={filterdId} onClose={() => setOpenModel(false)} />
+                <CommentModal articleId={filteredId} onClose={() => setOpenModel(false)} />
             </Backdrop>
         </div>
-    )
-}
+    );
+};
 
 export default ArticleBreadCrumb

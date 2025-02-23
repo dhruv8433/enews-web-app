@@ -1,42 +1,33 @@
-'use client';
+"use client";
 
-import CommentCard from './CommentCard';
-import ArticleInfo from './ArticleInfo';
-import React, { useEffect, useState } from 'react';
-import ArticleBreadCrumb from './ArticleBreadCrumb';
-import useComments from '../hooks/useComments';
-import { Pagination } from '@mui/material';
+import React, { useState } from "react";
+import CommentCard from "./CommentCard";
+import ArticleInfo from "./ArticleInfo";
+import ArticleBreadCrumb from "./ArticleBreadCrumb";
+import useComments from "../hooks/useComments";
+import { Pagination } from "@mui/material";
+import useSharedArticle from "../hooks/useSharedArticle";
 
-const COMMENTS_PER_PAGE = 3; // Set pagination limit
+const COMMENTS_PER_PAGE = 3;
 
-const DetailedNews: React.FC = () => {
-    const [isClient, setIsClient] = useState(false);
-    const [article, setArticle] = useState<any>(null);
-    const [page, setPage] = useState(1); // Track the current page
+const DetailedNews = ({ slug }: { slug: string }) => {
+    // Always call hooks in the same order
+    const { article, loading: articleLoading, error } = useSharedArticle(slug);
+    const [page, setPage] = useState(1);
 
-    
-    useEffect(() => {
-        setIsClient(true);
-        const data = localStorage.getItem('article');
-        if (data) {
-            setArticle(JSON.parse(data));
-        }
-    }, []);
+    // Ensure article ID is derived safely
+    const articleId = article?._id ? article._id.replace(/[^a-zA-Z0-9]/g, "_") : "";
+    const { comments, loading: commentsLoading } = useComments(articleId);
 
-    const articleId = article?._id ? article._id.replace(/[^a-zA-Z0-9]/g, '_') : null;
-    const { comments, loading } = useComments(articleId);
-
-    // Get the comments for the current page using slice
     const startIndex = (page - 1) * COMMENTS_PER_PAGE;
-    const endIndex = startIndex + COMMENTS_PER_PAGE;
-    const paginatedComments = comments.slice(startIndex, endIndex);
+    const paginatedComments = comments.slice(startIndex, startIndex + COMMENTS_PER_PAGE);
 
     const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     };
 
-    if (!isClient) return null;
-    if (!article) return <p className="text-center text-gray-500">No article found.</p>;
+    if (articleLoading) return <p className="text-center text-gray-500">Loading article...</p>;
+    if (error || !article) return <p className="text-center text-gray-500">{error || "No article found."}</p>;
 
     return (
         <div>
@@ -48,12 +39,10 @@ const DetailedNews: React.FC = () => {
 
             {/* Comments Section */}
             <div className="custom-heading breadcrumb">
-                <div className="p-[5px] bg-blue-700 w-40 flex justify-center text-white">
-                    Comments
-                </div>
+                <div className="p-[5px] bg-blue-700 w-40 flex justify-center text-white">Comments</div>
             </div>
 
-            {loading ? (
+            {commentsLoading ? (
                 <p className="text-center text-gray-500">Loading comments...</p>
             ) : paginatedComments.length > 0 ? (
                 paginatedComments.map((comment) => (
@@ -61,11 +50,20 @@ const DetailedNews: React.FC = () => {
                         key={comment.id}
                         user={comment.username}
                         comment={comment.comment}
-                        timestamp="2 hours ago"
+                        timestamp={comment.createdAt
+                            ? new Date(comment.createdAt.seconds * 1000).toLocaleString("en-GB", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true
+                            })
+                            : ""}
                     />
-                ))
+            ))
             ) : (
-                <p className="text-center text-gray-500">No comments yet.</p>
+            <p className="text-center text-gray-500">No comments yet.</p>
             )}
 
             {/* Pagination */}
