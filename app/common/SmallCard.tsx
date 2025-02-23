@@ -8,7 +8,7 @@ import { handleShareArticle } from '../service/ShareArticleService';
 
 const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
     return (
-        <div className="group relative shadow-md rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+        <div className="group relative shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl">
             {/* toogle action button */}
             <div className="absolute right-1 top-1 bg-white z-10 rounded-full">
                 <LikeButton article={headline} isProfile={false}/> {/* Like button for bookmarking articles */}

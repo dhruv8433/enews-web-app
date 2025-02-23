@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import useComments from "../hooks/useComments";
+import toast from "react-hot-toast";
+import notifications from "../constants/notifications";
 
 const CommentModal = ({ articleId, onClose }: { articleId: string; onClose: () => void }) => {
     const [comment, setComment] = useState("");
 
-    const { addComment } = useComments(articleId);
+    const { addComment, error } = useComments(articleId);
 
     const handleSubmit = async () => {
         await addComment(comment);
         setComment("");
         onClose();
     };
+
+    // if any error occure during comment submission
+    if (error) toast.error(error.details || notifications.error.commentFailed.description);
 
     return (
         <div>

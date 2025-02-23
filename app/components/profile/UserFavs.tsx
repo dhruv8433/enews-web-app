@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import HorizontalCard from "@/app/common/HorizontalCard";
 import useFetchFavorites from "@/app/hooks/useFetchFavorites";
 import { Pagination } from "@mui/material";
+import ErrorComponent from "@/app/common/ErrorComponent";
 
 const UserFavs = () => {
     const { favorites, loading, error, removeFavorite } = useFetchFavorites();
@@ -20,7 +21,7 @@ const UserFavs = () => {
     };
 
     if (loading) return <p>Loading favorites...</p>;
-    if (error) return <p className="text-red-500">{error}</p>;
+    if (error) return <ErrorComponent error={error} />;
 
     return (
         <div className="p-5 bg-white rounded-lg">

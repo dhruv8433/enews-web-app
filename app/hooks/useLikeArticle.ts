@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast"; // ✅ Add toast for feedback
 import { auth, db } from "../site/firebase.config";
 import { Headline } from "../types/headline.types";
+import notifications from "../constants/notifications";
 
 const useLikeArticle = (article: Headline) => {
   const [user] = useAuthState(auth);
@@ -34,12 +35,13 @@ const useLikeArticle = (article: Headline) => {
   // 🔹 Toggle like/unlike article
   const toggleFavorite = async () => {
     if (!user) {
-      toast.error("Please log in to save favorites.");
+      toast.error(notifications.error.loginToSaveFavorite.description);
       return;
     }
     const articleId = getArticleId();
     if (!articleId) {
-      toast.error("Article ID is missing.");
+      toast.error(notifications.error.articleIdMissing.description);
+      console.error("Article ID is missing.", articleId);
       return;
     }
     const docRef = doc(db, `users/${user.email}/favorites/${articleId}`);
@@ -48,7 +50,7 @@ const useLikeArticle = (article: Headline) => {
       if (isFavorite) {
         await deleteDoc(docRef);
         setIsFavorite(false);
-        toast.success("Removed from favorites.");
+        toast.success(notifications.success.removeFavoriteSuccess.description);
       } else {
         await setDoc(docRef, {
           email: user.email,
@@ -60,10 +62,10 @@ const useLikeArticle = (article: Headline) => {
           timestamp: new Date().toISOString(),
         });
         setIsFavorite(true);
-        toast.success("Added to favorites!");
+        toast.success(notifications.success.addFavoriteSuccess.description);
       }
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast.error(notifications.error.networkError.message);
       console.error("Error toggling favorite:", error);
     }
   };

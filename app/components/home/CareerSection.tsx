@@ -5,9 +5,13 @@ import SwiperCard from '@/app/common/SwiperCard';
 import useHeadlines from '@/app/hooks/useHeadlines'
 import { MySwiperFlipEffect } from '@/app/common/MySwiper'
 import { SwiperSlide } from 'swiper/react';
+import { SwiperCardSkeleton } from '@/app/common/Skeleton.Site';
+import ErrorComponent from '@/app/common/ErrorComponent';
 
 const CareerSection = () => {
     const { error, headlines, loading } = useHeadlines("career");
+    if (loading) return <SwiperCardSkeleton isSwiper={false} />;
+    if (error) return <ErrorComponent error={error} />;
     return (
         <div>
             {/* heading */}
@@ -19,7 +23,7 @@ const CareerSection = () => {
 
             {/* cards */}
             <MySwiperFlipEffect>
-                {loading ? <h1>Loading..</h1> : error ? <h1 className='text-red-500'>Error in getting data : {error}</h1> : headlines.map((headline) =>
+                {headlines.map((headline) =>
                     <SwiperSlide key={headline._id}>
                         <SwiperCard headline={headline} />
                     </SwiperSlide>

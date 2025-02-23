@@ -7,12 +7,13 @@ import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Headline, HeadlineProps } from "../types/headline.types";
 import { User } from "firebase/auth";
+import notifications from "../constants/notifications";
 
 const useFetchFavorites = () => {
     const [user] = useAuthState(auth);
     const [favorites, setFavorites] = useState<HeadlineProps[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<{ message: string; details?: string } | null>(null);
 
     const fetchFavorites = async (user: User) => {
         setLoading(true);
@@ -30,8 +31,11 @@ const useFetchFavorites = () => {
             setFavorites(favsList);
         } catch (err) {
             console.error("Error fetching favorites:", err);
-            setError("Failed to fetch favorites.");
-            toast.error("Could not load favorites.");
+            setError({
+                message: notifications.error.likedNewsFetchFailed.message,
+                details: (err as Error).message || notifications.error.likedNewsFetchFailed.description,
+            });
+            toast.error(notifications.error.likedNewsFetchFailed.description);
         } finally {
             setLoading(false);
         }
@@ -61,10 +65,10 @@ const useFetchFavorites = () => {
                 return [...updatedFavorites]; // ✅ New array reference ensures UI updates
             });
     
-            toast.success("Removed from favorites.");
+            toast.success(notifications.success.removeFavoriteSuccess.description);
         } catch (err) {
             console.error("Error removing favorite:", err);
-            toast.error("Failed to remove favorite.");
+            toast.error(notifications.error.removeFavoriteFailed.description);
         }
     };
 

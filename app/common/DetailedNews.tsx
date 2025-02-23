@@ -7,6 +7,8 @@ import ArticleBreadCrumb from "./ArticleBreadCrumb";
 import useComments from "../hooks/useComments";
 import { Pagination } from "@mui/material";
 import useSharedArticle from "../hooks/useSharedArticle";
+import { ArticleBreadCrumbSkeleton, ArticleInfoSkeleton, CommentCardSkeleton } from "./Skeleton.Site";
+import ErrorComponent from "./ErrorComponent";
 
 const COMMENTS_PER_PAGE = 3;
 
@@ -17,7 +19,7 @@ const DetailedNews = ({ slug }: { slug: string }) => {
 
     // Ensure article ID is derived safely
     const articleId = article?._id ? article._id.replace(/[^a-zA-Z0-9]/g, "_") : "";
-    const { comments, loading: commentsLoading } = useComments(articleId);
+    const { comments, loading: commentsLoading, error: commentError } = useComments(articleId);
 
     const startIndex = (page - 1) * COMMENTS_PER_PAGE;
     const paginatedComments = comments.slice(startIndex, startIndex + COMMENTS_PER_PAGE);
@@ -26,8 +28,20 @@ const DetailedNews = ({ slug }: { slug: string }) => {
         setPage(value);
     };
 
-    if (articleLoading) return <p className="text-center text-gray-500">Loading article...</p>;
-    if (error || !article) return <p className="text-center text-gray-500">{error || "No article found."}</p>;
+    // if article is loading than display skeleton
+    if (articleLoading) return <>
+        <ArticleBreadCrumbSkeleton />
+        <ArticleInfoSkeleton />
+    </>
+
+    // if any error occure during fetching article then display error
+    if (error || !article) return <ErrorComponent error={error} />
+
+    // if comments are loading than display skeleton
+    const commentSkeletons = commentsLoading
+    ? Array.from({ length: 3 }).map((_, index) => (<CommentCardSkeleton key={index} />))
+    : null;
+
 
     return (
         <div>
@@ -42,9 +56,10 @@ const DetailedNews = ({ slug }: { slug: string }) => {
                 <div className="p-[5px] bg-blue-700 w-40 flex justify-center text-white">Comments</div>
             </div>
 
-            {commentsLoading ? (
-                <p className="text-center text-gray-500">Loading comments...</p>
-            ) : paginatedComments.length > 0 ? (
+            {/* comment skeleton */}
+            {commentSkeletons}
+
+            {paginatedComments.length > 0 ? (
                 paginatedComments.map((comment) => (
                     <CommentCard
                         key={comment.id}
@@ -61,9 +76,9 @@ const DetailedNews = ({ slug }: { slug: string }) => {
                             })
                             : ""}
                     />
-            ))
+                ))
             ) : (
-            <p className="text-center text-gray-500">No comments yet.</p>
+                <p className="text-center text-gray-500">No comments yet.</p>
             )}
 
             {/* Pagination */}

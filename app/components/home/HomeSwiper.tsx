@@ -8,22 +8,31 @@ import { SwiperSlide } from 'swiper/react';
 import SwiperCard from '@/app/common/SwiperCard';
 import SmallCard from '@/app/common/SmallCard';
 import WeatherCard from '@/app/common/WeatherCard';
+import { SmallCardSkeleton, SwiperCardSkeleton } from '@/app/common/Skeleton.Site';
+import ErrorComponent from '@/app/common/ErrorComponent';
 
 export default function HomeSwiper() {
     // Fetch data
     const { error, headlines, loading } = useHeadlines('headlines');
 
-    // console.log("Headlines Data:", headlines); // Debugging
+    if (loading) return (<Grid container spacing={2} className='w-full rounded-xl'>
+        <Grid item xs={12} md={9} className='my-4'>
+            <SwiperCardSkeleton isSwiper={true} />
+        </Grid>
+        <Grid item xs={12} md={3} >
+            {Array.from({ length: 3 }).map((_, index) =>
+                <div className="my-4  rounded-xl" key={index}><SmallCardSkeleton /></div>)}
+        </Grid>
+    </Grid>)
+
+    if (error) return <ErrorComponent error={error} />
+
     return (
         <div className="my-4">
             <Grid container spacing={2}>
                 {/* Swiper left side */}
                 <Grid item xs={12} md={9}>
-                    {loading ? (
-                        <div className="text-center text-xl">Loading...</div>
-                    ) : error ? (
-                        <div className="text-center text-red-500">Error fetching headlines: {error}</div>
-                    ) : headlines.length > 0 ? (
+                    {headlines.length > 0 ? (
                         <MySwiperPagination className="h-[700px] w-full rounded-xl">
                             {headlines.map((headline: any) => (
                                 <SwiperSlide key={headline._id} className="h-full">

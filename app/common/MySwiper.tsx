@@ -17,7 +17,7 @@ const MySwiperPagination: React.FC<TypeSwiper> = ({ children, className = '' }) 
       }}
       autoplay={true}
       modules={[Pagination, Autoplay]}
-      className={`mySwiper h-full ${className}`}
+      className={`mySwiper h-full  rounded-xl ${className}`}
     >
       {children}
     </Swiper>
@@ -31,7 +31,7 @@ const MySwiperFlipEffect: React.FC<TypeSwiper> = ({ children, className = '' }) 
     grabCursor={true}
     pagination={true}
     modules={[EffectFlip, Pagination, Autoplay]}
-    className={`mySwiper h-[500px] ${className}`}
+    className={`mySwiper max-h-[510px] h-full  rounded-xl ${className}`}
     autoplay={true}
     >
       {children}
