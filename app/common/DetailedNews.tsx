@@ -50,11 +50,20 @@ const DetailedNews = ({ slug }: { slug: string }) => {
                         key={comment.id}
                         user={comment.username}
                         comment={comment.comment}
-                        timestamp="2 hours ago"
+                        timestamp={comment.createdAt
+                            ? new Date(comment.createdAt.seconds * 1000).toLocaleString("en-GB", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: true
+                            })
+                            : ""}
                     />
-                ))
+            ))
             ) : (
-                <p className="text-center text-gray-500">No comments yet.</p>
+            <p className="text-center text-gray-500">No comments yet.</p>
             )}
 
             {/* Pagination */}
