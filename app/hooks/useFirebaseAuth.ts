@@ -9,6 +9,7 @@ const db = getFirestore();
  * Sign up a new user with email & password and store in Firestore
  */
 import toast from "react-hot-toast";
+import notifications from "../constants/notifications";
 
 export const signUpWithEmail = async (name: string, email: string, password: string) => {
     try {
@@ -48,7 +49,7 @@ export const signUpWithEmail = async (name: string, email: string, password: str
         if (error.code === "auth/email-already-in-use") {
             toast.error("Email is already in use. Please use a different email.");
         } else {
-            toast.error("An error occurred during sign-up. Please try again.");
+            toast.error(notifications.error.signupFailed.description);
         }
 
         throw error; // Optionally rethrow for further handling
@@ -75,7 +76,7 @@ export const loginWithEmail = async (email: string, password: string) => {
                 lastLogin: serverTimestamp(),
             });
         } else {
-            throw new Error("User not found in Firestore");
+            throw new Error(notifications.error.userNotFound.message);
         }
 
         console.log("User logged in:", user);

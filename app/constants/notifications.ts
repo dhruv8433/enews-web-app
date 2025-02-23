@@ -103,6 +103,10 @@ const notifications = {
         commentFetchFailed: {
             message: "Failed to fetch comments!",
             description: "There was an issue loading comments. Please try again later.",
+        },
+        userNotFound: {
+            message: "User not found!",
+            description: "We couldn't find your account. Please sign up to continue.",
         }
     },
 };

@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 import { auth, db } from "../site/firebase.config";
 import { Headline } from "../types/headline.types";
+import notifications from "../constants/notifications";
 
 const useReadLater = (article: Headline) => {
   const [user] = useAuthState(auth);
@@ -49,7 +50,7 @@ const useReadLater = (article: Headline) => {
       if (isReadLater) {
         await deleteDoc(docRef);
         setIsReadLater(false);
-        toast.success("Removed from Read Later.");
+        toast.success(notifications.success.removeBookmarkSuccess.description);
       } else {
         await setDoc(docRef, {
           email: user.email,
@@ -61,10 +62,10 @@ const useReadLater = (article: Headline) => {
           timestamp: new Date().toISOString(),
         });
         setIsReadLater(true);
-        toast.success("Added to Read Later!");
+        toast.success(notifications.success.addBookmarkSuccess.description);
       }
     } catch (error) {
-      toast.error("Something went wrong.");
+      toast.error(notifications.error.networkError.message);
       console.error("Error toggling Read Later:", error);
     }
   };
