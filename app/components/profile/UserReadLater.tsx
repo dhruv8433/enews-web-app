@@ -7,7 +7,7 @@ const UserReadLater = () => {
   console.log(readLater)
 
   return (
-    <div>
+    <div className='bg-white rounded-xl p-2'>
       <div className="custom-heading">
         <div className="p-[5px] bg-blue-700  w-40 flex justify-center text-white">
           Read Later
