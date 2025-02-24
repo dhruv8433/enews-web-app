@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast'
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import { siteName } from "./site/site.config";
+import Wrapper from "./components/Wrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,14 +34,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <GlobalAdvertise />
-        <Navbar />
-        {children}
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-        />
-        <Footer />
+        <Wrapper>
+          <GlobalAdvertise />
+          <Navbar />
+          {children}
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+          />
+          <Footer />
+        </Wrapper>
       </body>
     </html>
   );
