@@ -41,6 +41,8 @@ export default function RootLayout({
           reverseOrder={false}
         />
         <Footer />
+        {/* chatbot */}
+        <script id="messenger-widget-b" src="https://cdn.botpenguin.com/website-bot.js" defer>67bc6c824deb655bc5929564,66db0b8d8014ed2ba71b6974</script>
       </body>
     </html>
   );

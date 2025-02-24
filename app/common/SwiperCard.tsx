@@ -27,7 +27,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline }) => {
             </div>
             {/*  this link redirect to detaile/id page of headline and store object as string in localstorage. */}
             <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`}>
-                <div className="" onClick={() => handleShareArticle(headline)}>
+                <div className="h-full" onClick={() => handleShareArticle(headline)}>
                     {/* Background Image Section */}
                     <img
                         src={imageUrl + headline.multimedia[0]?.url} /** Constructs the image URL dynamically */

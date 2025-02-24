@@ -4,14 +4,18 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { categorys } from "@/app/site/site.config";
 import LargeContainer from "@/app/common/LargeContainer";
+import useSubscribe from "@/app/hooks/useSubscribe";
+import toast from "react-hot-toast";
+import notifications from "@/app/constants/notifications";
 
 const Footer = () => {
     const [email, setEmail] = useState("");
+    const {loading, message, subscribeUser} = useSubscribe();
 
     const handleSubscribe = (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle subscription logic here
-        console.log("Subscribed with:", email);
+        subscribeUser(email);
+        toast.success(notifications.success.userSubscribed.description)
         setEmail(""); // Clear input after subscription
     };
 
@@ -54,7 +58,7 @@ const Footer = () => {
                                 type="submit"
                                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 font-semibold"
                             >
-                                Subscribe
+                                {loading ? "Subscribing..." : "Subscribe"}
                             </button>
                         </form>
                     </div>
