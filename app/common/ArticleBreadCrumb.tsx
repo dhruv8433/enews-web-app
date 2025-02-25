@@ -51,7 +51,7 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                 className="text-gray-600 mt-5"
             >
                 <Box flexDirection={{ md: "row" }}>
-                    <h1 className="text-2xl font-semibold text-blue-800">{truncatedTitle}</h1>
+                    <h1 className="text-xl md:text-2xl font-semibold text-blue-900 my-2">{truncatedTitle}</h1>
                     <Breadcrumbs className='flex flex-col'>
                         <Link href={`/`} className="hover:underline">Home</Link>
                         {headline?.section_name && (
@@ -59,7 +59,7 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                                 {headline.section_name}
                             </Link>
                         )}
-                        <p className="text-blue-800">{truncatedTitle}</p>
+                        <p className="text-blue-900">{truncatedTitle}</p>
                     </Breadcrumbs>
                 </Box>
 
