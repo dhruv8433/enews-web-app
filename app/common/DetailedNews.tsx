@@ -10,6 +10,7 @@ import useSharedArticle from "../hooks/useSharedArticle";
 import { ArticleBreadCrumbSkeleton, ArticleInfoSkeleton, CommentCardSkeleton } from "./Skeleton.Site";
 import ErrorComponent from "./ErrorComponent";
 import { CommentRounded } from "@mui/icons-material";
+import MyHeading from "./MyHeading";
 
 const COMMENTS_PER_PAGE = 3;
 
@@ -37,15 +38,12 @@ const DetailedNews = ({ slug }: { slug: string }) => {
 
     // if any error occure during fetching article then display error
     if (error || !article) return <ErrorComponent error={error} />
+    if (commentError) return <ErrorComponent error={commentError} />
 
     // if comments are loading than display skeleton
     const commentSkeletons = commentsLoading
         ? Array.from({ length: 3 }).map((_, index) => (<CommentCardSkeleton key={index} />))
-        : <div className="flex items-center flex-col justify-center mt-5">
-            <CommentRounded className="empty-state-icon text-gray-400" />
-            <p className="font-semibold ml-2">No comments yet</p>
-        </div>;
-
+        : "";
 
     return (
         <div>
@@ -56,12 +54,15 @@ const DetailedNews = ({ slug }: { slug: string }) => {
             <ArticleInfo headline={article} />
 
             {/* Comments Section */}
-            <div className="custom-heading breadcrumb">
-                <div className="p-[5px] bg-blue-700 w-40 flex justify-center text-white">Comments</div>
-            </div>
+            <MyHeading title="Comments" />
 
             {/* comment skeleton */}
             {commentSkeletons}
+
+            {comments.length <= 0 && <div className="flex items-center flex-col justify-center my-10">
+                <CommentRounded className="empty-state-icon text-gray-400" />
+                <p className="font-semibold ml-2">No comments for this article yet...</p>
+            </div>}
 
             {paginatedComments.length > 0 ? (
                 paginatedComments.map((comment) => (

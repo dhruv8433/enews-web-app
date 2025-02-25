@@ -20,7 +20,7 @@ const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
             <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`}>
                 <div className="" onClick={() => handleShareArticle(headline)}>
                     {/* Article Image */}
-                    <div className="relative w-full h-52 rounded-xl overflow-hidden">
+                    <div className="relative w-full h-52 overflow-hidden">
                         <img
                             src={headline.multimedia[0]?.url ? imageUrl + headline.multimedia[0].url : "/placeholder.jpg"}
                             alt={headline.headline.main}

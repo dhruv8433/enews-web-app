@@ -34,7 +34,6 @@ const ProfileRoutes = () => {
         } else if (selectedAction === "delete") {
             auth.signOut(); // Firebase logout
             router.replace("/"); // Redirect to home page
-            console.log("Delete account logic here"); // Replace with delete function
         }
         handleCloseBackdrop();
     };
@@ -44,7 +43,7 @@ const ProfileRoutes = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="bg-white shadow-lg rounded-lg p-6 w-full border border-gray-200"
+            className="bg-white rounded-lg p-6 w-full border-2 border-gray-200"
         >
             {/* User Info */}
             <div className="flex flex-col items-center gap-2 mb-4">
@@ -64,7 +63,7 @@ const ProfileRoutes = () => {
             </div>
 
             {/* Navigation Links */}
-            <div className="mt-6">
+            <div className="my-6">
                 {profileLinks.map((link, index) => {
                     const IconComponent = link.icon;
                     return link.danger ? (
@@ -103,7 +102,7 @@ const ProfileRoutes = () => {
                             : "Are you sure you want to delete your account? This action cannot be undone!"}
                     </h1>
                     <div className="flex gap-2 justify-end my-3">
-                        <MyButtons title="cancle" className="border bg-transparent text-black p-1 rounded" onClick={handleCloseBackdrop} />
+                        <MyButtons title="cancle" className="border bg-gray-400 p-1 rounded" onClick={handleCloseBackdrop} />
                         <MyButtons title="Logout" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
                     </div>
                 </div>
