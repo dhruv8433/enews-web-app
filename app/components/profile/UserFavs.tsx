@@ -11,7 +11,7 @@ import { HorizontalCardSkeleton } from "@/app/common/Skeleton.Site";
 const UserFavs = () => {
     const { favorites, loading, error, removeFavorite } = useFetchFavorites();
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 3;
+    const itemsPerPage = 2;
 
     const displayedFavorites = useMemo(() => {
         const startIndex = (currentPage - 1) * itemsPerPage;
@@ -23,7 +23,7 @@ const UserFavs = () => {
     };
 
     const skeletonContainer =
-        Array.from({ length: 3 }).map((_, index) =>
+        Array.from({ length: 2 }).map((_, index) =>
             <div className="my-2" key={index}>
                 <HorizontalCardSkeleton isProfilePage={false} />
             </div>
