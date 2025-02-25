@@ -44,7 +44,7 @@ const ProfileRoutes = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="bg-white shadow-lg rounded-lg p-6 w-full border border-gray-200"
+            className="bg-white rounded-lg p-6 w-full border-2 border-gray-200"
         >
             {/* User Info */}
             <div className="flex flex-col items-center gap-2 mb-4">
@@ -64,7 +64,7 @@ const ProfileRoutes = () => {
             </div>
 
             {/* Navigation Links */}
-            <div className="mt-6">
+            <div className="my-6">
                 {profileLinks.map((link, index) => {
                     const IconComponent = link.icon;
                     return link.danger ? (
