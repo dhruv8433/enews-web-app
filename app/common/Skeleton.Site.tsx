@@ -1,6 +1,6 @@
 import React from "react";
 import Skeleton from "@mui/material/Skeleton";
-import { BookmarkBorderOutlined, CalendarMonthOutlined, FavoriteBorderOutlined, FavoriteBorderRounded, MapsUgcOutlined, PrintOutlined, ShareOutlined } from "@mui/icons-material";
+import { BookmarkBorderOutlined, CalendarMonthOutlined, DeleteRounded, FavoriteBorderOutlined, FavoriteBorderRounded, MapsUgcOutlined, PrintOutlined, ShareOutlined } from "@mui/icons-material";
 import { Box, Breadcrumbs, IconButton } from "@mui/material";
 import { motion } from 'framer-motion';
 
@@ -185,8 +185,8 @@ export const HorizontalCardSkeleton: React.FC<{ isProfilePage: boolean }> = ({ i
 
             {/* Delete Icon Placeholder (Only on profile page) */}
             {isProfilePage && (
-                <IconButton className="absolute bottom-2 right-2 bg-white shadow-md rounded-full">
-                    <Skeleton variant="circular" width={32} height={32} />
+                <IconButton className="absolute -bottom-[2.5rem] right-2 bg-white rounded-full" disabled>
+                    <DeleteRounded />
                 </IconButton>
             )}
         </div>
