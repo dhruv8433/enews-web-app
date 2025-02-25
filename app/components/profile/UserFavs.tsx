@@ -39,7 +39,9 @@ const UserFavs = () => {
 
     return (
         <div className="p-5 bg-white rounded-lg min-h-full">
-            <MyHeading title="Favorites" />
+            <div className="px-2">
+                <MyHeading title="Favorites" />
+            </div>
 
             {/* Empty State */}
             {favorites.length === 0 ? (

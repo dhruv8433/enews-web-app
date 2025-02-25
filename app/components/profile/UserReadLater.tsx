@@ -39,12 +39,14 @@ const UserReadLater = () => {
 
   return (
     <div className="bg-white rounded-xl p-2 min-h-full">
-      <MyHeading title="Read Later" />
+      <div className="px-2">
+        <MyHeading title="Read Later" />
+      </div>
 
       {readLater.length === 0 ? (
         <div className="mflex-1 flex flex-col justify-center items-center">
           <Lottie animationData={bookmarkAnimation} className="h-64 w-64" />
-           <p className="text-lg text-gray-500">You have no read later yet.</p>
+          <p className="text-lg text-gray-500">You have no read later yet.</p>
         </div>
       ) : (
         <div>
