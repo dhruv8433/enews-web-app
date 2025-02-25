@@ -3,6 +3,7 @@ import ListCategoryContainer from "./common/ListContainer";
 import BusinessAndCareerGrid from "./components/home/BusinessAndCareerGrid";
 import EducationSection from "./components/home/EducationSection";
 import HomeSwiper from "./components/home/HomeSwiper";
+import SocialSection from "./components/home/SocialSection";
 import TravelAndAdventureGrid from "./components/home/TravelAndAdventureGrid";
 
 export default function Home() {
@@ -22,6 +23,9 @@ export default function Home() {
 
       {/* Travel and Adventure Section */}
       <TravelAndAdventureGrid />
+
+      {/* Social Section */}
+      <SocialSection />
       
     </LargeContainer>
   );
