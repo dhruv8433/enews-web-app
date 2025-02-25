@@ -22,7 +22,7 @@ const Page: React.FC = () => {
           <DetailedNews slug={slugString} />
         </Grid>
         <Grid item xs={12} md={4}>
-          <RelatedNews />
+          <RelatedNews slug={slugString} />
         </Grid>
       </Grid>
     </LargeContainer>

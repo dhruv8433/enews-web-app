@@ -3,18 +3,17 @@ import useHeadlines from '../hooks/useHeadlines';
 import SmallCard from './SmallCard';
 import ErrorComponent from './ErrorComponent';
 import { SmallCardSkeleton } from './Skeleton.Site';
+import MyHeading from './MyHeading';
+import useSharedArticle from '../hooks/useSharedArticle';
 
-const RelatedNews = () => {
+const RelatedNews = ({slug}: {slug: string}) => {
     const [isClient, setIsClient] = useState(false);
-    const [article, setArticle] = useState<any>(null);
-    const { error, headlines, loading } = useHeadlines(article?.section_name);
+    const { article, loading: articleLoading, error: customError } = useSharedArticle(slug);
+
+    const { error, headlines, loading } = useHeadlines(article?.section_name || '');
 
     useEffect(() => {
         setIsClient(true);
-        const data = localStorage.getItem('article');
-        if (data) {
-            setArticle(JSON.parse(data));
-        }
     }, []);
 
     if (!isClient) return null; // Early return to handle client-side rendering
@@ -30,11 +29,7 @@ const RelatedNews = () => {
 
     return (
         <div>
-            <div className="custom-heading breadcrumb">
-                <div className="p-[5px] bg-blue-700 w-40 flex justify-center text-white">
-                    Related News
-                </div>
-            </div>
+            <MyHeading title='Related News' />
 
             {smallCardSkeletons}
 
