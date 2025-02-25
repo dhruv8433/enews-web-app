@@ -3,6 +3,7 @@ import HorizontalCard from "@/app/common/HorizontalCard";
 import useFetchFavorites from "@/app/hooks/useFetchFavorites";
 import { Pagination } from "@mui/material";
 import ErrorComponent from "@/app/common/ErrorComponent";
+import MyHeading from "@/app/common/MyHeading";
 
 const UserFavs = () => {
     const { favorites, loading, error, removeFavorite } = useFetchFavorites();
@@ -25,11 +26,7 @@ const UserFavs = () => {
 
     return (
         <div className="p-5 bg-white rounded-lg">
-            <div className="custom-heading">
-                <div className="p-[5px] bg-blue-700 w-40 flex justify-center text-white">
-                    Favorites
-                </div>
-            </div>
+            <MyHeading title="Favorites" />
 
             {/* Display Updated Favorites */}
             {displayedFavorites.map((article, index) => (

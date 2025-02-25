@@ -2,6 +2,7 @@
 
 import ErrorComponent from '@/app/common/ErrorComponent';
 import HorizontalCard from '@/app/common/HorizontalCard';
+import MyHeading from '@/app/common/MyHeading';
 import { HorizontalCardSkeleton } from '@/app/common/Skeleton.Site';
 import useHeadlines from '@/app/hooks/useHeadlines'
 import React from 'react'
@@ -24,12 +25,7 @@ const BusinessSection = () => {
     return (
         <div>
             {/* heading */}
-            <div className="custom-heading">
-                <div className="p-[5px] bg-blue-700  w-40 flex justify-center text-white">
-                    Business
-                </div>
-            </div>
-
+            <MyHeading title="Business" />
             {skeletonContainer}
 
             {/* cards */}

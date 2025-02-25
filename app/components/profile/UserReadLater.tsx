@@ -1,6 +1,7 @@
 import React from 'react'
 import useFetchReadLater from '@/app/hooks/useFetchReadLater';
 import HorizontalCard from '@/app/common/HorizontalCard';
+import MyHeading from '@/app/common/MyHeading';
 
 const UserReadLater = () => {
   const { readLater } = useFetchReadLater();
@@ -8,11 +9,7 @@ const UserReadLater = () => {
 
   return (
     <div className='bg-white rounded-xl p-2'>
-      <div className="custom-heading">
-        <div className="p-[5px] bg-blue-700  w-40 flex justify-center text-white">
-          Read Later
-        </div>
-      </div>
+      <MyHeading title='Read Later' />
 
       {readLater.length === 0 ? (
         <p>No articles saved for later.</p>

@@ -6,6 +6,7 @@ import LongCard from '@/app/common/LongCard';
 import useHeadlines from '@/app/hooks/useHeadlines'
 import ErrorComponent from '@/app/common/ErrorComponent';
 import { LongCardSkeleton } from '@/app/common/Skeleton.Site';
+import MyHeading from '@/app/common/MyHeading';
 
 const EducationSection = () => {
     const { error, headlines, loading } = useHeadlines("education");
@@ -16,11 +17,7 @@ const EducationSection = () => {
     return (
         <div className='my-4'>
             {/* heading */}
-            <div className="custom-heading">
-                <div className="p-[5px] bg-blue-700  w-40 flex justify-center text-white">
-                    Education
-                </div>
-            </div>
+            <MyHeading title='Education' />
 
             <Grid container spacing={2}>
                 {

@@ -7,6 +7,7 @@ import { MySwiperFlipEffect } from '@/app/common/MySwiper'
 import { SwiperSlide } from 'swiper/react';
 import { SwiperCardSkeleton } from '@/app/common/Skeleton.Site';
 import ErrorComponent from '@/app/common/ErrorComponent';
+import MyHeading from '@/app/common/MyHeading';
 
 const CareerSection = () => {
     const { error, headlines, loading } = useHeadlines("career");
@@ -15,11 +16,7 @@ const CareerSection = () => {
     return (
         <div>
             {/* heading */}
-            <div className="custom-heading">
-                <div className="p-[5px] bg-blue-700  w-40 flex justify-center text-white">
-                    Career
-                </div>
-            </div>
+            <MyHeading title='Career' />
 
             {/* cards */}
             <MySwiperFlipEffect>

@@ -58,7 +58,7 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
             </div>
 
             {/* Headline */}
-            <h3 className="text-lg font-bold text-gray-800 mt-2 line-clamp-2 transition-all duration-300 hover:text-blue-700">
+            <h3 className="text-lg font-bold text-gray-800 mt-2 line-clamp-2 transition-all duration-300 hover:text-blue-900">
               {headline.headline.main}
             </h3>
           </div>

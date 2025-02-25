@@ -10,14 +10,14 @@ const PhoneNavDrawer = () => {
 
             <Link href={'/'} className="flex items-center gap-2 group my-2">
                 <img src="/asset/logo.png" alt="" className='h-14 w-14 items-center object-cover group-hover:animate-spin' />
-                <h1 className='font-bold text-2xl hover:cursor-pointer hover:text-blue-700'>ENews</h1>
+                <h1 className='font-bold text-2xl hover:cursor-pointer hover:text-blue-900'>ENews</h1>
             </Link>
 
             <Divider />
 
             <div className="flex flex-col gap-4 my-4 ml-5">
                 {routes.map((route, index) => (
-                    <Link href={route.url} key={index} className='hover:cursor-pointer hover:text-blue-700'>
+                    <Link href={route.url} key={index} className='hover:cursor-pointer hover:text-blue-900'>
                         {route.name}
                     </Link>
                 ))}

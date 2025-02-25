@@ -4,10 +4,11 @@ import { HeadlineProps } from '../types/headline.types'
 import Image from 'next/image'
 import { imageUrl } from '../site/site.config'
 import Link from 'next/link'
+import { Box } from '@mui/material'
 
 const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
     return (
-        < motion.div
+        <motion.div
             initial={{ opacity: 0, y: 50 }
             }
             animate={{ opacity: 1, y: 0 }}
@@ -18,14 +19,14 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
             {/* 📌 article Image */}
             {
                 headline.multimedia?.length > 0 && (
-                    <div className="w-full h-[500px] relative rounded-lg overflow-hidden">
+                    <Box height={{xs: "300px",sm: "400px", md: "500px"}} className="w-full relative rounded-lg overflow-hidden">
                         <Image
                             src={imageUrl + headline.multimedia[0].url}
                             alt="article image"
                             layout="fill"
                             objectFit="cover"
                         />
-                    </div>
+                    </Box>
                 )
             }
 
@@ -34,7 +35,7 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-3xl font-bold text-gray-900 mt-5"
+                className="text-2xl md:text-3xl font-bold text-gray-900 mt-5"
             >
                 {headline.headline?.main}
             </motion.h1>
@@ -50,12 +51,12 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
             {/* 🏷️ Tags */}
             <div className="flex flex-wrap gap-2 mt-4">
                 {headline?.keywords?.map((keyword: any, index: number) => (
-                    <span
+                    <Link href={`/query?q=${keyword.value}`}
                         key={index}
                         className="text-xs font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-full"
                     >
                         {keyword.value}
-                    </span>
+                    </Link>
                 ))}
             </div>
 
@@ -66,7 +67,7 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
             <Link href={headline?.web_url ?? "#"} target="_blank" rel="noopener noreferrer">
                 <motion.div
                     whileHover={{ scale: 1.05 }}
-                    className="block text-blue-600 mt-4 font-semibold hover:bg-blue-800 hover:text-white w-max p-2 rounded"
+                    className="block text-blue-900 mt-4 font-semibold hover:bg-blue-800 hover:text-white w-max p-2 rounded"
                 >
                     Read Full Article →
                 </motion.div>

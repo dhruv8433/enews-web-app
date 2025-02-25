@@ -46,14 +46,14 @@ const Navbar: React.FC = () => {
                         {/* Logo and title */}
                         <Link href={'/'} className="flex items-center gap-2 group">
                             <img src="/asset/logo.png" alt="Logo" className='h-14 w-14 object-cover group-hover:animate-spin' />
-                            <h1 className='font-bold text-2xl hover:cursor-pointer hover:text-blue-700'>ENews</h1>
+                            <h1 className='font-bold text-2xl hover:cursor-pointer hover:text-blue-900'>ENews</h1>
                         </Link>
                     </div>
 
                     {/* Navigation */}
                     <Box display={{ xs: "none", md: "flex" }} className="routes gap-5">
                         {routes.map((route, index) => (
-                            <Link href={route.url} key={index} className='hover:cursor-pointer hover:text-blue-700'>{route.name}</Link>
+                            <Link href={route.url} key={index} className='hover:cursor-pointer hover:text-blue-900'>{route.name}</Link>
                         ))}
                     </Box>
 

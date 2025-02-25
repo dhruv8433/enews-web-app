@@ -34,7 +34,7 @@ const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
                     {/* Content Section */}
                     <div className="p-6 flex flex-col space-y-4">
                         {/* Title */}
-                        <h2 className="text-2xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
+                        <h2 className="text-2xl font-bold text-gray-900 group-hover:text-blue-900 transition-colors duration-300">
                             {headline.headline.main.length > 60
                                 ? `${headline.headline.main.substring(0, 60)}...`
                                 : headline.headline.main}
