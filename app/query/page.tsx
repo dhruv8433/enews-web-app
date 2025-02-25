@@ -9,6 +9,7 @@ import LargeContainer from '../common/LargeContainer';
 import { siteName } from '../site/site.config';
 import { LongCardSkeleton } from '../common/Skeleton.Site';
 import ErrorComponent from '../common/ErrorComponent';
+import MyHeading from '../common/MyHeading';
 
 const QueryContent = () => {
     const searchParams = useSearchParams();
@@ -23,11 +24,7 @@ const QueryContent = () => {
     return (
         <>
             {/* Dynamic heading based on query */}
-            <div className="custom-heading">
-                <div className="p-[5px] bg-blue-700 w-40 flex justify-center text-white">
-                    {q.toLocaleUpperCase()}
-                </div>
-            </div>
+            <MyHeading title={q.toLocaleUpperCase()} />
 
             {/* Cards based on query */}
             <Grid container spacing={2}>
