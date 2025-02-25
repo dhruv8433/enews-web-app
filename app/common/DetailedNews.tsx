@@ -9,6 +9,7 @@ import { Pagination } from "@mui/material";
 import useSharedArticle from "../hooks/useSharedArticle";
 import { ArticleBreadCrumbSkeleton, ArticleInfoSkeleton, CommentCardSkeleton } from "./Skeleton.Site";
 import ErrorComponent from "./ErrorComponent";
+import { CommentRounded } from "@mui/icons-material";
 
 const COMMENTS_PER_PAGE = 3;
 
@@ -39,8 +40,11 @@ const DetailedNews = ({ slug }: { slug: string }) => {
 
     // if comments are loading than display skeleton
     const commentSkeletons = commentsLoading
-    ? Array.from({ length: 3 }).map((_, index) => (<CommentCardSkeleton key={index} />))
-    : null;
+        ? Array.from({ length: 3 }).map((_, index) => (<CommentCardSkeleton key={index} />))
+        : <div className="flex items-center flex-col justify-center mt-5">
+            <CommentRounded className="empty-state-icon text-gray-400" />
+            <p className="font-semibold ml-2">No comments yet</p>
+        </div>;
 
 
     return (
@@ -78,7 +82,7 @@ const DetailedNews = ({ slug }: { slug: string }) => {
                     />
                 ))
             ) : (
-                <p className="text-center text-gray-500">No comments yet.</p>
+                ""
             )}
 
             {/* Pagination */}

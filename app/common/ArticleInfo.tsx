@@ -50,12 +50,12 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
             {/* 🏷️ Tags */}
             <div className="flex flex-wrap gap-2 mt-4">
                 {headline?.keywords?.map((keyword: any, index: number) => (
-                    <span
+                    <Link href={`/query?q=${keyword.value}`}
                         key={index}
                         className="text-xs font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-full"
                     >
                         {keyword.value}
-                    </span>
+                    </Link>
                 ))}
             </div>
 
