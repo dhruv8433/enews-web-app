@@ -21,8 +21,8 @@ const CareerSection = () => {
             {/* cards */}
             <MySwiperFlipEffect>
                 {headlines.map((headline) =>
-                    <SwiperSlide key={headline._id}>
-                        <SwiperCard headline={headline} />
+                    <SwiperSlide className='h-full' key={headline._id}>
+                        <SwiperCard headline={headline} isSmallSwiper={true}/>
                     </SwiperSlide>
                 )}
             </MySwiperFlipEffect>
