@@ -59,9 +59,9 @@ const DetailedNews = ({ slug }: { slug: string }) => {
             {/* comment skeleton */}
             {commentSkeletons}
 
-            {comments.length < 0 && <div className="flex items-center flex-col justify-center mt-5">
+            {comments.length <= 0 && <div className="flex items-center flex-col justify-center my-10">
                 <CommentRounded className="empty-state-icon text-gray-400" />
-                <p className="font-semibold ml-2">No comments yet</p>
+                <p className="font-semibold ml-2">No comments for this article yet...</p>
             </div>}
 
             {paginatedComments.length > 0 ? (
