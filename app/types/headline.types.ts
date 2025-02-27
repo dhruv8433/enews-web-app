@@ -17,4 +17,5 @@ export type Headline = {
 
 export interface HeadlineProps {
   headline: Headline;
+  isSmallSwiper?: boolean;
 }

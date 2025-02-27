@@ -24,7 +24,7 @@ const AdventureSection = () => {
       <MySwiperFlipEffect>
         {headlines.map((headline) =>
           <SwiperSlide key={headline._id}>
-            <SwiperCard headline={headline} />
+            <SwiperCard headline={headline} isSmallSwiper={true} />
           </SwiperSlide>
         )}
       </MySwiperFlipEffect>
