@@ -68,6 +68,7 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
       {/* Delete Icon (Only on profile page) */}
       {isProfilePage && (
         <IconButton
+        aria-label="delete"
           className="myDeleteIcon w-max bottom-2 left-[94%] bg-white shadow-md rounded-full"
           onClick={() => onRemove(headline._id)}
         >

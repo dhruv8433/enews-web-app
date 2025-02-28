@@ -19,7 +19,7 @@ const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
                 <div className="relative w-full h-60 overflow-hidden" onClick={() => handleShareArticle(headline)}>
                     <img
                         src={imageUrl + headline.multimedia[0]?.url}
-                        alt={headline.headline.main}
+                        alt={headline.headline?.main || "No Title"}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
 

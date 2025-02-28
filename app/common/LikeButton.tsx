@@ -18,6 +18,7 @@ const LikeButton = ({ article, isProfile }: { article: any, isProfile: boolean }
   const { removeFavorite } = useFetchFavorites();
   return (
     <IconButton
+      aria-label="like"
       onClick={() => (isProfile ? removeFavorite(article._id) : toggleFavorite())}
       className="text-red-500 text-2xl transition-transform duration-200 hover:scale-110 w-min"
     >

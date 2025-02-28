@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
                     <div className='flex items-center'>
                         {/* Menu icon for responsive screen */}
                         <Box display={{ xs: "block", md: "none" }}>
-                            <IconButton onClick={() => setOpenDrawer(true)}>
+                            <IconButton aria-label="burger-menu" onClick={() => setOpenDrawer(true)}>
                                 <Menu />
                             </IconButton>
                         </Box>
