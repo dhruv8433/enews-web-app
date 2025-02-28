@@ -17,6 +17,7 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
         e.preventDefault();
         try {
             await handleSignUp(form.name, form.email, form.password)
+            setSignupModal(false)
         } catch (error) {
             console.error("Error signing up:", error);
             // toast.error("An error occurred during sign-up. Please try again.");
