@@ -38,16 +38,28 @@ const ProfileRoutes = () => {
     };
 
     // Handle confirmation action
-    const handleConfirmAction = () => {
+    const handleConfirmAction = async () => {
         if (selectedAction === "logout") {
             auth.signOut(); // Firebase logout
             router.replace("/"); // Redirect to home page
-        } else if (selectedAction === "delete") {
-            auth.signOut(); // Firebase logout
-            router.replace("/"); // Redirect to home page
+        } else if (selectedAction === "delete" && user) {
+            try {
+                await user.delete(); // Delete the user's account
+                router.replace("/"); // Redirect to home page after deletion
+            } catch (error: any) {
+                if (error.code === "auth/requires-recent-login") {
+                    alert("You need to re-login before deleting your account.");
+                    auth.signOut();
+                    router.replace("/login"); // Redirect to login page for re-authentication
+                } else {
+                    console.error("Error deleting account:", error.message);
+                    alert("Failed to delete account. Please try again.");
+                }
+            }
         }
         handleCloseBackdrop();
     };
+
 
     return (
         <motion.div
@@ -83,7 +95,7 @@ const ProfileRoutes = () => {
                             onClick={() => handleOpenBackdrop(link.name === "Logout" ? "logout" : "delete")}
                             className="cursor-pointer my-2 flex items-center gap-3 p-3 rounded-lg text-red-600 hover:bg-red-100"
                         >
-                            <Box display={{xs: "none", md: "flex"}}><span className="text-lg"><IconComponent /></span></Box>
+                            <Box display={{ xs: "none", md: "flex" }}><span className="text-lg"><IconComponent /></span></Box>
                             <span className="text-sm font-medium w-max">{link.name}</span>
                         </div>
                     ) : (
@@ -91,7 +103,7 @@ const ProfileRoutes = () => {
                             <motion.div
                                 className={`flex items-center gap-3 p-3 rounded-lg text-gray-700 my-2 ${option == slugify(link.name).toLowerCase() ? "text-white bg-blue-700" : ""} `}
                             >
-                                <Box display={{xs: "none", md: "flex"}}><span className="text-lg"><IconComponent /></span></Box>
+                                <Box display={{ xs: "none", md: "flex" }}><span className="text-lg"><IconComponent /></span></Box>
                                 <span className="text-sm font-medium w-max">{link.name}</span>
                             </motion.div>
                         </Link>
@@ -112,7 +124,10 @@ const ProfileRoutes = () => {
                     </h1>
                     <div className="flex gap-2 justify-end my-3">
                         <MyButtons title="cancle" className="border bg-gray-400 p-1 rounded" onClick={handleCloseBackdrop} />
-                        <MyButtons title="Logout" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
+                        {selectedAction === "logout" ?
+                            <MyButtons title="Logout" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
+                            : <MyButtons title="Confirm Delete" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
+                        }
                     </div>
                 </div>
             </Backdrop>
