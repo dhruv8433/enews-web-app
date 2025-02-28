@@ -33,8 +33,8 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
         }
     };
 
-    const truncatedTitle = headline?.abstract?.length > 40 
-        ? headline.abstract.slice(0, 40) + "..." 
+    const truncatedTitle = headline?.abstract?.length > 40
+        ? headline.abstract.slice(0, 40) + "..."
         : headline?.abstract || "No Title";
 
     const filteredId = headline?._id?.replace(/[^a-zA-Z0-9]/g, '_') || "";
@@ -50,27 +50,29 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                 transition={{ duration: 0.5 }}
                 className="text-gray-600 mt-5"
             >
-                <Box flexDirection={{ md: "row" }}>
-                    <h1 className="text-xl md:text-2xl font-semibold text-blue-900 my-2">{truncatedTitle}</h1>
-                    <Breadcrumbs className='flex flex-col'>
-                        <Link href={`/`} className="hover:underline">Home</Link>
-                        {headline?.section_name && (
-                            <Link href={`/query?q=${headline.section_name}`} className="hover:underline">
-                                {headline.section_name}
-                            </Link>
-                        )}
-                        <p className="text-blue-900">{truncatedTitle}</p>
-                    </Breadcrumbs>
+                <Box className="justify-between" display={{ xs: 'block', md: 'flex' }}>
+                    <div className="">
+                        <h1 className="text-xl md:text-2xl font-semibold text-blue-900 my-2">{truncatedTitle}</h1>
+                        <Breadcrumbs className='flex flex-col'>
+                            <Link href={`/`} className="hover:underline">Home</Link>
+                            {headline?.section_name && (
+                                <Link href={`/query?q=${headline.section_name}`} className="hover:underline">
+                                    {headline.section_name}
+                                </Link>
+                            )}
+                            <p className="text-blue-900">{truncatedTitle}</p>
+                        </Breadcrumbs>
+                    </div>
+                    {/* Action Buttons */}
+                    <div className="flex items-center justify-end space-x-4 mt-6">
+                        <LikeButton article={headline} isProfile={false} />
+                        <ReadLaterButton article={headline} />
+                        <IconButton aria-label="priny" color="default" onClick={handlePrint}><PrintOutlined /></IconButton>
+                        <IconButton aria-label="share" color="default" onClick={handleShare}><ShareOutlined /></IconButton>
+                        <IconButton aria-label="comment" color="default" onClick={() => setOpenModel(true)}><MapsUgcOutlined /></IconButton>
+                    </div>
                 </Box>
 
-                {/* Action Buttons */}
-                <div className="flex items-center justify-end space-x-4 mt-6">
-                    <LikeButton article={headline} isProfile={false} />
-                    <ReadLaterButton article={headline} />
-                    <IconButton aria-label="priny" color="default" onClick={handlePrint}><PrintOutlined /></IconButton>
-                    <IconButton aria-label="share" color="default" onClick={handleShare}><ShareOutlined /></IconButton>
-                    <IconButton aria-label="comment" color="default" onClick={() => setOpenModel(true)}><MapsUgcOutlined /></IconButton>
-                </div>
             </motion.div>
 
             {/* Comment Modal */}

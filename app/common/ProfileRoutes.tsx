@@ -14,6 +14,10 @@ const ProfileRoutes = () => {
     const [selectedAction, setSelectedAction] = useState<"logout" | "delete" | null>(null);
     const router = useRouter();
 
+    if(!user){
+        router.push("/")
+    }
+
     // Handle opening the backdrop
     const handleOpenBackdrop = (action: "logout" | "delete") => {
         setSelectedAction(action);

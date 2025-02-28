@@ -47,7 +47,7 @@ export default function HomeSwiper() {
                 {/* Right Side card */}
                 <Grid item xs={12} md={3}>
                     {/* static card for weather forecasting */}
-                    <WeatherCard city="mumbai" />
+                    <WeatherCard />
                     <div className="">
                         {headlines.slice(0, 2).map((headline: any) => (
                             <div className="my-2" key={headline._id}>

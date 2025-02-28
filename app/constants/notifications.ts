@@ -123,6 +123,14 @@ const notifications = {
         articleIdMissing: {
             message: "Article ID missing!",
             description: "The article ID is missing. Please try again. Check console for more information.",
+        },
+        loginForComment:{
+            message: "Login to comment!",
+            description: "You must logged in to comment.",
+        },
+        weatherInfoFailed:{
+            message: "Failed to fetch weather info!",
+            description: "We couldn't find the weather information for this location.",
         }
     },
 };

@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../site/firebase.config";
 import { Comment } from "../types/comment.type";
 import notifications from "../constants/notifications";
+import toast from "react-hot-toast";
 
 const useComments = (articleId: string) => {
     const [comments, setComments] = useState<Comment[]>([]);
@@ -49,7 +50,7 @@ const useComments = (articleId: string) => {
 
     // Add comment
     const addComment = async (commentText: string) => {
-        if (!user) return alert("You must be logged in to comment!");
+        if (!user) return toast.error(notifications.error.loginForComment.description);
         if (!commentText.trim()) return;
 
         try {

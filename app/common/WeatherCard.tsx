@@ -1,13 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useWeather } from "@/app/hooks/useWeather";
 import { motion } from "framer-motion";
+import ErrorComponent from "./ErrorComponent";
 
-interface WeatherCardProps {
-    city: string;
-}
+const WeatherCard: React.FC = () => {
+    const [city, setCity] = useState<string>();
 
-const WeatherCard: React.FC<WeatherCardProps> = ({ city }) => {
-    const { weather, loading, error } = useWeather(city);
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
+
+                    try {
+                        // Fetch city using reverse geocoding (e.g., OpenWeatherMap)
+                        const response = await fetch(
+                            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+                        );
+                        const data = await response.json();
+
+                        if (data.city) {
+                            setCity(data.city);
+                        } else {
+                            console.log("City not found");
+                        }
+                    } catch (err) {
+                        console.log("Failed to fetch city");
+                    }
+                },
+                (error) => {
+                    console.log("Location access denied");
+                }
+            );
+        } else {
+            console.log("Geolocation is not supported");
+        }
+    }, [city]);
+
+    const { weather, loading, error } = useWeather(city || 'mumbai');
 
     if (loading) {
         return (
@@ -17,13 +47,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ city }) => {
         );
     }
 
-    if (error) {
-        return (
-            <div className="h-60 w-80 flex items-center justify-center bg-red-300 text-white rounded-xl shadow-md">
-                {error}
-            </div>
-        );
-    }
+    if (error) return <ErrorComponent error={error} />
 
     return (
         <motion.div
