@@ -28,14 +28,14 @@ const RelatedNews = ({slug}: {slug: string}) => {
     if (error) return <ErrorComponent error={error} />;
 
     return (
-        <div>
+        <div className='mt-10'>
             <MyHeading title='Related News' />
 
             {smallCardSkeletons}
 
-            <div className="">
+            <div className="mt-14">
                 {headlines.length > 0 && headlines.slice(0, 5).map((article, index) => (
-                    <div className="my-2" key={index} >
+                    <div className="my-4" key={index} >
                         <SmallCard headline={article} />
                     </div>
                 ))}
