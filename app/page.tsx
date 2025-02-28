@@ -25,7 +25,7 @@ export default function Home() {
       <TravelAndAdventureGrid />
 
       {/* Social Section */}
-      <SocialSection />
+      {/* <SocialSection /> */}
       
     </LargeContainer>
   );

@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
                         {userInfo ? (
                             <Link href={`/profile/favorites`} className='flex items-center gap-2'>
                                 <img src={userInfo?.photoURL || 'https://cdn3.iconfinder.com/data/icons/web-design-and-development-2-6/512/87-1024.png'} alt="User" className='h-10 w-10 rounded-full border-2' />
-                                <Box display={{xs: "none", md: "flex"}}>
+                                <Box display={{ xs: "none", md: "flex" }}>
                                     <h3 className='font-medium'>{userInfo.displayName}</h3>
                                 </Box>
                             </Link>
@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
                 <Backdrop open={openModal} className='z-20'>
-                    <SignupModal onClose={() => setOpenModal(false)} setLoginModal={setOpenLoginModal} setSignupModal={setOpenModal} />
+                        <SignupModal onClose={() => setOpenModal(false)} setLoginModal={setOpenLoginModal} setSignupModal={setOpenModal} />
                 </Backdrop>
 
                 <Backdrop open={openLoginModal} className='z-20'>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import GoogleButton from "../common/GoogleButton";
 import { handleSignUp } from "../service/Auth.Firebase";
 import toast from "react-hot-toast";
+import { Box } from "@mui/material";
 
 const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () => void, setLoginModal: (value: boolean) => void, setSignupModal: (value: boolean) => void }) => {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -23,7 +24,7 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
     }
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
+        <Box p={{xs: "20px", md: "0px"}} className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -107,7 +108,7 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                 {/* Google login */}
                 <GoogleButton CloseModel={setSignupModal} />
             </motion.div>
-        </div>
+        </Box>
     );
 };
 
