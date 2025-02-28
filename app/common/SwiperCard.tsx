@@ -32,7 +32,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
                     <img
                         src={imageUrl + headline.multimedia[0]?.url}
                         alt={headline.headline.main}
-                        className={`w-full ${isSmallSwiper ? "h-[520px]" : "h-full"} object-cover transition-transform duration-300 hover:scale-105`}
+                        className={`w-full ${isSmallSwiper ? "h-[520px]" : "h-full"} object-fill transition-transform duration-300 hover:scale-105`}
                         onLoad={(e) => (e.currentTarget.style.opacity = '1')}
                         style={{ opacity: 0, transition: 'opacity 0.5s ease-in-out', objectFit: 'cover', minHeight: '100%' }}
                     />
