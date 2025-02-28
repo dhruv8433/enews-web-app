@@ -74,25 +74,25 @@ const ProfileRoutes = () => {
             </div>
 
             {/* Navigation Links */}
-            <Box display={{ xs: "flex", md: "block" }} overflow={{ xs: "auto", md: "visible" }} className="my-6">
+            <Box display={{ xs: "flex", md: "block" }} overflow={{ xs: "auto", md: "visible" }} className="my-6 gap-2">
                 {profileLinks.map((link, index) => {
                     const IconComponent = link.icon;
                     return link.danger ? (
                         <div
                             key={index}
                             onClick={() => handleOpenBackdrop(link.name === "Logout" ? "logout" : "delete")}
-                            className="cursor-pointer flex items-center gap-3 p-3 rounded-lg text-red-600 hover:bg-red-100"
+                            className="cursor-pointer my-2 flex items-center gap-3 p-3 rounded-lg text-red-600 hover:bg-red-100"
                         >
-                            <span className="text-lg"><IconComponent /></span>
-                            <span className="text-sm font-medium">{link.name}</span>
+                            <Box display={{xs: "none", md: "flex"}}><span className="text-lg"><IconComponent /></span></Box>
+                            <span className="text-sm font-medium w-max">{link.name}</span>
                         </div>
                     ) : (
                         <Link key={index} href={'/profile/' + link.route}>
                             <motion.div
-                                className={`flex items-center gap-3 p-3 rounded-lg text-gray-700  ${option == slugify(link.name).toLowerCase() ? "text-white bg-blue-700" : ""} `}
+                                className={`flex items-center gap-3 p-3 rounded-lg text-gray-700 my-2 ${option == slugify(link.name).toLowerCase() ? "text-white bg-blue-700" : ""} `}
                             >
-                                <span className="text-lg"><IconComponent /></span>
-                                <span className="text-sm font-medium">{link.name}</span>
+                                <Box display={{xs: "none", md: "flex"}}><span className="text-lg"><IconComponent /></span></Box>
+                                <span className="text-sm font-medium w-max">{link.name}</span>
                             </motion.div>
                         </Link>
                     );
