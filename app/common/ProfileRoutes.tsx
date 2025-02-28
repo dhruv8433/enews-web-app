@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Divider, Backdrop, Box, Button, Typography } from "@mui/material";
 import { profileLinks } from "../site/site.config";
@@ -6,7 +6,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../site/firebase.config";
 import Link from "next/link";
 import MyButtons from "./MyButtons";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import slugify from "slugify";
 
 const ProfileRoutes = () => {
     const [user] = useAuthState(auth);
@@ -14,9 +15,15 @@ const ProfileRoutes = () => {
     const [selectedAction, setSelectedAction] = useState<"logout" | "delete" | null>(null);
     const router = useRouter();
 
-    if(!user){
-        router.push("/")
-    }
+    // fetch options for active index
+    const { option } = useParams();
+    console.log(option)
+
+    useEffect(() => {
+        if (!user) {
+            router.push("/");
+        }
+    }, [user, router]);
 
     // Handle opening the backdrop
     const handleOpenBackdrop = (action: "logout" | "delete") => {
@@ -67,7 +74,7 @@ const ProfileRoutes = () => {
             </div>
 
             {/* Navigation Links */}
-            <Box display={{xs: "flex", md: "block"}} overflow={{xs: "auto", md: "auto"}} className="my-6">
+            <Box display={{ xs: "flex", md: "block" }} overflow={{ xs: "auto", md: "visible" }} className="my-6">
                 {profileLinks.map((link, index) => {
                     const IconComponent = link.icon;
                     return link.danger ? (
@@ -82,9 +89,7 @@ const ProfileRoutes = () => {
                     ) : (
                         <Link key={index} href={'/profile/' + link.route}>
                             <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                                className="flex items-center gap-3 p-3 rounded-lg text-gray-700 transition hover:bg-gray-100"
+                                className={`flex items-center gap-3 p-3 rounded-lg text-gray-700  ${option == slugify(link.name).toLowerCase() ? "text-white bg-blue-700" : ""} `}
                             >
                                 <span className="text-lg"><IconComponent /></span>
                                 <span className="text-sm font-medium">{link.name}</span>
