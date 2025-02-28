@@ -33,7 +33,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
                     <img
                         src={imageUrl + headline.multimedia[0]?.url}
                         alt={headline.headline.main}
-                        className={`w-full ${isSmallSwiper ? "h-[520px]" : "h-full"} object-fill transition-transform duration-700 hover:scale-125`}
+                        className={`w-full  ${isSmallSwiper ? "h-[520px]" : "h-full"} object-fill transition-transform duration-700 hover:scale-125`}
                     />
 
                     {/* Content Overlay */}
