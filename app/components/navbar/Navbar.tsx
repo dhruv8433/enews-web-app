@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import toast from 'react-hot-toast'
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import { Menu } from '@mui/icons-material'
 import MyInput from '@/app/common/MyInput'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
     const [openLoginModal, setOpenLoginModal] = useState(false);
     const router = useRouter(); // Initialize router   
 
-   const searchParams = useSearchParams();
+    const searchParams = useSearchParams();
     const q = searchParams.get('q') || ''; // Get "q" from query string
     console.log("q:", q);
 
@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
                 <Backdrop open={openModal} className='z-20'>
-                        <SignupModal onClose={() => setOpenModal(false)} setLoginModal={setOpenLoginModal} setSignupModal={setOpenModal} />
+                    <SignupModal onClose={() => setOpenModal(false)} setLoginModal={setOpenLoginModal} setSignupModal={setOpenModal} />
                 </Backdrop>
 
                 <Backdrop open={openLoginModal} className='z-20'>
@@ -101,4 +101,13 @@ const Navbar: React.FC = () => {
     )
 }
 
-export default Navbar;
+
+const Page = () => (
+    <LargeContainer>
+        <Suspense fallback={<h1>Loading query...</h1>}>
+            <Navbar />
+        </Suspense>
+    </LargeContainer>
+);
+
+export default Page;
