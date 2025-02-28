@@ -11,12 +11,8 @@ import { TypeSwiper } from '../types/swiper.types';
 const MySwiperPagination: React.FC<TypeSwiper> = ({ children, className = '' }) => {
   return (
     <Swiper
-      pagination={{
-        dynamicBullets: true,
-        clickable: true,
-      }}
       autoplay={true}
-      modules={[Pagination, Autoplay]}
+      modules={[Autoplay]}
       className={`mySwiper h-full  rounded-xl ${className}`}
     >
       {children}
