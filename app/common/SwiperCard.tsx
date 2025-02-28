@@ -16,6 +16,7 @@ import LikeButton from './LikeButton';
 import Link from 'next/link';
 import slugify from 'slugify';
 import { handleShareArticle } from '../service/ShareArticleService';
+import { Box } from '@mui/material';
 
 const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
     return (
@@ -39,7 +40,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
 
                     {/* Content Overlay */}
                     <div className="absolute bottom-0 left-0 p-4 w-full bg-black bg-opacity-60 backdrop-blur-md">
-                        <div className="p-6 rounded-lg min-h-[150px]">
+                        <div className="md:p-6 rounded-lg md:min-h-[150px]">
                             <div className="flex items-center justify-between mb-2">
                                 <h1 className="bg-red-500 rounded-md text-white p-1">Trending</h1>
                                 <div className="flex items-center gap-2">
@@ -47,10 +48,12 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
                                     <p className="text-white">{new Date(headline.pub_date).toLocaleDateString()}</p>
                                 </div>
                             </div>
-                            <h3 className="text-white text-3xl font-bold mb-4 truncate-3-lines">
+                            <h3 className="text-white sm:text-xl md:text-3xl font-bold md:mb-4 truncate-3-lines">
                                 {headline.headline.main}
                             </h3>
-                            <p className="text-white text-sm mb-4">{headline.abstract}</p>
+                            <Box display={{xs: "none", md: "flex"}}>
+                                <p className="text-white text-sm mb-4">{headline.abstract}</p>
+                            </Box>
                         </div>
                     </div>
 
