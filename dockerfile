@@ -1,39 +1,33 @@
-# ----- Step 1: Build Stage -----
+# ---- Step 1: Build Stage ----
     FROM node:18-alpine AS builder
 
-    # Set working directory inside the container
+    # Set working directory
     WORKDIR /app
     
-    # Copy package.json and package-lock.json to leverage Docker caching
-    COPY package.json package-lock.json ./
+    # Copy package.json and package-lock.json first for caching
+    COPY package*.json ./
     
     # Install dependencies
     RUN npm install --frozen-lockfile
     
-    # Copy the entire project after installing dependencies
+    # Copy source code
     COPY . .
     
-    # Build the Next.js application (static files & optimized assets)
-    RUN npm run build
+    # Build the React app
+    RUN npm run build && ls -la build
     
-    # ----- Step 2: Production Stage -----
-    FROM node:18-alpine
+    # ---- Step 2: Run Stage ----
+    FROM nginx:alpine
     
-    # Set working directory for production container
-    WORKDIR /app
+    # Remove default nginx static files and copy built React app
+    RUN rm -rf /usr/share/nginx/html/*
     
-    # Copy only the built files and required dependencies from builder stage
-    COPY --from=builder /app/node_modules ./node_modules
-    COPY --from=builder /app/.next ./.next
-    COPY --from=builder /app/public ./public
-    COPY --from=builder /app/package.json ./package.json
+    # Copy React build files from builder stage
+    COPY --from=builder /app/build /usr/share/nginx/html
     
-    # Set environment variable (use production mode)
-    ENV NODE_ENV=production
+    # Expose port
+    EXPOSE 80
     
-    # Expose the port that Next.js runs on
-    EXPOSE 3000
-    
-    # Start the Next.js application
-    CMD ["npm", "start"]
+    # Start NGINX
+    CMD ["nginx", "-g", "daemon off;"]
     

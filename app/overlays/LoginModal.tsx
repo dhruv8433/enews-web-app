@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import GoogleButton from "../common/GoogleButton";
 import { handleLogin } from "../service/Auth.Firebase";
+import { Box } from "@mui/material";
 
 const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () => void, setSignupModel: (value: boolean) => void, setLoginModel: (value: boolean) => void }) => {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -15,6 +16,7 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
         e.preventDefault();
         try {
             await handleLogin(form.email, form.password)
+            setLoginModel(false)
         } catch (error) {
             console.error("Error signing up:", error);
             // toast.error("An error occurred during sign-up. Please try again.");
@@ -22,7 +24,7 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
     }
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
+        <Box p={{xs: "20px", md: "0px"}} className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -98,7 +100,7 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
                 {/* Google login */}
                 <GoogleButton CloseModel={setLoginModel} />
             </motion.div>
-        </div>
+        </Box>
     );
 };
 
