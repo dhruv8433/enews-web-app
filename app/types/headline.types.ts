@@ -3,6 +3,7 @@ export type Headline = {
   headline: {
     main: string;
   };
+  subsection_name?: string;
   multimedia: { url?: string }[];
   pub_date: string;
   abstract: string;

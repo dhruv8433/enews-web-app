@@ -40,7 +40,7 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
             <img
               src={imageUrl + (isProfilePage ? headline?.imageUrl : headline?.multimedia?.[0]?.url || "")}
               alt={headline.headline.main}
-              className="w-[300px] h-full object-cover transition-transform duration-300 group-hover:scale-110 rounded"
+              className="w-[300px] h-full object-fill transition-transform duration-300 group-hover:scale-110 rounded"
             />
           </div>
 

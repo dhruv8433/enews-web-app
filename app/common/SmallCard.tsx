@@ -20,7 +20,7 @@ const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
                     <img
                         src={imageUrl + headline.multimedia[0]?.url}
                         alt={headline.headline?.main || "No Title"}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        className="absolute inset-0 w-full h-full object-fill transition-transform duration-300 group-hover:scale-110"
                     />
 
                     {/* Title with Backdrop */}

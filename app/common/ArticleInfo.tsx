@@ -24,7 +24,7 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                             src={imageUrl + headline.multimedia[0].url}
                             alt="article image"
                             layout="fill"
-                            objectFit="cover"
+                            objectFit='fill'
                         />
                     </Box>
                 )
