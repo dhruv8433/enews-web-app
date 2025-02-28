@@ -57,11 +57,11 @@ export const ArticleBreadCrumbSkeleton = () => {
 
             {/* Action Buttons Skeleton */}
             <div className="flex items-center justify-end space-x-4 mt-6">
-                <IconButton disabled><FavoriteBorderOutlined /></IconButton>
-                <IconButton disabled><BookmarkBorderOutlined /></IconButton>
-                <IconButton disabled><PrintOutlined /></IconButton>
-                <IconButton disabled><ShareOutlined /></IconButton>
-                <IconButton disabled><MapsUgcOutlined /></IconButton>
+                <IconButton aria-label="disabled" disabled><BookmarkBorderOutlined /></IconButton>
+                <IconButton aria-label="disabled" disabled><FavoriteBorderOutlined /></IconButton>
+                <IconButton aria-label="disabled" disabled><PrintOutlined /></IconButton>
+                <IconButton aria-label="disabled" disabled><ShareOutlined /></IconButton>
+                <IconButton aria-label="disabled" disabled><MapsUgcOutlined /></IconButton>
             </div>
         </div>
     );

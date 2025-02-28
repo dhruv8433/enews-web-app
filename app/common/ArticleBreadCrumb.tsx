@@ -67,9 +67,9 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                 <div className="flex items-center justify-end space-x-4 mt-6">
                     <LikeButton article={headline} isProfile={false} />
                     <ReadLaterButton article={headline} />
-                    <IconButton color="default" onClick={handlePrint}><PrintOutlined /></IconButton>
-                    <IconButton color="default" onClick={handleShare}><ShareOutlined /></IconButton>
-                    <IconButton color="default" onClick={() => setOpenModel(true)}><MapsUgcOutlined /></IconButton>
+                    <IconButton aria-label="priny" color="default" onClick={handlePrint}><PrintOutlined /></IconButton>
+                    <IconButton aria-label="share" color="default" onClick={handleShare}><ShareOutlined /></IconButton>
+                    <IconButton aria-label="comment" color="default" onClick={() => setOpenModel(true)}><MapsUgcOutlined /></IconButton>
                 </div>
             </motion.div>
 
