@@ -5,7 +5,7 @@ import toast from 'react-hot-toast'
 import React, { useState } from 'react'
 import { Menu } from '@mui/icons-material'
 import MyInput from '@/app/common/MyInput'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import MyButtons from '@/app/common/MyButtons'
 import { routes } from '@/app/site/site.config'
 import { Backdrop, Box, Drawer, IconButton } from '@mui/material'
@@ -23,6 +23,11 @@ const Navbar: React.FC = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openLoginModal, setOpenLoginModal] = useState(false);
     const router = useRouter(); // Initialize router   
+
+   const searchParams = useSearchParams();
+    const q = searchParams.get('q') || ''; // Get "q" from query string
+    console.log("q:", q);
+
 
     // Handle search on Enter key
     const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -53,7 +58,7 @@ const Navbar: React.FC = () => {
                     {/* Navigation */}
                     <Box display={{ xs: "none", md: "flex" }} className="routes gap-5">
                         {routes.map((route, index) => (
-                            <Link href={route.url} key={index} className='hover:cursor-pointer hover:text-blue-900'>{route.name}</Link>
+                            <Link href={route.url} key={index} className={`hover:cursor-pointer flex items-center ${(q == route.name.toLowerCase()) && "text-white bg-blue-700 py-1 px-2 rounded"}`}>{route.name}</Link>
                         ))}
                     </Box>
 

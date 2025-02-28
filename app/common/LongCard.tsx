@@ -10,7 +10,7 @@ import { Box } from "@mui/material";
 
 const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
     return (
-        <Box height={{xs: "380px", md: "500px"}} className="relative max-w-3xl bg-white shadow-lg rounded-xl overflow-hidden transition-transform duration-300 hover:shadow-2xl group hover:cursor-pointer">
+        <Box height={{ xs: "380px", md: "500px" }} className="relative max-w-3xl bg-white shadow-lg rounded-xl overflow-hidden transition-transform duration-300 hover:shadow-2xl group hover:cursor-pointer">
 
             {/* Like Button - Positioned in the top-right corner */}
             <div className="absolute top-3 right-3 bg-white p-1 rounded-full shadow-md z-10">
@@ -21,7 +21,7 @@ const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
             <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`}>
                 <div className="" onClick={() => handleShareArticle(headline)}>
                     {/* Article Image */}
-                    <Box height={{xs: "250px", md: "350px"}} className="w-full overflow-hidden">
+                    <Box height={{ xs: "250px", md: "350px" }} className="w-full overflow-hidden">
                         <img
                             src={headline.multimedia[0]?.url ? imageUrl + headline.multimedia[0].url : "/placeholder.jpg"}
                             alt={headline.headline.main}
@@ -35,11 +35,10 @@ const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
                     {/* Content Section */}
                     <div className="p-6 flex flex-col space-y-4">
                         {/* Title */}
-                        <h2 className="text-xl font-bold text-gray-900 group-hover:text-blue-900 transition-colors duration-300">
-                            {headline.headline.main.length > 20
-                                ? `${headline.headline.main.substring(0, 60)}...`
-                                : headline.headline.main}
+                        <h2 className="text-xl font-bold text-gray-900 group-hover:text-blue-900 transition-colors duration-300 line-clamp-2">
+                            {headline.headline.main}
                         </h2>
+
 
                         {/* Date */}
                         <div className="flex items-center text-gray-600 text-sm gap-2">

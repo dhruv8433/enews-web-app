@@ -4,7 +4,6 @@ import { HeadlineProps } from '../types/headline.types'
 import Image from 'next/image'
 import { imageUrl } from '../site/site.config'
 import Link from 'next/link'
-import { Box } from '@mui/material'
 
 const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
     return (
@@ -16,17 +15,15 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
             className="mx-auto rounded-xl mt-10"
             id="articleContent"
         >
-            {/* 📌 article Image */}
             {
                 headline.multimedia?.length > 0 && (
-                    <Box height={{xs: "300px",sm: "400px", md: "500px"}} className="w-full relative rounded-lg overflow-hidden">
-                        <Image
+                    <div className="w-full h-full relative rounded-lg overflow-hidden">
+                        <img
                             src={imageUrl + headline.multimedia[0].url}
                             alt="article image"
-                            layout="fill"
-                            objectFit='fill'
+                            className="w-full h-full object-fill relative"
                         />
-                    </Box>
+                    </div>
                 )
             }
 
@@ -35,9 +32,9 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-2xl md:text-3xl font-bold text-gray-900 mt-5"
+                className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-5"
             >
-                {headline.headline?.main}
+                {headline.headline?.main.toUpperCase()}
             </motion.h1>
 
             {/* ✍️ Byline */}

@@ -22,7 +22,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
     return (
         //Main container with a relative position for overlay placement
         <div className="relative">
-            <div className="absolute right-1 top-1 bg-white z-10 rounded-full">
+            <div className="absolute right-3 top-3 bg-white z-10 rounded-full">
                 <LikeButton article={headline} isProfile={false} />
             </div>
 
@@ -33,9 +33,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
                     <img
                         src={imageUrl + headline.multimedia[0]?.url}
                         alt={headline.headline.main}
-                        className={`w-full ${isSmallSwiper ? "h-[520px]" : "h-full"} object-fill transition-transform duration-300 hover:scale-105`}
-                        onLoad={(e) => (e.currentTarget.style.opacity = '1')}
-                        style={{ opacity: 0, transition: 'opacity 0.5s ease-in-out', objectFit: 'cover', minHeight: '100%' }}
+                        className={`w-full ${isSmallSwiper ? "h-[520px]" : "h-full"} object-fill transition-transform duration-700 hover:scale-125`}
                     />
 
                     {/* Content Overlay */}
@@ -48,8 +46,8 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
                                     <p className="text-white">{new Date(headline.pub_date).toLocaleDateString()}</p>
                                 </div>
                             </div>
-                            <h3 className="text-white sm:text-xl md:text-3xl font-bold md:mb-4 truncate-3-lines">
-                                {headline.headline.main}
+                            <h3 className="text-white sm:text-xl md:text-3xl font-bold md:mb-4 truncate-3-lines line-clamp-2">
+                                {headline.headline.main.toUpperCase()}
                             </h3>
                             <Box display={{xs: "none", md: "flex"}}>
                                 <p className="text-white text-sm mb-4">{headline.abstract}</p>

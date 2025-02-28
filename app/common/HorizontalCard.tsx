@@ -26,7 +26,7 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
 
       {/* Like Button (Only if not in profile page) */}
       {!isProfilePage && (
-        <div className="absolute top-2 left-2 bg-white z-10 rounded-full">
+        <div className="absolute top-3 left-3 bg-white z-10 rounded-full">
           <LikeButton article={headline} isProfile={isProfilePage} />
         </div>
       )}

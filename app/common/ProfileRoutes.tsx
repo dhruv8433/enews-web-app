@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Divider, Backdrop, Box, Button, Typography } from "@mui/material";
 import { profileLinks } from "../site/site.config";
@@ -6,7 +6,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../site/firebase.config";
 import Link from "next/link";
 import MyButtons from "./MyButtons";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import slugify from "slugify";
 
 const ProfileRoutes = () => {
     const [user] = useAuthState(auth);
@@ -14,9 +15,15 @@ const ProfileRoutes = () => {
     const [selectedAction, setSelectedAction] = useState<"logout" | "delete" | null>(null);
     const router = useRouter();
 
-    if(!user){
-        router.push("/")
-    }
+    // fetch options for active index
+    const { option } = useParams();
+    console.log(option)
+
+    useEffect(() => {
+        if (!user) {
+            router.push("/");
+        }
+    }, [user, router]);
 
     // Handle opening the backdrop
     const handleOpenBackdrop = (action: "logout" | "delete") => {
@@ -31,16 +38,28 @@ const ProfileRoutes = () => {
     };
 
     // Handle confirmation action
-    const handleConfirmAction = () => {
+    const handleConfirmAction = async () => {
         if (selectedAction === "logout") {
             auth.signOut(); // Firebase logout
             router.replace("/"); // Redirect to home page
-        } else if (selectedAction === "delete") {
-            auth.signOut(); // Firebase logout
-            router.replace("/"); // Redirect to home page
+        } else if (selectedAction === "delete" && user) {
+            try {
+                await user.delete(); // Delete the user's account
+                router.replace("/"); // Redirect to home page after deletion
+            } catch (error: any) {
+                if (error.code === "auth/requires-recent-login") {
+                    alert("You need to re-login before deleting your account.");
+                    auth.signOut();
+                    router.replace("/login"); // Redirect to login page for re-authentication
+                } else {
+                    console.error("Error deleting account:", error.message);
+                    alert("Failed to delete account. Please try again.");
+                }
+            }
         }
         handleCloseBackdrop();
     };
+
 
     return (
         <motion.div
@@ -67,27 +86,25 @@ const ProfileRoutes = () => {
             </div>
 
             {/* Navigation Links */}
-            <Box display={{xs: "flex", md: "block"}} overflow={{xs: "auto", md: "auto"}} className="my-6">
+            <Box display={{ xs: "flex", md: "block" }} overflow={{ xs: "auto", md: "visible" }} className="my-6 gap-2">
                 {profileLinks.map((link, index) => {
                     const IconComponent = link.icon;
                     return link.danger ? (
                         <div
                             key={index}
                             onClick={() => handleOpenBackdrop(link.name === "Logout" ? "logout" : "delete")}
-                            className="cursor-pointer flex items-center gap-3 p-3 rounded-lg text-red-600 hover:bg-red-100"
+                            className="cursor-pointer my-2 flex items-center gap-3 p-3 rounded-lg text-red-600 hover:bg-red-100"
                         >
-                            <span className="text-lg"><IconComponent /></span>
-                            <span className="text-sm font-medium">{link.name}</span>
+                            <Box display={{ xs: "none", md: "flex" }}><span className="text-lg"><IconComponent /></span></Box>
+                            <span className="text-sm font-medium w-max">{link.name}</span>
                         </div>
                     ) : (
                         <Link key={index} href={'/profile/' + link.route}>
                             <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                                className="flex items-center gap-3 p-3 rounded-lg text-gray-700 transition hover:bg-gray-100"
+                                className={`flex items-center gap-3 p-3 rounded-lg text-gray-700 my-2 ${option == slugify(link.name).toLowerCase() ? "text-white bg-blue-700" : ""} `}
                             >
-                                <span className="text-lg"><IconComponent /></span>
-                                <span className="text-sm font-medium">{link.name}</span>
+                                <Box display={{ xs: "none", md: "flex" }}><span className="text-lg"><IconComponent /></span></Box>
+                                <span className="text-sm font-medium w-max">{link.name}</span>
                             </motion.div>
                         </Link>
                     );
@@ -107,7 +124,10 @@ const ProfileRoutes = () => {
                     </h1>
                     <div className="flex gap-2 justify-end my-3">
                         <MyButtons title="cancle" className="border bg-gray-400 p-1 rounded" onClick={handleCloseBackdrop} />
-                        <MyButtons title="Logout" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
+                        {selectedAction === "logout" ?
+                            <MyButtons title="Logout" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
+                            : <MyButtons title="Confirm Delete" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
+                        }
                     </div>
                 </div>
             </Backdrop>
