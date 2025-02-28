@@ -63,7 +63,7 @@ const ProfileRoutes = () => {
             </div>
 
             {/* Navigation Links */}
-            <div className="my-6">
+            <Box display={{xs: "flex", md: "block"}} overflow={{xs: "auto", md: "auto"}} className="my-6">
                 {profileLinks.map((link, index) => {
                     const IconComponent = link.icon;
                     return link.danger ? (
@@ -88,7 +88,7 @@ const ProfileRoutes = () => {
                         </Link>
                     );
                 })}
-            </div>
+            </Box>
 
             {/* Backdrop & Confirmation Box */}
             <Backdrop open={openBackdrop} sx={{ zIndex: 9999, color: "#fff", backdropFilter: "blur(5px)" }}>
