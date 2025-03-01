@@ -3,16 +3,21 @@
 import useHeadlines from '@/app/hooks/useHeadlines';
 import { Grid } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import LongCard from '../common/LongCard';
 import LargeContainer from '../common/LargeContainer';
 import { siteName } from '../site/site.config';
 import { LongCardSkeleton } from '../common/Skeleton.Site';
 import ErrorComponent from '../common/ErrorComponent';
 import MyHeading from '../common/MyHeading';
+import toast from 'react-hot-toast';
 
 const QueryContent = () => {
     const searchParams = useSearchParams();
+    useEffect(() => {
+        toast.dismiss(); // Dismiss all toasts
+    }, [searchParams])
+
     const q = searchParams.get('q') || ''; // Get "q" from query string
     console.log("q:", q);
 
@@ -20,6 +25,7 @@ const QueryContent = () => {
     document.title = `${siteName} | ${q}`;
 
     if (error) return <ErrorComponent error={error} />;
+
 
     return (
         <>
