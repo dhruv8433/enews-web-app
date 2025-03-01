@@ -26,7 +26,6 @@ const Navbar: React.FC = () => {
 
     const searchParams = useSearchParams();
     const q = searchParams.get('q') || ''; // Get "q" from query string
-    console.log("q:", q);
 
 
     // Handle search on Enter key

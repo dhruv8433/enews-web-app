@@ -6,25 +6,39 @@ import { handleSignUp } from "../service/Auth.Firebase";
 import toast from "react-hot-toast";
 import { Box } from "@mui/material";
 import notifications from "../constants/notifications";
+import SyncLoader from 'react-spinners/SyncLoader';
 
 const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () => void, setLoginModal: (value: boolean) => void, setSignupModal: (value: boolean) => void }) => {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        setLoading(true);
         e.preventDefault();
-        if (form.password.length < 6) return toast.error(notifications.error.passwordLength.description)
+        if (form.password.length < 6) {
+            setLoading(false)
+            return toast.error(notifications.error.passwordLength.description)
+        }
         try {
             let userSignedUp = await handleSignUp(form.name, form.email, form.password)
-            if(userSignedUp !== undefined) setSignupModal(false)
+            if (userSignedUp !== undefined) {
+                setSignupModal(false)
+                setLoading(false)
+            }
         } catch (error) {
             console.error("Error signing up:", error);
+            setLoading(false)
             // toast.error("An error occurred during sign-up. Please try again.");
+        } finally {
+            setLoading(false);
         }
     }
+
+    console.log("loading", loading);
 
     return (
         <Box p={{ xs: "20px", md: "0px" }} className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
@@ -91,10 +105,17 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                     {/* Signup Button */}
                     <button
                         type="submit"
-                        className="w-full p-3 mt-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition font-semibold"
+                        className="w-full p-3 mt-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition font-semibold flex justify-center items-center"
                     >
-                        Sign Up
+                        {loading ? (
+                            <div className="flex justify-center items-center">
+                                <SyncLoader color={"#ffffff"} size={8} />
+                            </div>
+                        ) : (
+                            "Sign Up"
+                        )}
                     </button>
+
                 </form>
 
                 {/* Footer - Toggle to Login */}

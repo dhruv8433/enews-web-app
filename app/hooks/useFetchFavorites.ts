@@ -27,7 +27,7 @@ const useFetchFavorites = () => {
                 } as Headline,
             })) as HeadlineProps[];
 
-            console.log("Fetched favorites:", favsList);
+            // console.log("Fetched favorites:", favsList);
             setFavorites(favsList);
         } catch (err) {
             console.error("Error fetching favorites:", err);
