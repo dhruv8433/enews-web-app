@@ -38,19 +38,19 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
 
                     {/* Content Overlay */}
                     <div className="absolute bottom-0 left-0 p-4 w-full bg-black bg-opacity-60 backdrop-blur-md">
-                        <div className="md:p-6 rounded-lg md:min-h-[150px]">
-                            <div className="flex items-center justify-between mb-2">
+                        <div className="md:p-4 rounded-lg md:min-h-[150px]">
+                            <div className="flex items-center justify-between mb-1">
                                 <h1 className="bg-red-500 rounded-md text-white p-1">Trending</h1>
                                 <div className="flex items-center gap-2">
                                     <CalendarMonthIcon className="text-white" fontSize="small" />
                                     <p className="text-white">{new Date(headline.pub_date).toLocaleDateString()}</p>
                                 </div>
                             </div>
-                            <h3 className="text-white sm:text-xl md:text-3xl font-bold md:mb-4 truncate-3-lines line-clamp-2">
+                            <h3 className="text-white sm:text-xl md:text-3xl font-bold md:mb-2 truncate-3-lines line-clamp-2">
                                 {headline.headline.main.toUpperCase()}
                             </h3>
                             <Box display={{xs: "none", md: "flex"}}>
-                                <p className="text-white text-sm mb-4">{headline.abstract}</p>
+                                <p className="text-white text-sm">{headline.abstract}</p>
                             </Box>
                         </div>
                     </div>
