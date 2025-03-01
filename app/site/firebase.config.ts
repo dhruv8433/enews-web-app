@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { enableIndexedDbPersistence, getFirestore } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAWIZbFJI_HXiP0bXx6nGlI8ipwA5cDB_0",
