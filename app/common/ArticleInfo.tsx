@@ -21,7 +21,7 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                         <img
                             src={imageUrl + headline.multimedia[0].url}
                             alt="article image"
-                            className="w-full h-full object-fill relative"
+                            className="w-full h-[500px] object-fill relative"
                         />
                     </div>
                 )

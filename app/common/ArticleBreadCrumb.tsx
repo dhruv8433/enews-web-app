@@ -33,9 +33,9 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
         }
     };
 
-    const truncatedTitle = headline?.abstract?.length > 40
-        ? headline.abstract.slice(0, 40) + "..."
-        : headline?.abstract || "No Title";
+    const truncatedTitle = headline.headline?.main.length > 40
+        ? headline.headline?.main.slice(0, 40) + "..."
+        : headline.headline?.main || "No Title";
 
     const filteredId = headline?._id?.replace(/[^a-zA-Z0-9]/g, '_') || "";
 
@@ -77,7 +77,7 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
 
             {/* Comment Modal */}
             <Backdrop open={openModel} className='z-20'>
-                <CommentModal articleId={filteredId} onClose={() => setOpenModel(false)} />
+                <CommentModal articleId={filteredId} onClose={() => setOpenModel(false)} open={openModel} />
             </Backdrop>
         </div>
     );
