@@ -124,13 +124,21 @@ const notifications = {
             message: "Article ID missing!",
             description: "The article ID is missing. Please try again. Check console for more information.",
         },
-        loginForComment:{
+        loginForComment: {
             message: "Login to comment!",
             description: "You must logged in to comment.",
         },
-        weatherInfoFailed:{
+        weatherInfoFailed: {
             message: "Failed to fetch weather info!",
             description: "We couldn't find the weather information for this location.",
+        },
+        passwordLength: {
+            message: "Password too short!",
+            description: "Password must be at least 6 characters long.",
+        },
+        commentNotEmpty:{
+            message: "Comment can't be empty!",
+            description: "Please write a comment before submitting.",
         }
     },
 };
