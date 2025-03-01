@@ -4,7 +4,7 @@ import LargeContainer from '@/app/common/LargeContainer';
 import ProfileRoutes from '@/app/common/ProfileRoutes';
 import UserFavs from '@/app/components/profile/UserFavs';
 import UserReadLater from '@/app/components/profile/UserReadLater';
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useParams } from 'next/navigation'
 import React from 'react'
 import ConditionRender from './ConditionRender';
@@ -16,7 +16,7 @@ const page = () => {
     
     return (
         <LargeContainer>
-            <div className="my-20">
+            <Box my={{xs: "2rem", md: "5rem"}}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={4}>
                         <ProfileRoutes />
@@ -25,7 +25,7 @@ const page = () => {
                         <ConditionRender option={option || ''} />
                     </Grid>
                 </Grid>
-            </div>
+            </Box>
         </LargeContainer>
     )
 }
