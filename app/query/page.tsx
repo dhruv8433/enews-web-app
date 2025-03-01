@@ -19,7 +19,6 @@ const QueryContent = () => {
     }, [searchParams])
 
     const q = searchParams.get('q') || ''; // Get "q" from query string
-    console.log("q:", q);
 
     const { error, headlines, loading } = useHeadlines(q);
     document.title = `${siteName} | ${q}`;
