@@ -103,11 +103,11 @@ const Navbar: React.FC = () => {
 
 
 const Page = () => (
-    <LargeContainer>
+    <>
         <Suspense fallback={<h1>Loading query...</h1>}>
             <Navbar />
         </Suspense>
-    </LargeContainer>
+    </>
 );
 
 export default Page;
