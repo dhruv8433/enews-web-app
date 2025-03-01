@@ -5,6 +5,7 @@ import GoogleButton from "../common/GoogleButton";
 import { handleSignUp } from "../service/Auth.Firebase";
 import toast from "react-hot-toast";
 import { Box } from "@mui/material";
+import notifications from "../constants/notifications";
 
 const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () => void, setLoginModal: (value: boolean) => void, setSignupModal: (value: boolean) => void }) => {
     const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -15,9 +16,10 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (form.password.length < 6) return toast.error(notifications.error.passwordLength.description)
         try {
-            await handleSignUp(form.name, form.email, form.password)
-            setSignupModal(false)
+            let userSignedUp = await handleSignUp(form.name, form.email, form.password)
+            if(userSignedUp !== undefined) setSignupModal(false)
         } catch (error) {
             console.error("Error signing up:", error);
             // toast.error("An error occurred during sign-up. Please try again.");
@@ -25,7 +27,7 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
     }
 
     return (
-        <Box p={{xs: "20px", md: "0px"}} className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
+        <Box p={{ xs: "20px", md: "0px" }} className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
