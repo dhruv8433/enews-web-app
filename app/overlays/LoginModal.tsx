@@ -4,6 +4,8 @@ import { X } from "lucide-react";
 import GoogleButton from "../common/GoogleButton";
 import { handleLogin } from "../service/Auth.Firebase";
 import { Box } from "@mui/material";
+import toast from "react-hot-toast";
+import notifications from "../constants/notifications";
 
 const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () => void, setSignupModel: (value: boolean) => void, setLoginModel: (value: boolean) => void }) => {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -15,16 +17,16 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await handleLogin(form.email, form.password)
-            setLoginModel(false)
+            let userLoggedIn = await handleLogin(form.email, form.password)
+            console.log("user is logged in", userLoggedIn)
+            if (userLoggedIn !== undefined) setLoginModel(false)
         } catch (error) {
             console.error("Error signing up:", error);
-            // toast.error("An error occurred during sign-up. Please try again.");
         }
     }
 
     return (
-        <Box p={{xs: "20px", md: "0px"}} className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
+        <Box p={{ xs: "20px", md: "0px" }} className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -57,6 +59,7 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
                             onChange={handleChange}
                             className="w-full p-3 mt-1 text-gray-800 bg-gray-100 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition"
                             placeholder="Enter your email"
+                            required
                         />
                     </div>
 
@@ -71,6 +74,7 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
                             onChange={handleChange}
                             className="w-full p-3 mt-1 text-gray-800 bg-gray-100 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition"
                             placeholder="Enter your password"
+                            required
                         />
                     </div>
 

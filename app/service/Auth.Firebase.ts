@@ -16,6 +16,7 @@ const handleLogin = async (email: string, password: string) => {
     try {
         const user = await loginWithEmail(email, password);
         console.log("User logged in:", user);
+        return user;
     } catch (error) {
         console.error("Error logging in:", error);
     }
