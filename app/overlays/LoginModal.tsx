@@ -6,9 +6,11 @@ import { handleLogin } from "../service/Auth.Firebase";
 import { Box } from "@mui/material";
 import toast from "react-hot-toast";
 import notifications from "../constants/notifications";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () => void, setSignupModel: (value: boolean) => void, setLoginModel: (value: boolean) => void }) => {
     const [form, setForm] = useState({ email: "", password: "" });
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,12 +18,15 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setLoading(true)
         try {
             let userLoggedIn = await handleLogin(form.email, form.password)
             console.log("user is logged in", userLoggedIn)
             if (userLoggedIn !== undefined) setLoginModel(false)
         } catch (error) {
             console.error("Error signing up:", error);
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -81,10 +86,17 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
                     {/* Login Button */}
                     <button
                         type="submit"
-                        className="w-full p-3 mt-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition font-semibold"
+                        className="w-full p-3 mt-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition font-semibold flex justify-center items-center"
                     >
-                        Log In
+                        {loading ? (
+                            <div className="flex justify-center items-center">
+                                <SyncLoader color={"#ffffff"} size={8} />
+                            </div>
+                        ) : (
+                            "Login"
+                        )}
                     </button>
+
                 </form>
 
                 {/* Footer - Toggle to Signup */}
