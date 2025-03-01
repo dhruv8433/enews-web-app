@@ -31,7 +31,8 @@ const Navbar: React.FC = () => {
 
     // Handle search on Enter key
     const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && searchPrompt.trim() !== '') {
+        if (e.key === "Enter" && searchPrompt.trim() !== "") {
+            toast.loading('Searching: '+ searchPrompt)
             router.push(`/query?q=${encodeURIComponent(searchPrompt)}`);
         }
     };

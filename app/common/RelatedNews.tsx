@@ -5,6 +5,7 @@ import ErrorComponent from './ErrorComponent';
 import { SmallCardSkeleton } from './Skeleton.Site';
 import MyHeading from './MyHeading';
 import useSharedArticle from '../hooks/useSharedArticle';
+import { Grid } from '@mui/material';
 
 const RelatedNews = ({slug}: {slug: string}) => {
     const [isClient, setIsClient] = useState(false);
@@ -33,13 +34,13 @@ const RelatedNews = ({slug}: {slug: string}) => {
 
             {smallCardSkeletons}
 
-            <div className="mt-14">
+            <Grid spacing={3} container className="mt-14">
                 {headlines.length > 0 && headlines.slice(0, 5).map((article, index) => (
-                    <div className="my-4" key={index} >
+                    <Grid item xs={12} sm={6} md={12} className="my-4" key={index} >
                         <SmallCard headline={article} />
-                    </div>
+                    </Grid>
                 ))}
-            </div>
+            </Grid>
         </div>
     );
 };

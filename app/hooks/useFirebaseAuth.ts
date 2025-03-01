@@ -88,6 +88,6 @@ export const loginWithEmail = async (email: string, password: string) => {
         return user;
     } catch (error) {
         console.error("Login Error:", error);
-        throw error;
+        toast.error(notifications.error.loginFailed.description);
     }
 };
