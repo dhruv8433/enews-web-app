@@ -56,6 +56,7 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                             onChange={handleChange}
                             className="w-full p-3 mt-1 text-gray-800 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
                             placeholder="Enter your name"
+                            required
                         />
                     </div>
 
@@ -68,6 +69,7 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                             onChange={handleChange}
                             className="w-full p-3 mt-1 text-gray-800 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
                             placeholder="Enter your email"
+                            required
                         />
                     </div>
 
@@ -80,6 +82,7 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                             onChange={handleChange}
                             className="w-full p-3 mt-1 text-gray-800 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
                             placeholder="Create a password"
+                            required
                         />
                     </div>
 
