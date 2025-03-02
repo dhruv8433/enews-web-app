@@ -31,6 +31,7 @@ body {
 
 .myDeleteIcon {
   position: absolute !important;
+  background: white !important; 
 }
 
 .empty-state-icon {
