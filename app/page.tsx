@@ -22,7 +22,7 @@ export default function Home() {
       <EducationSection />
 
       {/* Travel and Adventure Section */}
-      <TravelAndAdventureGrid />
+      {/* <TravelAndAdventureGrid /> */}
 
       {/* Social Section */}
       {/* <SocialSection /> */}
