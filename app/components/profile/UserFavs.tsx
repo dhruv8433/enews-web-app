@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from "react";
 import HorizontalCard from "@/app/common/HorizontalCard";
 import useFetchFavorites from "@/app/hooks/useFetchFavorites";
-import { Pagination } from "@mui/material";
+import { Grid, Grid2, Pagination } from "@mui/material";
 import ErrorComponent from "@/app/common/ErrorComponent";
 import MyHeading from "@/app/common/MyHeading";
-import Lottie from 'lottie-react'
-import LikeAnimation from '@/app/Animation/LikeAnimation.json'
+import Lottie from "lottie-react";
+import LikeAnimation from "@/app/Animation/LikeAnimation.json";
 import { HorizontalCardSkeleton } from "@/app/common/Skeleton.Site";
 
 const UserFavs = () => {
@@ -22,18 +22,19 @@ const UserFavs = () => {
         removeFavorite(articleId);
     };
 
-    const skeletonContainer =
-        Array.from({ length: 2 }).map((_, index) =>
-            <div className="my-2" key={index}>
-                <HorizontalCardSkeleton isProfilePage={false} />
-            </div>
-        )
+    const skeletonContainer = Array.from({ length: 2 }).map((_, index) => (
+        <div className="my-2" key={index}>
+            <HorizontalCardSkeleton isProfilePage={false} />
+        </div>
+    ));
 
-    // loading skeletons
-    if (loading) return <div className="p-5 bg-white rounded-lg min-h-full">
-        <MyHeading title="Favorites" />
-        {skeletonContainer}
-    </div>;
+    if (loading)
+        return (
+            <div className="p-5 bg-white rounded-lg min-h-full">
+                <MyHeading title="Favorites" />
+                {skeletonContainer}
+            </div>
+        );
 
     if (error) return <ErrorComponent error={error} />;
 
@@ -51,17 +52,20 @@ const UserFavs = () => {
                 </div>
             ) : (
                 <>
-                    {/* Display Favorites */}
-                    {displayedFavorites.map((article, index) => (
-                        <HorizontalCard
-                            key={index}
-                            headline={article.headline}
-                            isProfilePage={true}
-                            onRemove={() => handleRemove(article.headline._id)}
-                        />
-                    ))}
+                    {/* Display Favorites in a Grid */}
+                    <Grid container spacing={2}>
+                        {displayedFavorites.map((article) => (
+                            <Grid item xs={12} md={6} key={article.headline._id}>
+                                <HorizontalCard
+                                    headline={article.headline}
+                                    isProfilePage={true}
+                                    onRemove={() => handleRemove(article.headline._id)}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
 
-                    {/* Show Pagination Only If Favorites >= 5 */}
+                    {/* Pagination */}
                     {favorites.length >= 3 && (
                         <div className="flex justify-center mt-6">
                             <Pagination
