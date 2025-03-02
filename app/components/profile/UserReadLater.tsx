@@ -4,7 +4,7 @@ import HorizontalCard from "@/app/common/HorizontalCard";
 import MyHeading from "@/app/common/MyHeading";
 import ErrorComponent from "@/app/common/ErrorComponent";
 import { HorizontalCardSkeleton } from "@/app/common/Skeleton.Site";
-import { Pagination } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 import Lottie from "lottie-react";
 import bookmarkAnimation from '@/app/Animation/bookmarkAnimation.json'
 
@@ -50,14 +50,18 @@ const UserReadLater = () => {
         </div>
       ) : (
         <div>
-          {displayedBookmarked.map((article: any, index) => (
-            <HorizontalCard
-              key={index}
-              headline={article.headline}
-              isProfilePage={true}
-              onRemove={() => removeReadLater(article.headline._id)} // Remove from state
-            />
-          ))}
+          <Grid container spacing={2}>
+            {displayedBookmarked.map((article: any, index) => (
+              <Grid item xs={12} md={6} key={index}>
+                <HorizontalCard
+                  key={index}
+                  headline={article.headline}
+                  isProfilePage={true}
+                  onRemove={() => removeReadLater(article.headline._id)} // Remove from state
+                />
+              </Grid>
+            ))}
+          </Grid>
         </div>
       )}
 
