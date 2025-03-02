@@ -18,7 +18,6 @@ const CommentModal = ({ open, articleId, onClose }: { open: boolean; articleId: 
         await addComment(comment);
         setComment("");
         onClose();
-        toast.success("Comment added successfully!");
     };
 
     // Handle error messages
