@@ -1,32 +1,37 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import LargeContainer from "./common/LargeContainer";
 import ListCategoryContainer from "./common/ListContainer";
-import BusinessAndCareerGrid from "./components/home/BusinessAndCareerGrid";
-import EducationSection from "./components/home/EducationSection";
 import HomeSwiper from "./components/home/HomeSwiper";
-import SocialSection from "./components/home/SocialSection";
-import TravelAndAdventureGrid from "./components/home/TravelAndAdventureGrid";
+import LazyComponent from "./common/LazyComponent";
+
+// ✅ Lazy load components
+const BusinessAndCareerGrid = dynamic(() => import("./components/home/BusinessAndCareerGrid"), { ssr: false });
+const EducationSection = dynamic(() => import("./components/home/EducationSection"), { ssr: false });
+const TravelAndAdventureGrid = dynamic(() => import("./components/home/TravelAndAdventureGrid"), { ssr: false });
+const SocialSection = dynamic(() => import("./components/home/SocialSection"), { ssr: false });
 
 export default function Home() {
   return (
     <LargeContainer>
-      {/* home page swiper and right side card */}
+      {/* Home page Swiper */}
       <HomeSwiper />
 
-      {/* list container */}
+      {/* List Category Container */}
       <ListCategoryContainer />
 
-      {/* business and career section */}
-      <BusinessAndCareerGrid />
+      {/* Business & Career Section */}
+      <LazyComponent component={BusinessAndCareerGrid} />
 
-      {/* education section */}
-      <EducationSection />
+      {/* Education Section */}
+      <LazyComponent component={EducationSection} />
 
-      {/* Travel and Adventure Section */}
-      {/* <TravelAndAdventureGrid /> */}
+      {/* Travel & Adventure Section */}
+      {/* <LazyComponent component={TravelAndAdventureGrid} /> */}
 
       {/* Social Section */}
-      {/* <SocialSection /> */}
-      
+      {/* <LazyComponent component={SocialSection} /> */}
     </LargeContainer>
   );
 }
