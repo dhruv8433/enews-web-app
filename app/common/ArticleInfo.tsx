@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { HeadlineProps } from '../types/headline.types';
-import Image from 'next/image';
-import { imageUrl } from '../site/site.config';
 import Link from 'next/link';
-import { Slider, Typography, Box } from '@mui/material';
+import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { Slider, Box } from '@mui/material';
+import { imageUrl } from '../site/site.config';
+import { HeadlineProps } from '../types/headline.types';
 
 const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
     // 🔥 State for font size
