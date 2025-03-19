@@ -27,13 +27,13 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
             </div>
 
             <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`}>
-                <div className="h-auto" onClick={() => handleShareArticle(headline)}>
+                <div className="max-h-full" onClick={() => handleShareArticle(headline)}>
 
                     {/* Image Section */}
                     <img
                         src={imageUrl + headline.multimedia[0]?.url}
                         alt={headline.headline.main}
-                        className={`w-full  ${isSmallSwiper ? "h-[400px]" : "h-full"} object-fill transition-transform duration-700 hover:scale-125`}
+                        className={`w-full  ${isSmallSwiper ? "h-[500px]" : "h-full"} object-fill transition-transform duration-700 hover:scale-125`}
                     />
 
                     {/* Content Overlay */}

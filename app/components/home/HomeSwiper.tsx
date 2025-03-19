@@ -33,7 +33,7 @@ export default function HomeSwiper() {
                 {/* Swiper left side */}
                 <Grid item xs={12} md={9}>
                     {headlines.length > 0 ? (
-                        <MySwiperPagination className="h-[700px] w-full rounded-xl">
+                        <MySwiperPagination className="max-h-[740px] w-full rounded-xl">
                             {headlines.map((headline: any) => (
                                 <SwiperSlide key={headline._id} className="h-full">
                                     <SwiperCard headline={headline} />
