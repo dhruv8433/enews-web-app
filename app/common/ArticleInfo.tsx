@@ -51,9 +51,9 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
 
             {/* 🔠 Font Size Adjuster */}
             <Box className="mt-4 border p-4 rounded-md shadow-sm">
-                <Typography variant="subtitle1" className="text-gray-700 font-semibold mb-2">
+                <p className="text-gray-700 font-semibold mb-2">
                     Adjust Font Size:
-                </Typography>
+                </p>
                 <Slider
                     value={fontSize}
                     onChange={(_, newValue) => setFontSize(newValue as number)}
