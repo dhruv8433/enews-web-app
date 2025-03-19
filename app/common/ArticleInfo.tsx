@@ -1,33 +1,36 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { HeadlineProps } from '../types/headline.types'
-import Image from 'next/image'
-import { imageUrl } from '../site/site.config'
-import Link from 'next/link'
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { Slider, Box } from '@mui/material';
+import { imageUrl } from '../site/site.config';
+import { HeadlineProps } from '../types/headline.types';
 
 const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
+    // 🔥 State for font size
+    const [fontSize, setFontSize] = useState(16);
+
+    const fontSizes = [14, 16, 18, 20, 22];
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 50 }
-            }
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="mx-auto rounded-xl mt-10"
             id="articleContent"
         >
-            {
-                headline.multimedia?.length > 0 && (
-                    <div className="w-full h-full relative rounded-lg overflow-hidden">
-                        <img
-                            src={imageUrl + headline.multimedia[0].url}
-                            alt="article image"
-                            className="w-full h-[500px] object-fill relative"
-                        />
-                    </div>
-                )
-            }
+            {/* 📷 Article Image */}
+            {headline.multimedia?.length > 0 && (
+                <div className="w-full h-full relative rounded-lg overflow-hidden">
+                    <img
+                        src={imageUrl + headline.multimedia[0].url}
+                        alt="article image"
+                        className="w-full h-[500px] object-fill relative"
+                    />
+                </div>
+            )}
 
-            {/* 📰 article */}
+            {/* 📰 Article Title */}
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -45,20 +48,27 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                 {new Date(headline.pub_date).toLocaleDateString()} • {headline?.source}
             </p>
 
-            {/* 🏷️ Tags */}
-            <div className="flex flex-wrap gap-2 mt-4">
-                {headline?.keywords?.map((keyword: any, index: number) => (
-                    <Link href={`/query?q=${keyword.value}`}
-                        key={index}
-                        className="text-xs font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-full"
-                    >
-                        {keyword.value}
-                    </Link>
-                ))}
-            </div>
+            {/* 🔠 Font Size Adjuster */}
+            <Box className="mt-4 border p-4 rounded-md shadow-sm">
+                <p className="text-gray-700 font-semibold mb-2">
+                    Adjust Font Size:
+                </p>
+                <Slider
+                    value={fontSize}
+                    onChange={(_, newValue) => setFontSize(newValue as number)}
+                    step={2}
+                    marks={fontSizes.map(size => ({ value: size, label: `${size}px` }))}
+                    min={14}
+                    max={22}
+                    className='p-2'
+                    valueLabelDisplay="auto"
+                />
+            </Box>
 
-            {/* 📝 Snippet */}
-            <p className="mt-4 text-gray-700 leading-relaxed">{headline?.abstract}</p>
+            {/* 📝 Snippet (Font size changes dynamically) */}
+            <p className="mt-4 text-gray-700 leading-relaxed" style={{ fontSize: `${fontSize}px` }}>
+                {headline?.abstract}
+            </p>
 
             {/* 🔗 Read More */}
             <Link href={headline?.web_url ?? "#"} target="_blank" rel="noopener noreferrer">
@@ -69,8 +79,8 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                     Read Full Article →
                 </motion.div>
             </Link>
+        </motion.div>
+    );
+};
 
-        </motion.div>)
-}
-
-export default ArticleInfo
+export default ArticleInfo;
