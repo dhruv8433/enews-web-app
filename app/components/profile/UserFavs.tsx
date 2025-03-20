@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import HorizontalCard from "@/app/common/HorizontalCard";
 import useFetchFavorites from "@/app/hooks/useFetchFavorites";
-import { Grid, Grid2, Pagination } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 import ErrorComponent from "@/app/common/ErrorComponent";
 import MyHeading from "@/app/common/MyHeading";
 import Lottie from "lottie-react";

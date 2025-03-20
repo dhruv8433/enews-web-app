@@ -14,6 +14,7 @@ const Footer = () => {
 
     const handleSubscribe = (e: React.FormEvent) => {
         e.preventDefault();
+        console.log(message);
         subscribeUser(email);
         toast.success(notifications.success.userSubscribed.description)
         setEmail(""); // Clear input after subscription

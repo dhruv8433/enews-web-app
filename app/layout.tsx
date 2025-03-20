@@ -6,7 +6,7 @@ import GlobalAdvertise from "./components/headers/GlobalAdvertise";
 import { Toaster } from 'react-hot-toast'
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
-import { Paper, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import MyDiv from "./common/MyDiv";
 
 const geistSans = Geist({
@@ -25,8 +25,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const theme = useTheme();
 
   return (
     <html lang="en">

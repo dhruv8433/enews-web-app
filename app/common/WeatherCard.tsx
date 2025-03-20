@@ -6,7 +6,6 @@ import { getCurrentTheme } from "../util/ThemeProvideWrapper"; // Import functio
 
 const WeatherCard: React.FC = () => {
   const [city, setCity] = useState<string>();
-  const currentTheme = getCurrentTheme(); // Get theme name
   const { weather, loading, error } = useWeather(city || "mumbai");
 
   useEffect(() => {

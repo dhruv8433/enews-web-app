@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Divider, Backdrop, Box, Button, Typography } from "@mui/material";
+import { Divider, Backdrop, Box} from "@mui/material";
 import { profileLinks } from "../site/site.config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../site/firebase.config";

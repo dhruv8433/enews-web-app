@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import { loginWithEmail, signUpWithEmail } from "../hooks/useFirebaseAuth";
 
 // Sign up a new user
