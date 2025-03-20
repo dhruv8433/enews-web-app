@@ -8,13 +8,15 @@ import MyInput from '@/app/common/MyInput'
 import { useRouter, useSearchParams } from 'next/navigation'
 import MyButtons from '@/app/common/MyButtons'
 import { routes } from '@/app/site/site.config'
-import { Backdrop, Box, Drawer, IconButton } from '@mui/material'
+import { Backdrop, Box, Drawer, IconButton, useTheme } from '@mui/material'
 import LargeContainer from '@/app/common/LargeContainer'
 import PhoneNavDrawer from '@/app/overlays/PhoneNavDrawer'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/app/site/firebase.config'
 import SignupModal from '@/app/overlays/SignupModal'
 import LoginModal from '@/app/overlays/LoginModal'
+import ThemeManager from '@/app/util/ThemeProvideWrapper'
+import MyDiv from '@/app/common/MyDiv'
 
 const Navbar: React.FC = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -36,8 +38,10 @@ const Navbar: React.FC = () => {
         }
     };
 
+    const theme = useTheme();
+
     return (
-        <div className='bg-white py-4'>
+        <MyDiv isPrimary className='py-4'>
             <LargeContainer>
                 <div className="flex justify-between items-center">
                     <div className='flex items-center'>
@@ -78,6 +82,10 @@ const Navbar: React.FC = () => {
                         ) : (
                             <MyButtons title='Sign in' onClick={() => setOpenModal(true)} className='p-2 rounded' />
                         )}
+
+                        {/* theme button */}
+                        <ThemeManager/>
+
                     </div>
                 </div>
                 <Backdrop open={openModal} className='z-20'>
@@ -97,7 +105,7 @@ const Navbar: React.FC = () => {
                     <PhoneNavDrawer />
                 </div>
             </Drawer>
-        </div>
+        </MyDiv>
     )
 }
 
