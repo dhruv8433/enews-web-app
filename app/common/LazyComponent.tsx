@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, ComponentType } from "react";
 
 interface LazyComponentProps {
-  component: ComponentType<any>; // Accepts a React component
+  component: ComponentType<unknown>; // Accepts a React component
 }
 
 const LazyComponent: React.FC<LazyComponentProps> = ({ component: Component }) => {

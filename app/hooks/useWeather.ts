@@ -3,7 +3,7 @@ import { getWeatherInfo } from "../service/getWeatherInfo";
 import notifications from "../constants/notifications";
 
 export const useWeather = (location: string) => {
-    const [weather, setWeather] = useState<any>(null);
+    const [weather, setWeather] = useStateunknown>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<{ message: string; details?: string } | null>(null);
 
