@@ -5,18 +5,19 @@ import { getTheme, themes } from "./theme";
 import { Menu, MenuItem, IconButton, Box } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
 
-export function getCurrentTheme() {
-  return localStorage.getItem("theme") || "default";
-}
-
 export default function ThemeManager() {
-  const [theme, setTheme] = useState<string>(getCurrentTheme());
+  const [theme, setTheme] = useState<string>("default"); // Default theme
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    applyTheme(theme);
-  }, [theme]);
+    if (typeof window !== "undefined") {
+      // Ensure it runs only on the client
+      const savedTheme = localStorage.getItem("theme") || "default";
+      setTheme(savedTheme);
+      applyTheme(savedTheme);
+    }
+  }, []);
 
   const applyTheme = (themeName: string) => {
     const themeColors = getTheme(themeName);
@@ -30,7 +31,9 @@ export default function ThemeManager() {
 
   const changeTheme = (themeName: string) => {
     setTheme(themeName);
-    localStorage.setItem("theme", themeName);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("theme", themeName);
+    }
     applyTheme(themeName);
     setAnchorEl(null); // Close menu after selection
   };

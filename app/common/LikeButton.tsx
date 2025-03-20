@@ -12,8 +12,9 @@ import { IconButton } from "@mui/material";
 import React from "react";
 import useLikeArticle from "../hooks/useLikeArticle";
 import useFetchFavorites from "../hooks/useFetchFavorites";
+import { Headline } from "../types/headline.types";
 
-const LikeButton = ({ article, isProfile }: { article: any, isProfile: boolean }) => {
+const LikeButton = ({ article, isProfile }: { article: Headline, isProfile: boolean }) => {
   const { isFavorite, toggleFavorite } = useLikeArticle(article);
   const { removeFavorite } = useFetchFavorites();
   return (

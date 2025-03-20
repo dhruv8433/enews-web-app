@@ -8,6 +8,7 @@ import { Grid, Pagination } from "@mui/material";
 import Lottie from "lottie-react";
 import bookmarkAnimation from '@/app/Animation/bookmarkAnimation.json'
 import MyDiv from "@/app/common/MyDiv";
+import { HeadlineProps } from "@/app/types/headline.types";
 
 const UserReadLater = () => {
   const { readLater, error, loading, removeReadLater } = useFetchReadLater();
@@ -52,7 +53,7 @@ const UserReadLater = () => {
       ) : (
         <div>
           <Grid container spacing={2}>
-            {displayedBookmarked.map((article: any, index) => (
+            {displayedBookmarked.map((article: HeadlineProps, index) => (
               <Grid item xs={12} md={6} key={index}>
                 <HorizontalCard
                   key={index}

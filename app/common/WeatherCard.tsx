@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useWeather } from "@/app/hooks/useWeather";
 import { motion } from "framer-motion";
 import ErrorComponent from "./ErrorComponent";
-import { getCurrentTheme } from "../util/ThemeProvideWrapper"; // Import function
 
 const WeatherCard: React.FC = () => {
   const [city, setCity] = useState<string>();

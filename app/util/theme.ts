@@ -1,4 +1,16 @@
-export const themes: any = {
+type Theme = {
+  background: string;
+  text: string;
+  primary: string;
+  secondary: string;
+  button: string;
+  cardBackground: string;
+  gradient: string;
+};
+
+type ThemeOptions = "default" | "dark" | "cupcake" | "corporate" | "emerald" | "retro" | "cyberpunk" | "sunset";
+
+export const themes: Record<ThemeOptions, Theme> = {
   default: {
     background: "#f2f2f2",
     text: "#000000",
@@ -24,7 +36,7 @@ export const themes: any = {
     secondary: "#ffffff",
     button: "#ff4081",
     cardBackground: "#ffffff",
-    gradient: "linear-gradient(135deg, #ff80ab, #ffccbc)", // Lite Purlpe gradient
+    gradient: "linear-gradient(135deg, #ff80ab, #ffccbc)", // Lite Purple gradient
   },
   corporate: {
     background: "#f5f5f5",
@@ -73,4 +85,5 @@ export const themes: any = {
   },
 };
 
-export const getTheme = (theme: string) => themes[theme] || themes.default;
+// Function to get the theme safely
+export const getTheme = (theme: string): Theme => themes[theme as ThemeOptions] || themes.default;

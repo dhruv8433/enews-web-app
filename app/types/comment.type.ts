@@ -3,5 +3,5 @@ export type Comment = {
   userId: string;
   username: string;
   comment: string;
-  createdAt: any;
+  createdAt: Date;
 }

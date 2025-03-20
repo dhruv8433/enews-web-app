@@ -38,8 +38,6 @@ const Navbar: React.FC = () => {
         }
     };
 
-    const theme = useTheme();
-
     return (
         <MyDiv isPrimary className='py-4'>
             <LargeContainer>
@@ -69,7 +67,7 @@ const Navbar: React.FC = () => {
                     {/* User Section */}
                     <div className="buttons flex gap-2 items-center">
                         <Box display={{ xs: "none", md: "flex" }}>
-                            <MyInput name='search' placeholder='Search...' type='text' className='p-2 rounded' value={searchPrompt} onChange={(e) => setSearchPrompt(e.target.value)} onKeyDown={handleSearchKeyPress} />
+                            <MyInput name='search' placeholder='Search...' type='text' className='p-2 rounded' value={searchPrompt} onChange={(e) => setSearchPrompt(e?.target?.value)} onKeyDown={handleSearchKeyPress} />
                         </Box>
 
                         {userInfo ? (

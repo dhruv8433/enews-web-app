@@ -28,6 +28,7 @@ const RelatedNews = ({ slug }: { slug: string }) => {
 
     // any error occure than 
     if (error) return <ErrorComponent error={error} />;
+    if (customError) return <ErrorComponent error={customError} />;
 
     return (
         <div className='mt-10'>

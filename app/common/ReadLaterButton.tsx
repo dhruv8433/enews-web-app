@@ -11,7 +11,7 @@ import React from "react";
 import { IconButton } from "@mui/material";
 import useReadLater from "../hooks/useReadLater";
 import { Bookmark, BookmarkBorder } from "@mui/icons-material";
-import { Headline, HeadlineProps } from "../types/headline.types";
+import { HeadlineProps } from "../types/headline.types";
 
 const ReadLaterButton: React.FC<HeadlineProps> = ({ headline }) => {
 
