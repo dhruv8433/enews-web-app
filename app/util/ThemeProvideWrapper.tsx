@@ -13,6 +13,7 @@ export default function ThemeManager() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       // Ensure it runs only on the client
+      console.log(theme);
       const savedTheme = localStorage.getItem("theme") || "default";
       setTheme(savedTheme);
       applyTheme(savedTheme);
