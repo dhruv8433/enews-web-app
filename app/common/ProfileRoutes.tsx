@@ -137,5 +137,6 @@ const ProfileRoutes = () => {
             </motion.div>
         );
     };
+}
 
-    export default ProfileRoutes;
+export default ProfileRoutes;
