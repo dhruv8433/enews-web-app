@@ -20,14 +20,15 @@ import slugify from "slugify";
 import { Box, IconButton } from "@mui/material";
 import { DeleteOutline } from "@mui/icons-material";
 import { handleShareArticle } from "../service/ShareArticleService";
+import MyDiv from "./MyDiv";
 
 const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headline, isProfilePage: boolean, onRemove: (id: string) => void }) => {
   return (
-    <div className={`relative bg-white shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:shadow-xl my-4 group ${isProfilePage ? 'flex flex-col' : ''}`}>
+    <MyDiv isSecondary={!isProfilePage ? true : false} className={`relative shadow-lg rounded-lg overflow-hidden transition-transform duration-300 hover:shadow-xl my-4 group ${isProfilePage ? 'flex flex-col' : ''}`}>
 
       {/* Like Button (Only if not in profile page) */}
       {!isProfilePage && (
-        <div className="absolute top-3 left-3 bg-white z-10 rounded-full">
+        <div className="absolute top-3 left-3 z-10 rounded-full">
           <LikeButton article={headline} isProfile={isProfilePage} />
         </div>
       )}
@@ -48,7 +49,7 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
           <div className={`p-4 flex flex-col justify-between ${isProfilePage ? 'w-full text-center' : 'w-2/3'}`}>
             {/* Tag & Date */}
             <div className={`flex items-center justify-between text-sm text-gray-600`}>
-              <span className="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-md">
+              <span style={{ color: `var(--text)`, background: `var(--background)` }} className=" text-xs font-semibold px-2 py-1 rounded-md">
                 Trending
               </span>
               <div className="flex items-center gap-1">
@@ -58,7 +59,7 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
             </div>
 
             {/* Headline */}
-            <h3 className="text-lg font-bold text-gray-800 mt-2 line-clamp-2 transition-all duration-300 hover:text-blue-900">
+            <h3 style={{ color: `var(--text)`, }} className="text-lg font-bold mt-2 line-clamp-2 transition-all duration-300 hover:text-blue-900">
               {headline.headline.main}
             </h3>
           </div>
@@ -89,7 +90,7 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
           </Box>
         </>
       )}
-    </div>
+    </MyDiv>
   );
 };
 
