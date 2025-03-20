@@ -52,24 +52,24 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
             >
                 <Box className="justify-between" display={{ xs: 'block', md: 'flex' }}>
                     <div className="">
-                        <h1 className="text-xl md:text-2xl font-semibold text-blue-900 my-2">{truncatedTitle}</h1>
+                        <h1 style={{color: `var(--text)`}} className="text-xl md:text-2xl font-semibold my-2">{truncatedTitle}</h1>
                         <Breadcrumbs className='flex flex-col'>
-                            <Link href={`/`} className="hover:underline">Home</Link>
+                            <Link href={`/`} className="hover:underline text-blue-500">Home</Link>
                             {headline?.section_name && (
-                                <Link href={`/query?q=${headline.section_name}`} className="hover:underline">
+                                <Link href={`/query?q=${headline.section_name}`} className="hover:underline text-blue-500">
                                     {headline.section_name}
                                 </Link>
                             )}
-                            <p className="text-blue-900">{truncatedTitle}</p>
+                            <p style={{color: `var(--text)`}}>{truncatedTitle}</p>
                         </Breadcrumbs>
                     </div>
                     {/* Action Buttons */}
                     <div className="flex items-center justify-end space-x-4 mt-6">
                         <LikeButton article={headline} isProfile={false} />
                         <ReadLaterButton article={headline} />
-                        <IconButton aria-label="priny" color="default" onClick={handlePrint}><PrintOutlined /></IconButton>
-                        <IconButton aria-label="share" color="default" onClick={handleShare}><ShareOutlined /></IconButton>
-                        <IconButton aria-label="comment" color="default" onClick={() => setOpenModel(true)}><MapsUgcOutlined /></IconButton>
+                        <IconButton aria-label="priny" style={{color: `var(--text)`}} onClick={handlePrint}><PrintOutlined /></IconButton>
+                        <IconButton aria-label="share"  style={{color: `var(--text)`}} onClick={handleShare}><ShareOutlined /></IconButton>
+                        <IconButton aria-label="comment"  style={{color: `var(--text)`}} onClick={() => setOpenModel(true)}><MapsUgcOutlined /></IconButton>
                     </div>
                 </Box>
 

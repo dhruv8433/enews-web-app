@@ -20,7 +20,8 @@ const LikeButton = ({ article, isProfile }: { article: any, isProfile: boolean }
     <IconButton
       aria-label="like"
       onClick={() => (isProfile ? removeFavorite(article._id) : toggleFavorite())}
-      className="text-red-500 text-2xl transition-transform duration-200 hover:scale-110 w-min"
+      style={{ background: `var(--background)`}}
+      className="text-red-500 text-2xl transition-transform duration-200 hover:scale-110 w-min border-none"
     >
       {isFavorite ? <Favorite color="error" /> : <FavoriteBorder color="error" />}
     </IconButton>
