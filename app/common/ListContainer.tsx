@@ -29,9 +29,10 @@ const ListCategoryContainer: React.FC = () => {
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.backgroundColor = "transparent"; // Reset background
-                                e.currentTarget.style.color = "inherit"; // Reset text color
+                                e.currentTarget.style.color = `var(--primarytext)`; // Reset text color
                             }}
                             className="border border-black rounded mx-3 px-2 py-1 cursor-pointer hover:font-semibold"
+                            style={{color: `var(--primarytext)`}}
                         >
                             {response}
                         </h1>
