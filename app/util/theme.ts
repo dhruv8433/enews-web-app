@@ -27,7 +27,7 @@ export const themes: Record<ThemeOptions, Theme> = {
   default: {
     background: "#f2f2f2",
     text: "#000000",
-    primarytext: "#1e90ff",
+    primarytext: "#000",
     primary: "#ffffff",
     secondary: "#fffbfb",
     button: "#1e90ff",
@@ -48,7 +48,7 @@ export const themes: Record<ThemeOptions, Theme> = {
   },
   cupcake: {
     background: "#fce4ec",
-    text: "#de3163",
+    text: "#00214d",
     primarytext: "#ff80ab",
     primary: "#ff80ab",
     secondary: "#ffffff",
@@ -91,9 +91,9 @@ export const themes: Record<ThemeOptions, Theme> = {
     icon: "#000",
   },
   cyberpunk: {
-    background: "#000000",
-    text: "#ff00ff",
-    primarytext: "#00ffff",
+    background: "#efe5e5",
+    text: "#12086f",
+    primarytext: "#00214d",
     primary: "#00ffff",
     secondary: "#ff00ff",
     button: "#00ff00",
@@ -136,7 +136,7 @@ export const themes: Record<ThemeOptions, Theme> = {
   },
   lavender: {
     background: "#e6e6fa",
-    text: "#4b0082",
+    text: "#000",
     primarytext: "#6a5acd",
     primary: "#7b68ee",
     secondary: "#8a2be2",
