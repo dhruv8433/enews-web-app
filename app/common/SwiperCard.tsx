@@ -40,7 +40,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
                     <div className="absolute bottom-0 left-0 p-4 w-full bg-black bg-opacity-60 backdrop-blur-md">
                         <div className="md:p-4 rounded-lg md:min-h-[150px]">
                             <div className="flex items-center justify-between mb-1">
-                                <h1 style={{ background: `var(--background)`, color: `var(--text)` }} className=" rounded-md text-white p-1">Trending</h1>
+                                <h1 style={{ background: `var(--background)`, color: `var(--primarytext)` }} className=" rounded-md text-white p-1">Trending</h1>
                                 <div className="flex items-center gap-2">
                                     <CalendarMonthIcon className="text-white" fontSize="small" />
                                     <p className="text-white">{new Date(headline.pub_date).toLocaleDateString()}</p>
