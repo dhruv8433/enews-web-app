@@ -80,8 +80,8 @@ const ProfileRoutes: React.FC = () => {
                     className="w-32 h-32 rounded-full border-4 border-blue-500 shadow-md"
                 />
                 <div className="text-center">
-                    <h2 className="text-lg font-semibold text-gray-900">{user?.displayName}</h2>
-                    <p className="text-sm text-gray-500">{user?.email}</p>
+                    <h2 className="text-lg font-semibold" style={{color: `var(--text)`}}>{user?.displayName}</h2>
+                    <p className="text-sm" color="var(--text)">{user?.email}</p>
                 </div>
             </div>
 
@@ -107,7 +107,8 @@ const ProfileRoutes: React.FC = () => {
                     ) : (
                         <Link key={index} href={'/profile/' + link.route}>
                             <motion.div
-                                className={`flex items-center gap-3 p-3 rounded-lg text-gray-700 my-2 ${option == slugify(link.name).toLowerCase() ? "text-white bg-blue-700" : ""} `}
+                                className={`flex items-center gap-3 p-3 rounded-lg my-2`}
+                                style={{backgroundColor: option == slugify(link.name).toLowerCase() ? "var(--background)" : ""}}
                             >
                                 <Box display={{ xs: "none", md: "flex" }}>
                                     <span className="text-lg"><IconComponent /></span>

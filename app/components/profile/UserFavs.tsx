@@ -32,7 +32,7 @@ const UserFavs = () => {
     if (loading)
         return (
             <MyDiv isSecondary className="p-5 rounded-lg min-h-full">
-                <MyHeading title="Favorites" />
+                <MyHeading isBackground title="Favorites" />
                 {skeletonContainer}
             </MyDiv>
         );
@@ -42,7 +42,7 @@ const UserFavs = () => {
     return (
         <MyDiv isPrimary className="p-5 rounded-lg min-h-full">
             <div className="px-2">
-                <MyHeading title="Favorites" />
+                <MyHeading isBackground title="Favorites" />
             </div>
 
             {/* Empty State */}
@@ -73,7 +73,10 @@ const UserFavs = () => {
                                 count={Math.ceil(favorites.length / itemsPerPage)}
                                 page={currentPage}
                                 onChange={(_, value) => setCurrentPage(value)}
-                                color="primary"
+                                sx={{
+                                    "& .MuiPaginationItem-root": { color: "var(--text)" }, // Text color
+                                    "& .MuiPaginationItem-page.Mui-selected": { backgroundColor: "var(--text)", color: "var(--primarytext)" }, // Selected page color
+                                }}
                             />
                         </div>
                     )}
