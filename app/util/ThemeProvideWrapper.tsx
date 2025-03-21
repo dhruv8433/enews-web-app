@@ -55,7 +55,7 @@ export default function ThemeManager() {
         <PaletteIcon />
       </IconButton>
 
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} >
         {Object.keys(themes).map((t) => (
           <MenuItem key={t} onClick={() => changeTheme(t)}>
             <Box
