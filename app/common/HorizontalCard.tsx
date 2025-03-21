@@ -49,7 +49,7 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
           <div className={`p-4 flex flex-col justify-between ${isProfilePage ? 'w-full text-center' : 'w-2/3'}`}>
             {/* Tag & Date */}
             <div className={`flex items-center justify-between text-sm text-gray-600`}>
-              <span style={{ color: `var(--text)`, background: `var(--background)` }} className=" text-xs font-semibold px-2 py-1 rounded-md">
+              <span style={{ color: `var(--primarytext)`, background: `var(--background)` }} className=" text-xs font-semibold px-2 py-1 rounded-md">
                 Trending
               </span>
               <div className="flex items-center gap-1">
@@ -59,9 +59,14 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
             </div>
 
             {/* Headline */}
-            <h3 style={{ color: `var(--text)`, }} className="text-lg font-bold mt-2 line-clamp-2 transition-all duration-300 hover:text-blue-900">
+            <h3
+              style={{ color: `var(--text)` }}
+              className={`text-lg font-bold mt-2 transition-all duration-300 hover:text-blue-900 ${isProfilePage ? "truncate w-full" : "line-clamp-2"
+                }`}
+            >
               {headline.headline.main}
             </h3>
+
           </div>
         </div>
       </Link>

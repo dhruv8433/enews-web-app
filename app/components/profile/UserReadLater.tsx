@@ -34,7 +34,7 @@ const UserReadLater = () => {
   if (loading)
     return (
       <div className="p-5 bg-white rounded-lg min-h-full">
-        <MyHeading title="Read Later" />
+        <MyHeading isBackground title="Read Later" />
         {skeletonContainer}
       </div>
     );
@@ -42,7 +42,7 @@ const UserReadLater = () => {
   return (
     <MyDiv isPrimary className=" rounded-xl p-2 min-h-full">
       <div className="px-2">
-        <MyHeading title="Read Later" />
+        <MyHeading isBackground title="Read Later" />
       </div>
 
       {readLater.length === 0 ? (
@@ -73,7 +73,10 @@ const UserReadLater = () => {
             count={Math.ceil(readLater.length / itemsPerPage)}
             page={currentPage}
             onChange={(_, value) => setCurrentPage(value)}
-            color="primary"
+            sx={{
+              "& .MuiPaginationItem-root": { color: "var(--text)" }, // Text color
+              "& .MuiPaginationItem-page.Mui-selected": { backgroundColor: "var(--text)", color: "var(--primarytext)" }, // Selected page color
+          }}
           />
         </div>
       )}

@@ -35,14 +35,14 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                style={{color: `var(--text)`}}
+                style={{ color: `var(--primarytext)` }}
                 className="text-2xl md:text-3xl font-extrabold mt-5"
             >
                 {headline.headline?.main.toUpperCase()}
             </motion.h1>
 
             {/* ✍️ Byline */}
-            <p className="text-gray-600 mt-2 text-sm"  style={{color: `var(--text)`}}>{headline.byline?.original}</p>
+            <p className="text-gray-600 mt-2 text-sm" style={{ color: `var(--primarytext)` }}>{headline.byline?.original}</p>
 
             {/* 📅 Date & Source */}
             <p className="text-sm text-gray-500 mt-1">
@@ -63,12 +63,22 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                     max={22}
                     className='p-2'
                     valueLabelDisplay="auto"
-                    style={{color: `var(--text)`}}
+                    sx={{
+                        '& .MuiSlider-markLabel': {
+                            color: 'var(--text)', // Marks color updated
+                        },
+                        '& .MuiSlider-thumb': {
+                            backgroundColor: 'var(--text)',
+                        },
+                        '& .MuiSlider-track': {
+                            backgroundColor: 'var(--text)',
+                        },
+                    }}
                 />
             </Box>
 
             {/* 📝 Snippet (Font size changes dynamically) */}
-            <p className="mt-4 text-gray-700 leading-relaxed" style={{ fontSize: `${fontSize}px`, color: `var(--text)` }}>
+            <p className="mt-4 text-gray-700 leading-relaxed" style={{ fontSize: `${fontSize}px`, color: `var(--primarytext)` }}>
                 {headline?.abstract}
             </p>
 
@@ -76,7 +86,8 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
             <Link href={headline?.web_url ?? "#"} target="_blank" rel="noopener noreferrer">
                 <motion.div
                     whileHover={{ scale: 1.05 }}
-                    className="block text-blue-900 mt-4 font-semibold hover:bg-blue-800 hover:text-white w-max p-2 rounded"
+                    style={{ color: `var(--primarytext)` }}
+                    className="block  mt-4 font-semibold hover:text-white w-max p-2 rounded"
                 >
                     Read Full Article →
                 </motion.div>

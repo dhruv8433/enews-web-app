@@ -29,7 +29,7 @@ const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
                                 alt={headline.headline.main}
                                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                             />
-                            <div  style={{color: `var(--text)`, background: `var(--background)`}} className="absolute top-4 left-4 text-xs font-semibold px-3 py-1 rounded-md shadow-md">
+                            <div  style={{color: `var(--primarytext)`, background: `var(--background)`}} className="absolute top-4 left-4 text-xs font-semibold px-3 py-1 rounded-md shadow-md">
                                 {headline.subsection_name || "Featured"}
                             </div>
                         </Box>

@@ -24,10 +24,12 @@ export default function ThemeManager() {
     const themeColors = getTheme(themeName);
     document.documentElement.style.setProperty("--background", themeColors.background);
     document.documentElement.style.setProperty("--text", themeColors.text);
+    document.documentElement.style.setProperty("--primarytext", themeColors.primarytext);
     document.documentElement.style.setProperty("--primary", themeColors.primary);
     document.documentElement.style.setProperty("--secondary", themeColors.primary);
     document.documentElement.style.setProperty("--button", themeColors.primary);
     document.documentElement.style.setProperty("--gradient", themeColors.gradient);
+    document.documentElement.style.setProperty("--icon", themeColors.icon);
   };
 
   const changeTheme = (themeName: string) => {
@@ -49,7 +51,7 @@ export default function ThemeManager() {
 
   return (
     <Box>
-      <IconButton onClick={handleClick} color="primary">
+      <IconButton onClick={handleClick} style={{ color: "var(--icon)" }}>
         <PaletteIcon />
       </IconButton>
 
