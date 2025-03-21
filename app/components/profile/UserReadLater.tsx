@@ -7,6 +7,8 @@ import { HorizontalCardSkeleton } from "@/app/common/Skeleton.Site";
 import { Grid, Pagination } from "@mui/material";
 import Lottie from "lottie-react";
 import bookmarkAnimation from '@/app/Animation/bookmarkAnimation.json'
+import MyDiv from "@/app/common/MyDiv";
+import { HeadlineProps } from "@/app/types/headline.types";
 
 const UserReadLater = () => {
   const { readLater, error, loading, removeReadLater } = useFetchReadLater();
@@ -38,7 +40,7 @@ const UserReadLater = () => {
     );
 
   return (
-    <div className="bg-white rounded-xl p-2 min-h-full">
+    <MyDiv isPrimary className=" rounded-xl p-2 min-h-full">
       <div className="px-2">
         <MyHeading title="Read Later" />
       </div>
@@ -51,7 +53,7 @@ const UserReadLater = () => {
       ) : (
         <div>
           <Grid container spacing={2}>
-            {displayedBookmarked.map((article: any, index) => (
+            {displayedBookmarked.map((article: HeadlineProps, index) => (
               <Grid item xs={12} md={6} key={index}>
                 <HorizontalCard
                   key={index}
@@ -75,7 +77,7 @@ const UserReadLater = () => {
           />
         </div>
       )}
-    </div>
+    </MyDiv>
   );
 };
 

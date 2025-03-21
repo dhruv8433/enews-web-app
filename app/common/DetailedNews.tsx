@@ -68,14 +68,7 @@ const DetailedNews = ({ slug }: { slug: string }) => {
                         user={comment.username}
                         comment={comment.comment}
                         timestamp={comment.createdAt
-                            ? new Date(comment.createdAt.seconds * 1000).toLocaleString("en-GB", {
-                                day: "2-digit",
-                                month: "2-digit",
-                                year: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                hour12: true
-                            })
+                            ? new Date(comment.createdAt).toLocaleString()
                             : ""}
                     />
                 ))

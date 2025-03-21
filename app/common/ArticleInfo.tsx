@@ -35,13 +35,14 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-5"
+                style={{color: `var(--text)`}}
+                className="text-2xl md:text-3xl font-extrabold mt-5"
             >
                 {headline.headline?.main.toUpperCase()}
             </motion.h1>
 
             {/* ✍️ Byline */}
-            <p className="text-gray-600 mt-2 text-sm">{headline.byline?.original}</p>
+            <p className="text-gray-600 mt-2 text-sm"  style={{color: `var(--text)`}}>{headline.byline?.original}</p>
 
             {/* 📅 Date & Source */}
             <p className="text-sm text-gray-500 mt-1">
@@ -62,11 +63,12 @@ const ArticleInfo: React.FC<HeadlineProps> = ({ headline }) => {
                     max={22}
                     className='p-2'
                     valueLabelDisplay="auto"
+                    style={{color: `var(--text)`}}
                 />
             </Box>
 
             {/* 📝 Snippet (Font size changes dynamically) */}
-            <p className="mt-4 text-gray-700 leading-relaxed" style={{ fontSize: `${fontSize}px` }}>
+            <p className="mt-4 text-gray-700 leading-relaxed" style={{ fontSize: `${fontSize}px`, color: `var(--text)` }}>
                 {headline?.abstract}
             </p>
 

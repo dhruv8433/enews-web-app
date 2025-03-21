@@ -10,6 +10,7 @@ import SmallCard from '@/app/common/SmallCard';
 import WeatherCard from '@/app/common/WeatherCard';
 import { SmallCardSkeleton, SwiperCardSkeleton } from '@/app/common/Skeleton.Site';
 import ErrorComponent from '@/app/common/ErrorComponent';
+import { Headline } from '@/app/types/headline.types';
 
 export default function HomeSwiper() {
     // Fetch data
@@ -34,7 +35,7 @@ export default function HomeSwiper() {
                 <Grid item xs={12} md={9}>
                     {headlines.length > 0 ? (
                         <MySwiperPagination className="max-h-[740px] w-full rounded-xl">
-                            {headlines.map((headline: any) => (
+                            {headlines.map((headline: Headline) => (
                                 <SwiperSlide key={headline._id} className="h-full">
                                     <SwiperCard headline={headline} />
                                 </SwiperSlide>
@@ -49,7 +50,7 @@ export default function HomeSwiper() {
                     {/* static card for weather forecasting */}
                     <WeatherCard />
                     <div className="">
-                        {headlines.slice(0, 2).map((headline: any) => (
+                        {headlines.slice(0, 2).map((headline: Headline) => (
                             <div className="my-2" key={headline._id}>
                                 <SmallCard key={headline._id} headline={headline} />
                             </div>

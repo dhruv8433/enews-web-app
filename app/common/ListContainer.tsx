@@ -16,16 +16,27 @@ const ListCategoryContainer: React.FC = () => {
         >
             {/* Marquee Component */}
             <Marquee
-                speed={isHovered ? 0 : 50} 
+                speed={isHovered ? 0 : 50}
                 gradient={false}
                 className="flex space-x-8"
             >
                 {categorys.map((response) => (
                     <Link key={response} href={`/query?${response.toLowerCase()}`}>
-                        <h1 className="border border-black rounded mx-3 px-2 py-1 hover:bg-red-600 hover:text-white cursor-pointer hover:font-semibold">
+                        <h1
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = "var(--primary)";
+                                e.currentTarget.style.color = "var(--text)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = "transparent"; // Reset background
+                                e.currentTarget.style.color = "inherit"; // Reset text color
+                            }}
+                            className="border border-black rounded mx-3 px-2 py-1 cursor-pointer hover:font-semibold"
+                        >
                             {response}
                         </h1>
                     </Link>
+
                 ))}
             </Marquee>
         </div>

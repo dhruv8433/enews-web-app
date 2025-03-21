@@ -2,14 +2,12 @@
 
 import LargeContainer from '@/app/common/LargeContainer';
 import ProfileRoutes from '@/app/common/ProfileRoutes';
-import UserFavs from '@/app/components/profile/UserFavs';
-import UserReadLater from '@/app/components/profile/UserReadLater';
 import { Box, Grid } from '@mui/material';
 import { useParams } from 'next/navigation'
 import React from 'react'
 import ConditionRender from './ConditionRender';
 
-const page = () => {
+const Page = () => {
     //  useParams() in Next.js 13+ (App Router) returns an object where values can be either a string or an array of strings (depending on dynamic segments).
     const { option } = useParams() as {option?: string};
     console.log(option)
@@ -30,4 +28,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

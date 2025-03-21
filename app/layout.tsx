@@ -1,11 +1,12 @@
+'use client'
+
 import "./globals.css";
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import GlobalAdvertise from "./components/headers/GlobalAdvertise";
 import { Toaster } from 'react-hot-toast'
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
-import { siteName } from "./site/site.config";
+import MyDiv from "./common/MyDiv";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,29 +19,28 @@ const geistMono = Geist_Mono({
 });
 
 
-export const metadata: Metadata = {
-  title: `${siteName} | Discover the latest information`,
-  description: "Discover the latest information",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <GlobalAdvertise />
-        <Navbar />
-        {children}
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-        />
-        <Footer />
+          <MyDiv >
+            <GlobalAdvertise />
+            <Navbar />
+            {children}
+            <Toaster
+              position="top-center"
+              reverseOrder={false}
+            />
+            <Footer />
+          </MyDiv>
+        
       </body>
     </html>
   );

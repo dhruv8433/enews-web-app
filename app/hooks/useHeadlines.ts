@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { getSpecificQueryNews } from '@/app/service/getSpecificQueryNews';
 import notifications from '../constants/notifications';
+import { Headline } from '../types/headline.types';
 
 // Create the useHeadlines hook
 const useHeadlines = (query: string) => {
-    const [headlines, setHeadlines] = useState<any[]>([]);
+    const [headlines, setHeadlines] = useState<Headline[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<{ message: string; details?: string } | null>(null);
 

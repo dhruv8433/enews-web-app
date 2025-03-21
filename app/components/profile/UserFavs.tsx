@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from "react";
 import HorizontalCard from "@/app/common/HorizontalCard";
 import useFetchFavorites from "@/app/hooks/useFetchFavorites";
-import { Grid, Grid2, Pagination } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 import ErrorComponent from "@/app/common/ErrorComponent";
 import MyHeading from "@/app/common/MyHeading";
 import Lottie from "lottie-react";
 import LikeAnimation from "@/app/Animation/LikeAnimation.json";
 import { HorizontalCardSkeleton } from "@/app/common/Skeleton.Site";
+import MyDiv from "@/app/common/MyDiv";
 
 const UserFavs = () => {
     const { favorites, loading, error, removeFavorite } = useFetchFavorites();
@@ -30,16 +31,16 @@ const UserFavs = () => {
 
     if (loading)
         return (
-            <div className="p-5 bg-white rounded-lg min-h-full">
+            <MyDiv isSecondary className="p-5 rounded-lg min-h-full">
                 <MyHeading title="Favorites" />
                 {skeletonContainer}
-            </div>
+            </MyDiv>
         );
 
     if (error) return <ErrorComponent error={error} />;
 
     return (
-        <div className="p-5 bg-white rounded-lg min-h-full">
+        <MyDiv isPrimary className="p-5 rounded-lg min-h-full">
             <div className="px-2">
                 <MyHeading title="Favorites" />
             </div>
@@ -78,7 +79,7 @@ const UserFavs = () => {
                     )}
                 </>
             )}
-        </div>
+        </MyDiv>
     );
 };
 

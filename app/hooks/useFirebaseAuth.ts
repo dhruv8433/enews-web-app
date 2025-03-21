@@ -10,6 +10,7 @@ const db = getFirestore();
  */
 import toast from "react-hot-toast";
 import notifications from "../constants/notifications";
+import { FirebaseError } from "firebase/app";
 
 export const signUpWithEmail = async (name: string, email: string, password: string) => {
     try {
@@ -18,7 +19,7 @@ export const signUpWithEmail = async (name: string, email: string, password: str
 
         if (!user) throw new Error("User sign-up failed");
         await updateProfile(user, { displayName: name });
-        
+
         const userRef = doc(db, `users/${user.email}/last_login/${user.uid}`);
 
 
@@ -42,14 +43,16 @@ export const signUpWithEmail = async (name: string, email: string, password: str
         // after create account, user will be signed out
         await signOut(auth)
         return user;
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Sign-Up Error:", error);
 
-        // Check for specific error codes
-        if (error.code === "auth/email-already-in-use") {
-            toast.error(notifications.error.emailAlreadyExists.description);
-        } else {
-            toast.error(notifications.error.signupFailed.description);
+        if (error instanceof FirebaseError) {
+            // Check for specific error codes
+            if (error.code === "auth/email-already-in-use") {
+                toast.error(notifications.error.emailAlreadyExists.description);
+            } else {
+                toast.error(notifications.error.signupFailed.description);
+            }
         }
 
         throw error; // Optionally rethrow for further handling

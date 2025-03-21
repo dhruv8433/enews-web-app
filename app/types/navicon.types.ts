@@ -1,4 +1,4 @@
-import { ElementType, JSX } from 'react';
+import { ElementType } from 'react';
 
 export type navIcon = {
     name: string;

@@ -11,10 +11,11 @@ import React from "react";
 import { IconButton } from "@mui/material";
 import useReadLater from "../hooks/useReadLater";
 import { Bookmark, BookmarkBorder } from "@mui/icons-material";
+import { HeadlineProps } from "../types/headline.types";
 
-const ReadLaterButton: React.FC<any> = ({ article }) => {
+const ReadLaterButton: React.FC<HeadlineProps> = ({ headline }) => {
 
-    const { isReadLater, toggleReadLater } = useReadLater(article);
+    const { isReadLater, toggleReadLater } = useReadLater(headline);
     return (
         <IconButton
         aria-label="read-later"

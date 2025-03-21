@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Divider, Backdrop, Box, Button, Typography } from "@mui/material";
+import { Divider, Backdrop, Box } from "@mui/material";
 import { profileLinks } from "../site/site.config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../site/firebase.config";
@@ -8,8 +8,9 @@ import Link from "next/link";
 import MyButtons from "./MyButtons";
 import { useParams, useRouter } from "next/navigation";
 import slugify from "slugify";
+import { FirebaseError } from "firebase/app";
 
-const ProfileRoutes = () => {
+const ProfileRoutes: React.FC = () => {
     const [user] = useAuthState(auth);
     const [openBackdrop, setOpenBackdrop] = useState(false);
     const [selectedAction, setSelectedAction] = useState<"logout" | "delete" | null>(null);
@@ -17,7 +18,7 @@ const ProfileRoutes = () => {
 
     // fetch options for active index
     const { option } = useParams();
-    console.log(option)
+    console.log(option);
 
     useEffect(() => {
         if (!user) {
@@ -46,27 +47,30 @@ const ProfileRoutes = () => {
             try {
                 await user.delete(); // Delete the user's account
                 router.replace("/"); // Redirect to home page after deletion
-            } catch (error: any) {
-                if (error.code === "auth/requires-recent-login") {
-                    alert("You need to re-login before deleting your account.");
-                    auth.signOut();
-                    router.replace("/login"); // Redirect to login page for re-authentication
-                } else {
-                    console.error("Error deleting account:", error.message);
-                    alert("Failed to delete account. Please try again.");
+            } catch (error: unknown) {
+                if (error instanceof FirebaseError) {
+                    if (error.code === "auth/requires-recent-login") {
+                        alert("You need to re-login before deleting your account.");
+                        auth.signOut();
+                        router.replace("/login"); // Redirect to login page for re-authentication
+                    } else {
+                        console.error("Error deleting account:", error.message);
+                        alert("Failed to delete account. Please try again.");
+                    }
                 }
             }
+            handleCloseBackdrop();
         }
-        handleCloseBackdrop();
     };
 
-
+    // ✅ Move return **outside** of handleConfirmAction
     return (
         <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="bg-white rounded-lg p-6 w-full border-2 border-gray-200"
+            style={{ background: `var(--secondary)` }}
+            className="rounded-lg p-6 w-full border-2 border-gray-200"
         >
             {/* User Info */}
             <div className="flex flex-col items-center gap-2 mb-4">
@@ -95,7 +99,9 @@ const ProfileRoutes = () => {
                             onClick={() => handleOpenBackdrop(link.name === "Logout" ? "logout" : "delete")}
                             className="cursor-pointer my-2 flex items-center gap-3 p-3 rounded-lg text-red-600 hover:bg-red-100"
                         >
-                            <Box display={{ xs: "none", md: "flex" }}><span className="text-lg"><IconComponent /></span></Box>
+                            <Box display={{ xs: "none", md: "flex" }}>
+                                <span className="text-lg"><IconComponent /></span>
+                            </Box>
                             <span className="text-sm font-medium w-max">{link.name}</span>
                         </div>
                     ) : (
@@ -103,7 +109,9 @@ const ProfileRoutes = () => {
                             <motion.div
                                 className={`flex items-center gap-3 p-3 rounded-lg text-gray-700 my-2 ${option == slugify(link.name).toLowerCase() ? "text-white bg-blue-700" : ""} `}
                             >
-                                <Box display={{ xs: "none", md: "flex" }}><span className="text-lg"><IconComponent /></span></Box>
+                                <Box display={{ xs: "none", md: "flex" }}>
+                                    <span className="text-lg"><IconComponent /></span>
+                                </Box>
                                 <span className="text-sm font-medium w-max">{link.name}</span>
                             </motion.div>
                         </Link>
@@ -123,11 +131,12 @@ const ProfileRoutes = () => {
                             : "Are you sure you want to delete your account? This action cannot be undone!"}
                     </h1>
                     <div className="flex gap-2 justify-end my-3">
-                        <MyButtons title="cancle" className="border bg-gray-400 p-1 rounded" onClick={handleCloseBackdrop} />
-                        {selectedAction === "logout" ?
+                        <MyButtons title="Cancel" className="border bg-gray-400 p-1 rounded" onClick={handleCloseBackdrop} />
+                        {selectedAction === "logout" ? (
                             <MyButtons title="Logout" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
-                            : <MyButtons title="Confirm Delete" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
-                        }
+                        ) : (
+                            <MyButtons title="Confirm Delete" className="bg-red-500 p-1 rounded hover:bg-red-600" onClick={handleConfirmAction} />
+                        )}
                     </div>
                 </div>
             </Backdrop>

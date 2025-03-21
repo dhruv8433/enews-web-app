@@ -3,7 +3,7 @@
  * 2025, All rights reserved
  */
 
-import { BookmarkBorder, DeleteOutline, Facebook, FavoriteBorder, GitHub, Instagram, LinkedIn, LogoutOutlined, MapsUgcOutlined, NotificationsOutlined, Twitter } from '@mui/icons-material'
+import { BookmarkBorder, DeleteOutline, Facebook, FavoriteBorder, GitHub, Instagram, LinkedIn, LogoutOutlined, Twitter } from '@mui/icons-material'
 import { Routes } from '../types/routes.types';
 import { navIcon } from '../types/navicon.types';
 
@@ -83,4 +83,4 @@ const profileLinks = [
 ];
 
 
-export { routes, navIcons, imageUrl, categorys, profileLinks, siteName };
+export { routes, navIcons, imageUrl, categorys, profileLinks, siteName, version };

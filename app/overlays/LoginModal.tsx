@@ -4,8 +4,6 @@ import { X } from "lucide-react";
 import GoogleButton from "../common/GoogleButton";
 import { handleLogin } from "../service/Auth.Firebase";
 import { Box } from "@mui/material";
-import toast from "react-hot-toast";
-import notifications from "../constants/notifications";
 import SyncLoader from "react-spinners/SyncLoader";
 
 const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () => void, setSignupModel: (value: boolean) => void, setLoginModel: (value: boolean) => void }) => {
@@ -20,7 +18,7 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
         e.preventDefault();
         setLoading(true)
         try {
-            let userLoggedIn = await handleLogin(form.email, form.password)
+            const userLoggedIn = await handleLogin(form.email, form.password)
             console.log("user is logged in", userLoggedIn)
             if (userLoggedIn !== undefined) setLoginModel(false)
         } catch (error) {
@@ -101,7 +99,7 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
 
                 {/* Footer - Toggle to Signup */}
                 <p className="mt-4 text-sm text-center text-gray-600">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
                     <button
                         onClick={() => {
                             onClose(); // Close login modal

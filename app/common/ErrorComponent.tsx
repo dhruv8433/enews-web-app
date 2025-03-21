@@ -1,7 +1,6 @@
 import React from "react";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { ErrorProps } from "../types/error.types";
 
 const ErrorComponent: React.FC<ErrorProps> = ({ error }) => {

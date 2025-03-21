@@ -12,6 +12,7 @@ const GoogleButton = ({ CloseModel }: { CloseModel: (close: boolean) => void }) 
             toast.success(notifications.success.loginSuccess.description);
             CloseModel(false);
         } catch (error) {
+            console.error(error);
             toast.error(notifications.error.loginFailed.description);
         }
     };

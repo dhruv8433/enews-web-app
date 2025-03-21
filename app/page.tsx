@@ -9,8 +9,6 @@ import LazyComponent from "./common/LazyComponent";
 // ✅ Lazy load components
 const BusinessAndCareerGrid = dynamic(() => import("./components/home/BusinessAndCareerGrid"), { ssr: false });
 const EducationSection = dynamic(() => import("./components/home/EducationSection"), { ssr: false });
-const TravelAndAdventureGrid = dynamic(() => import("./components/home/TravelAndAdventureGrid"), { ssr: false });
-const SocialSection = dynamic(() => import("./components/home/SocialSection"), { ssr: false });
 
 export default function Home() {
   return (
@@ -26,12 +24,7 @@ export default function Home() {
 
       {/* Education Section */}
       <LazyComponent component={EducationSection} />
-
-      {/* Travel & Adventure Section */}
-      {/* <LazyComponent component={TravelAndAdventureGrid} /> */}
-
-      {/* Social Section */}
-      {/* <LazyComponent component={SocialSection} /> */}
+      
     </LargeContainer>
   );
 }

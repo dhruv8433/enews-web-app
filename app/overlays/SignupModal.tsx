@@ -24,7 +24,7 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
             return toast.error(notifications.error.passwordLength.description)
         }
         try {
-            let userSignedUp = await handleSignUp(form.name, form.email, form.password)
+            const userSignedUp = await handleSignUp(form.name, form.email, form.password)
             if (userSignedUp !== undefined) {
                 setSignupModal(false)
                 setLoading(false)

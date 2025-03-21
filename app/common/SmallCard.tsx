@@ -5,12 +5,13 @@ import LikeButton from './LikeButton';
 import { imageUrl } from '../site/site.config';
 import { HeadlineProps } from '../types/headline.types';
 import { handleShareArticle } from '../service/ShareArticleService';
+import MyDiv from './MyDiv';
 
 const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
     return (
-        <div className="group relative shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl">
+        <MyDiv isSecondary className="group relative shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl">
             {/* toogle action button */}
-            <div className="absolute right-1 top-1 bg-white z-10 rounded-full">
+            <div className="absolute right-1 top-1 z-10 rounded-full">
                 <LikeButton article={headline} isProfile={false}/> {/* Like button for bookmarking articles */}
             </div>
             {/* // this link redirect to detaile/id page of headline and store object as string in localstorage. */}
@@ -31,7 +32,7 @@ const SmallCard: React.FC<HeadlineProps> = ({ headline }) => {
                     </div>
                 </div>
             </Link>
-        </div>
+        </MyDiv>
     );
 };
 

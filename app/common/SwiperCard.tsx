@@ -22,7 +22,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
     return (
         //Main container with a relative position for overlay placement
         <div className="relative">
-            <div className="absolute right-3 top-3 bg-white z-10 rounded-full">
+            <div className="absolute right-3 top-3 z-10 rounded-full">
                 <LikeButton article={headline} isProfile={false} />
             </div>
 
@@ -40,7 +40,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
                     <div className="absolute bottom-0 left-0 p-4 w-full bg-black bg-opacity-60 backdrop-blur-md">
                         <div className="md:p-4 rounded-lg md:min-h-[150px]">
                             <div className="flex items-center justify-between mb-1">
-                                <h1 className="bg-red-500 rounded-md text-white p-1">Trending</h1>
+                                <h1 style={{ background: `var(--background)`, color: `var(--text)` }} className=" rounded-md text-white p-1">Trending</h1>
                                 <div className="flex items-center gap-2">
                                     <CalendarMonthIcon className="text-white" fontSize="small" />
                                     <p className="text-white">{new Date(headline.pub_date).toLocaleDateString()}</p>
@@ -49,7 +49,7 @@ const SwiperCard: React.FC<HeadlineProps> = ({ headline, isSmallSwiper }) => {
                             <h3 className="text-white sm:text-xl md:text-3xl font-bold md:mb-2 truncate-3-lines line-clamp-2">
                                 {headline.headline.main.toUpperCase()}
                             </h3>
-                            <Box display={{xs: "none", md: "flex"}}>
+                            <Box display={{ xs: "none", md: "flex" }}>
                                 <p className="text-white text-sm">{headline.abstract}</p>
                             </Box>
                         </div>

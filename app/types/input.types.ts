@@ -1,9 +1,10 @@
 export type TypeInput = {
-    type: string,
-    placeholder: string,
-    name: string,
-    value?: string,
-    onChange?: (e: any) => void,
-    className: string
-    onKeyDown?: (e: any) => void
-}
+    type: string;
+    placeholder: string;
+    name: string;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    className: string;
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  };
+  
