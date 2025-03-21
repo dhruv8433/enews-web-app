@@ -53,10 +53,10 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                 <Box className="justify-between" display={{ xs: 'block', md: 'flex' }}>
                     <div className="">
                         <h1 style={{color: `var(--text)`}} className="text-xl md:text-2xl font-semibold my-2">{truncatedTitle}</h1>
-                        <Breadcrumbs className='flex flex-col'>
-                            <Link href={`/`} className="hover:underline text-blue-500">Home</Link>
+                        <Breadcrumbs className='flex flex-col' style={{color: `var(--text)`}} aria-label="breadcrumb">
+                            <Link href={`/`} style={{color: `var(--primarytext)`}} className="hover:underline">Home</Link>
                             {headline?.section_name && (
-                                <Link href={`/query?q=${headline.section_name}`} className="hover:underline text-blue-500">
+                                <Link href={`/query?q=${headline.section_name}`} style={{color: `var(--primarytext)`}} className="hover:underline">
                                     {headline.section_name}
                                 </Link>
                             )}

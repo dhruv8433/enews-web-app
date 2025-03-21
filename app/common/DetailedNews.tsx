@@ -11,6 +11,7 @@ import { ArticleBreadCrumbSkeleton, ArticleInfoSkeleton, CommentCardSkeleton } f
 import ErrorComponent from "./ErrorComponent";
 import { CommentRounded } from "@mui/icons-material";
 import MyHeading from "./MyHeading";
+import { Timestamp } from "firebase/firestore";
 
 const COMMENTS_PER_PAGE = 3;
 
@@ -62,16 +63,24 @@ const DetailedNews = ({ slug }: { slug: string }) => {
             </div> : commentSkeletons}
 
             {paginatedComments.length > 0 ? (
-                paginatedComments.map((comment) => (
-                    <CommentCard
-                        key={comment.id}
-                        user={comment.username}
-                        comment={comment.comment}
-                        timestamp={comment.createdAt
-                            ? new Date(comment.createdAt).toLocaleString()
-                            : ""}
-                    />
-                ))
+                paginatedComments.map((comment) => {
+                    let formattedDate = "Invalid Date";
+
+                    if (comment.createdAt && comment.createdAt instanceof Timestamp) {
+                        formattedDate = new Date(comment.createdAt.seconds * 1000).toLocaleDateString();
+                    } else if (comment.createdAt instanceof Date) {
+                        formattedDate = comment.createdAt.toLocaleDateString();
+                    }
+
+                    return (
+                        <CommentCard
+                            key={comment.id}
+                            user={comment.username}
+                            comment={comment.comment}
+                            timestamp={formattedDate}
+                        />
+                    );
+                })
             ) : (
                 ""
             )}
@@ -83,7 +92,10 @@ const DetailedNews = ({ slug }: { slug: string }) => {
                         count={Math.ceil(comments.length / COMMENTS_PER_PAGE)}
                         page={page}
                         onChange={handlePageChange}
-                        color="primary"
+                        sx={{
+                            "& .MuiPaginationItem-root": { color: "var(--text)" }, // Text color
+                            "& .MuiPaginationItem-page.Mui-selected": { backgroundColor: "var(--text)", color: "var(--primarytext)" }, // Selected page color
+                        }}
                         className="mt-5"
                     />
                 </div>
