@@ -8,7 +8,7 @@ import MyInput from '@/app/common/MyInput'
 import { useRouter, useSearchParams } from 'next/navigation'
 import MyButtons from '@/app/common/MyButtons'
 import { routes } from '@/app/site/site.config'
-import { Backdrop, Box, Drawer, IconButton } from '@mui/material'
+import { Backdrop, Box, Drawer, IconButton, useTheme } from '@mui/material'
 import LargeContainer from '@/app/common/LargeContainer'
 import PhoneNavDrawer from '@/app/overlays/PhoneNavDrawer'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
                     {/* User Section */}
                     <div className="buttons flex gap-2 items-center">
                         <Box display={{ xs: "none", md: "flex" }}>
-                            <MyInput name='search' placeholder='Search...' type='text' className='p-2 rounded' value={searchPrompt} onChange={(e) => setSearchPrompt(e?.target?.value)} onKeyDown={handleSearchKeyPress} />
+                            <MyInput name='search' placeholder='Search...' type='text' className='p-2 rounded' value={searchPrompt} onChange={(e) => setSearchPrompt(e?.target.value)} onKeyDown={handleSearchKeyPress} />
                         </Box>
 
                         {userInfo ? (
