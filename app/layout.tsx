@@ -43,7 +43,8 @@ export default function RootLayout({
             crossOrigin="anonymous"></Script>
           <Footer />
         </MyDiv>
-
+        {/* one signal sdk import */}
+        <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
       </body>
     </html>
   );
