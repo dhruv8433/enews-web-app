@@ -19,32 +19,51 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <MyDiv >
+      <head>
+        {/* Google AdSense */}
+        <Script
+          id="adsense-script"
+          strategy="afterInteractive"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6102136867747482"
+          crossOrigin="anonymous"
+        />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6102136867747482"
+          crossOrigin="anonymous"></script>
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <MyDiv>
           <GlobalAdvertise />
           <Navbar />
           {children}
-          <Toaster
-            position="top-center"
-            reverseOrder={false}
-          />
-          <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_AD_CLIENT_SECRET_KEY}`}
-            crossOrigin="anonymous"></Script>
+          <Toaster position="top-center" reverseOrder={false} />
+
+          {/* Example Ad Unit (You can place this anywhere you want ads to show) */}
+          <ins className="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-6580779703282784"
+            data-ad-slot="1052370986"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+          <Script id="ads-init" strategy="afterInteractive">
+            {`(adsbygoogle = window.adsbygoogle || []).push({});`}
+          </Script>
+
           <Footer />
         </MyDiv>
-        {/* one signal sdk import */}
-        <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
+        {/* OneSignal Push Notifications */}
+        <Script
+          src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+          defer
+        />
       </body>
     </html>
   );
