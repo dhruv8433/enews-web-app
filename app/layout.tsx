@@ -1,4 +1,4 @@
-'use client'
+
 
 import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -8,6 +8,8 @@ import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import MyDiv from "./common/MyDiv";
 import Script from "next/script";
+import Head from "next/head";
+import AMPAd from "./AMPAd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,17 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Google AdSense */}
-        <Script
-          id="adsense-script"
-          strategy="afterInteractive"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6102136867747482"
-          crossOrigin="anonymous"
-        />
-      </head>
+      <Head>
+        {/* amp code */}
+        <script async custom-element="amp-auto-ads"
+          src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+        </script>
+      </Head>
+
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <AMPAd/>
         <MyDiv>
           <GlobalAdvertise />
           <Navbar />
