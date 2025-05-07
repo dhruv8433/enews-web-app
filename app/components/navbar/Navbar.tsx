@@ -2,25 +2,38 @@
 
 import Link from 'next/link'
 import toast from 'react-hot-toast'
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { Menu } from '@mui/icons-material'
 import MyInput from '@/app/common/MyInput'
 import { useRouter, useSearchParams } from 'next/navigation'
 import MyButtons from '@/app/common/MyButtons'
 import { routes } from '@/app/site/site.config'
-import { Backdrop, Box, Drawer, IconButton, useTheme } from '@mui/material'
+import { Backdrop, Box, Drawer, IconButton } from '@mui/material'
 import LargeContainer from '@/app/common/LargeContainer'
 import PhoneNavDrawer from '@/app/overlays/PhoneNavDrawer'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '@/app/site/firebase.config'
 import SignupModal from '@/app/overlays/SignupModal'
 import LoginModal from '@/app/overlays/LoginModal'
 import ThemeManager from '@/app/util/ThemeProvideWrapper'
 import MyDiv from '@/app/common/MyDiv'
+import { FormDataType } from '@/app/types/formData.types'
 
 const Navbar: React.FC = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
-    const [userInfo] = useAuthState(auth);
+    const [userInfo, setUserInfo] = useState<FormDataType>({
+        name: "",
+        email: "",
+        password: "",
+        phone_no: "",
+        avatar: undefined,
+    });
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUserInfo(JSON.parse(storedUser));
+        }
+    }, []);
+
     const [searchPrompt, setSearchPrompt] = useState('');
     const [openModal, setOpenModal] = useState(false);
     const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -33,7 +46,7 @@ const Navbar: React.FC = () => {
     // Handle search on Enter key
     const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && searchPrompt.trim() !== "") {
-            toast.loading('Searching: '+ searchPrompt)
+            toast.loading('Searching: ' + searchPrompt)
             router.push(`/query?q=${encodeURIComponent(searchPrompt)}`);
         }
     };
@@ -72,9 +85,9 @@ const Navbar: React.FC = () => {
 
                         {userInfo ? (
                             <Link href={`/profile/favorites`} className='flex items-center gap-2'>
-                                <img src={userInfo?.photoURL || 'https://cdn3.iconfinder.com/data/icons/web-design-and-development-2-6/512/87-1024.png'} alt="User" className='h-10 w-10 rounded-full border-2' />
+                                <img src={userInfo?.avatar_url || 'https://cdn3.iconfinder.com/data/icons/web-design-and-development-2-6/512/87-1024.png'} alt="User" className='h-10 w-10 rounded-full border-2' />
                                 <Box display={{ xs: "none", md: "flex" }}>
-                                    <h3 className='font-medium'>{userInfo.displayName}</h3>
+                                    <h3 className='font-medium'>{userInfo?.fullName}</h3>
                                 </Box>
                             </Link>
                         ) : (
@@ -82,7 +95,7 @@ const Navbar: React.FC = () => {
                         )}
 
                         {/* theme button */}
-                        <ThemeManager/>
+                        <ThemeManager />
 
                     </div>
                 </div>

@@ -1,5 +1,5 @@
-import { X } from "lucide-react";
 import React, { useState } from "react";
+import { X } from "lucide-react";
 import { motion } from "framer-motion";
 import GoogleButton from "../common/GoogleButton";
 import { handleSignUp } from "../service/Auth.Firebase";
@@ -9,36 +9,42 @@ import notifications from "../constants/notifications";
 import SyncLoader from 'react-spinners/SyncLoader';
 
 const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () => void, setLoginModal: (value: boolean) => void, setSignupModal: (value: boolean) => void }) => {
-    const [form, setForm] = useState({ name: "", email: "", password: "" });
+    const [form, setForm] = useState({ name: "", email: "", password: "", phone_no: "", avatar: undefined as File | undefined });
+    // const [preview, setPreview] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+    };
+
+    const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setForm({ ...form, avatar: file });
+            // setPreview(URL.createObjectURL(file));
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        setLoading(true);
         e.preventDefault();
+        setLoading(true);
         if (form.password.length < 6) {
-            setLoading(false)
-            return toast.error(notifications.error.passwordLength.description)
+            setLoading(false);
+            return toast.error(notifications.error.passwordLength.description);
         }
         try {
-            const userSignedUp = await handleSignUp(form.name, form.email, form.password)
+            const userSignedUp = await handleSignUp(form);
             if (userSignedUp !== undefined) {
-                setSignupModal(false)
-                setLoading(false)
+                setSignupModal(false);
             }
         } catch (error) {
             console.error("Error signing up:", error);
-            setLoading(false)
-            // toast.error("An error occurred during sign-up. Please try again.");
+            toast.error("An error occurred during sign-up. Please try again.");
         } finally {
             setLoading(false);
         }
-    }
-
-    console.log("loading", loading);
+    };
 
     return (
         <Box p={{ xs: "20px", md: "0px" }} className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
@@ -102,6 +108,35 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                         />
                     </div>
 
+                    <div>
+                        <label className="block text-gray-600 text-sm font-medium">Phone Number</label>
+                        <input
+                            type="tel"
+                            name="phone_no"
+                            value={form.phone_no}
+                            onChange={handleChange}
+                            className="w-full p-3 mt-1 text-gray-800 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                            placeholder="Enter your phone number"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-gray-600 text-sm font-medium">Avatar</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleAvatarChange}
+                            className="w-full p-3 mt-1 text-gray-800 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+                        />
+                        {/* {preview && (
+                            <img
+                                src={preview}
+                                alt="Avatar Preview"
+                                className="mt-2 w-24 h-24 rounded-full object-cover"
+                            />
+                        )} */}
+                    </div>
+
                     {/* Signup Button */}
                     <button
                         type="submit"
@@ -115,7 +150,6 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                             "Sign Up"
                         )}
                     </button>
-
                 </form>
 
                 {/* Footer - Toggle to Login */}

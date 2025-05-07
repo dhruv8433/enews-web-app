@@ -18,7 +18,7 @@ const LoginModal = ({ onClose, setSignupModel, setLoginModel }: { onClose: () =>
         e.preventDefault();
         setLoading(true)
         try {
-            const userLoggedIn = await handleLogin(form.email, form.password)
+            const userLoggedIn = await handleLogin(form)
             console.log("user is logged in", userLoggedIn)
             if (userLoggedIn !== undefined) setLoginModel(false)
         } catch (error) {
