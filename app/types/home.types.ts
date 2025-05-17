@@ -32,3 +32,14 @@ export interface NewsApiResponse {
     statusCode: number;
     data: NewsData;
 }
+
+export interface HomeScreenData {
+    banners: string[];
+    featuredProducts: {
+        id: string;
+        name: string;
+        image: string;
+        price: number;
+    }[];
+    [key: string]: any; // Or better: add more specific keys
+}

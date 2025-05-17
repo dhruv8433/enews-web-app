@@ -11,7 +11,8 @@ interface ThemeManagerProps {
 
 interface Theme {
   background: Record<string, string>;
-  [key: string]: any;
+  text: Record<string, string>;
+  icon: Record<string, string>;
 }
 
 interface Config {
@@ -70,8 +71,9 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
       localStorage.setItem("theme", themeName);
     }
     const selectedTheme = settings?.config?.themes.find(t => t.name === themeName);
+    const config = settings?.config;
     if (selectedTheme) {
-      setThemeVariables(selectedTheme);
+      setThemeVariables(selectedTheme, config);
     }
     setAnchorEl(null);
   };
