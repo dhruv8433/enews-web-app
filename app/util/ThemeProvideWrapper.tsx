@@ -1,40 +1,11 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Menu, MenuItem, IconButton, Box } from "@mui/material";
-import PaletteIcon from "@mui/icons-material/Palette";
-import { WebSettings } from "../types/setting.types";
-
-interface ThemeColors {
-  background: Record<string, string>;
-  text: Record<string, string>;
-  icon: Record<string, string>;
-}
-
-interface ThemeConfig {
-  name: string;
-  _id: string;
-  background: Record<string, string>;
-  text: Record<string, string>;
-  icon: Record<string, string>;
-}
-
-interface Config {
-  fontFamily: string;
-  fontSizeBase: string;
-  headingFontSize: string;
-  borderRadius: string;
-  themes: ThemeConfig[];
-}
-
-interface ThemeManagerProps {
-  settings: WebSettings & { config: Config };
-}
+import { Config, ThemeConfig, ThemeManagerProps } from "../types/settings.types";
 
 export default function ThemeManager({ settings }: ThemeManagerProps) {
-  const [theme, setTheme] = useState<string>("default"); // Default theme
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const [theme, setTheme] = useState<string>("default");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -58,17 +29,14 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
     root.style.setProperty("--heading-font-size", config.headingFontSize);
     root.style.setProperty("--border-radius", config.borderRadius);
 
-    // Background colors
     Object.entries(theme.background).forEach(([key, value]) => {
       root.style.setProperty(`--background-${key}`, value);
     });
 
-    // Text colors
     Object.entries(theme.text).forEach(([key, value]) => {
       root.style.setProperty(`--text-${key}`, value);
     });
 
-    // Icon colors
     Object.entries(theme.icon).forEach(([key, value]) => {
       root.style.setProperty(`--icon-${key}`, value);
     });
@@ -80,51 +48,45 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
       localStorage.setItem("theme", themeName);
     }
 
-    const selectedTheme = settings?.config?.themes.find(
-      (t) => t.name === themeName
-    );
+    const selectedTheme = settings?.config?.themes.find((t) => t.name === themeName);
     const config = settings?.config;
     if (selectedTheme && config) {
       setThemeVariables(selectedTheme, config);
     }
-    setAnchorEl(null);
-  };
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+    setIsOpen(false);
   };
 
   return (
-    <Box>
-      <IconButton
-        onClick={handleClick}
-        sx={{ color: "var(--icon-default)" }}
-        aria-label="choose theme"
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="p-2 text-[var(--icon-default)] rounded-full"
+        aria-label="Choose theme"
       >
-        <PaletteIcon />
-      </IconButton>
+        🎨 {/* You can replace this emoji with an actual icon if needed */}
+      </button>
 
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        {settings?.config?.themes?.map((t) => (
-          <MenuItem key={t._id} onClick={() => changeTheme(t.name)}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <Box
-                sx={{
-                  width: 12,
-                  height: 12,
-                  borderRadius: "50%",
-                  backgroundColor: t.background.button,
-                }}
-              />
-              {t.name.replace(/^web-/, "").replace(/^\w/, (c) => c.toUpperCase())}
-            </Box>
-          </MenuItem>
-        ))}
-      </Menu>
-    </Box>
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-48 card border  rounded shadow-md z-10">
+          <ul className="py-1">
+            {settings?.config?.themes?.map((t) => (
+              <li key={t._id}>
+                <button
+                  onClick={() => changeTheme(t.name)}
+                  className="flex items-center gap-2 w-full text-left px-4 py-2"
+                >
+                  <span
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: t.background.button }}
+                  ></span>
+                  {t.name.replace(/^web-/, "").replace(/^\w/, (c) => c.toUpperCase())}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 }

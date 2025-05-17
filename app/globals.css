@@ -42,6 +42,14 @@ body {
   background: var(--background-navigation);
 }
 
+.text-heading {
+  color: var(--text-heading);
+}
+
+.text-card{
+  color: var(--text-card);
+}
+
 .body {
   background: var(--background-body);
   color: var(--text-primary);
@@ -86,4 +94,10 @@ body {
   width: 100px !important;
   height: 100px !important;
   margin: 0 auto;
+}
+
+.logo{
+  height: 40px !important;
+  width: 100% !important;
+  object-fit: cover !important;
 }
