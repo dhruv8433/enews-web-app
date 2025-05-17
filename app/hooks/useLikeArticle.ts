@@ -6,8 +6,9 @@ import toast from "react-hot-toast"; // ✅ Add toast for feedback
 import { auth, db } from "../site/firebase.config";
 import { Headline } from "../types/headline.types";
 import notifications from "../constants/notifications";
+import { NewsArticle } from "../types/home.types";
 
-const useLikeArticle = (article: Headline) => {
+const useLikeArticle = (article: NewsArticle) => {
   const [user] = useAuthState(auth);
   const [isFavorite, setIsFavorite] = useState(false);
 

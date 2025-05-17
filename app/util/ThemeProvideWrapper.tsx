@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { getTheme, themes } from "./theme";
 import { Menu, MenuItem, IconButton, Box } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
 import { WebSettings } from "../types/setting.types";
@@ -19,32 +18,47 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme") || settings?.themeName || "default";
       setTheme(savedTheme);
-      applyTheme(savedTheme);
+      const selectedTheme = settings?.config?.themes.find(t => t.name === savedTheme);
+      if (selectedTheme) {
+        setThemeVariables(selectedTheme);
+      }
     }
   }, [settings]);
 
-  const applyTheme = (themeName: string) => {
-    const selectedTheme = settings?.config?.themes.find(theme => theme.name === themeName);
-    if (!selectedTheme) return;
+  // New function you provided, to set all theme CSS variables dynamically
+  function setThemeVariables(theme: any) {
+    const root = document.documentElement;
 
-    const { background, text, icon } = selectedTheme;
+    root.style.setProperty('--font-family', theme.fontFamily);
+    root.style.setProperty('--font-size-base', theme.fontSizeBase);
+    root.style.setProperty('--heading-font-size', theme.headingFontSize);
+    root.style.setProperty('--border-radius', theme.borderRadius);
 
-    document.documentElement.style.setProperty("--background", background.body);
-    document.documentElement.style.setProperty("--text", text.primary);
-    document.documentElement.style.setProperty("--primarytext", text.primary);
-    document.documentElement.style.setProperty("--primary", text.heading);
-    document.documentElement.style.setProperty("--secondary", text.secondary);
-    document.documentElement.style.setProperty("--button", background.button);
-    document.documentElement.style.setProperty("--gradient", "linear-gradient(to right, #00f, #0ff)");
-    document.documentElement.style.setProperty("--icon", icon.default);
-  };
+    // Background colors
+    Object.entries(theme.background).forEach(([key, value]) => {
+      root.style.setProperty(`--background-${key}`, value);
+    });
+
+    // Text colors
+    Object.entries(theme.text).forEach(([key, value]) => {
+      root.style.setProperty(`--text-${key}`, value);
+    });
+
+    // Icon colors
+    Object.entries(theme.icon).forEach(([key, value]) => {
+      root.style.setProperty(`--icon-${key}`, value);
+    });
+  }
 
   const changeTheme = (themeName: string) => {
     setTheme(themeName);
     if (typeof window !== "undefined") {
       localStorage.setItem("theme", themeName);
     }
-    applyTheme(themeName);
+    const selectedTheme = settings?.config?.themes.find(t => t.name === themeName);
+    if (selectedTheme) {
+      setThemeVariables(selectedTheme);
+    }
     setAnchorEl(null);
   };
 
@@ -58,7 +72,7 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
 
   return (
     <Box>
-      <IconButton onClick={handleClick} style={{ color: "var(--icon)" }}>
+      <IconButton onClick={handleClick} sx={{ color: "var(--icon-default)" }} aria-label="choose theme">
         <PaletteIcon />
       </IconButton>
 
@@ -74,7 +88,7 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
                   backgroundColor: t.background.button,
                 }}
               />
-              {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
+              {t.name.replace(/^web-/, "").replace(/^\w/, (c) => c.toUpperCase())}
             </Box>
           </MenuItem>
         ))}

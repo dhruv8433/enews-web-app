@@ -3,6 +3,22 @@ import { useWeather } from "@/app/hooks/useWeather";
 import { motion } from "framer-motion";
 import ErrorComponent from "./ErrorComponent";
 
+const fallbackWeather = {
+  location: {
+    name: "Mumbai",
+    country: "India",
+  },
+  current: {
+    temp_c: 30,
+    condition: {
+      text: "Sunny",
+      icon: "https://cdn.weatherapi.com/weather/64x64/day/113.png",
+    },
+    humidity: 60,
+    wind_kph: 10,
+  },
+};
+
 const WeatherCard: React.FC = () => {
   const [city, setCity] = useState<string>();
   const { weather, loading, error } = useWeather(city || "mumbai");
@@ -35,22 +51,17 @@ const WeatherCard: React.FC = () => {
     );
   }
 
-  if (error) return <ErrorComponent error={error} />;
+  const displayWeather = weather || fallbackWeather;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`h-60 w-auto text-white rounded-lg shadow-xl p-4 flex flex-col justify-between relative overflow-hidden`}
-      style={{
-        background: `var(--gradient)`, // Apply theme colors
-        color: `var(--text)`,
-      }}
+      className={`h-60 w-auto p-4 flex flex-col justify-between relative overflow-hidden card`}
     >
-      {/* Animated Weather Icon */}
       <motion.img
-        src={weather?.current?.condition?.icon}
+        src={displayWeather.current.condition.icon}
         alt="Weather Icon"
         className="absolute top-4 right-4 w-14 h-14"
         initial={{ scale: 0.8 }}
@@ -58,22 +69,20 @@ const WeatherCard: React.FC = () => {
         transition={{ duration: 0.4, yoyo: Infinity }}
       />
 
-      {/* Weather Info */}
       <div>
-        <h2 className="text-2xl font-bold">{weather?.location?.name}</h2>
-        <p className="text-lg">{weather?.location?.country}</p>
+        <h2 className="text-2xl font-bold">{displayWeather.location.name}</h2>
+        <p className="text-lg">{displayWeather.location.country}</p>
       </div>
 
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-4xl font-bold">{weather?.current?.temp_c}°C</h3>
-          <p className="text-sm">{weather?.current?.condition?.text}</p>
+          <h3 className="text-4xl font-bold">{displayWeather.current.temp_c}°C</h3>
+          <p className="text-sm">{displayWeather.current.condition.text}</p>
         </div>
 
-        {/* Humidity & Wind */}
         <div className="text-right">
-          <p className="text-sm">Humidity: {weather?.current?.humidity}%</p>
-          <p className="text-sm">Wind: {weather?.current?.wind_kph} km/h</p>
+          <p className="text-sm">Humidity: {displayWeather.current.humidity}%</p>
+          <p className="text-sm">Wind: {displayWeather.current.wind_kph} km/h</p>
         </div>
       </div>
     </motion.div>

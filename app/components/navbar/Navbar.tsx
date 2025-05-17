@@ -21,7 +21,7 @@ import { WebSettings } from '@/app/types/setting.types'
 
 const Navbar: React.FC = () => {
     const { settings, loading } = useSettings();
-    
+
     !loading && console.log("Settings in Navbar:", settings);
 
 
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
     };
 
     return (
-        <MyDiv isPrimary className='py-4'>
+        <MyDiv isPrimary className='py-4 nav'>
             <LargeContainer>
                 <div className="flex justify-between items-center">
                     <div className='flex items-center'>
@@ -71,8 +71,8 @@ const Navbar: React.FC = () => {
                         </Box>
 
                         {/* Logo and title */}
-                        <Link href={'/'} className="flex items-center gap-2 group">
-                            <img src={settings ? settings?.headerLogo :"/asset/logo.png"} alt="Logo" className='w-32 object-cover group-hover:animate-spin' />
+                        <Link href={'/'} className="flex items-center gap-2">
+                            <img src={settings ? settings?.headerLogo : "/logo.png"} alt="Logo" className='w-32 object-cover' />
                         </Link>
                     </div>
 
@@ -101,7 +101,7 @@ const Navbar: React.FC = () => {
                         )}
 
                         {/* theme button */}
-                        <ThemeManager settings={settings as WebSettings}/>
+                        <ThemeManager settings={settings as WebSettings} />
 
                     </div>
                 </div>

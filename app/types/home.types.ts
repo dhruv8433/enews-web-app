@@ -1,0 +1,34 @@
+// types.ts
+
+export interface Category {
+    _id: string;
+    name: string;
+    slug: string;
+}
+
+export interface ArticleCategory {
+    _id: string;
+    name: string;
+}
+
+export interface NewsArticle {
+    _id: string;
+    title: string;
+    slug: string;
+    image_url: string;
+    category: ArticleCategory;
+    published_date?: string;
+}
+
+export interface NewsData {
+    _id: String;
+    categories: Category[];
+    popularNews: NewsArticle[];
+    recentNews: NewsArticle[];
+    technology: NewsArticle[];
+}
+
+export interface NewsApiResponse {
+    statusCode: number;
+    data: NewsData;
+}

@@ -13,8 +13,9 @@ import React from "react";
 import useLikeArticle from "../hooks/useLikeArticle";
 import useFetchFavorites from "../hooks/useFetchFavorites";
 import { Headline } from "../types/headline.types";
+import { NewsArticle } from "../types/home.types";
 
-const LikeButton = ({ article, isProfile }: { article: Headline, isProfile: boolean }) => {
+const LikeButton = ({ article, isProfile }: { article: NewsArticle, isProfile: boolean }) => {
   const { isFavorite, toggleFavorite } = useLikeArticle(article);
   const { removeFavorite } = useFetchFavorites();
   return (
@@ -22,7 +23,7 @@ const LikeButton = ({ article, isProfile }: { article: Headline, isProfile: bool
       aria-label="like"
       onClick={() => (isProfile ? removeFavorite(article._id) : toggleFavorite())}
       style={{ background: `var(--background)`}}
-      className="text-red-500 text-2xl transition-transform duration-200 hover:scale-110 w-min border-none"
+      className="text-2xl transition-transform duration-200 hover:scale-110 w-min border-none"
     >
       {isFavorite ? <Favorite color="error" /> : <FavoriteBorder color="error" />}
     </IconButton>
