@@ -1,16 +1,25 @@
-import React, { useState } from "react";
-import { X } from "lucide-react";
-import { motion } from "framer-motion";
-import GoogleButton from "../common/GoogleButton";
-import { handleSignUp } from "../service/Auth.Firebase";
 import toast from "react-hot-toast";
-import { Box } from "@mui/material";
+import { FiX } from "react-icons/fi";
+import React, { useState } from "react";
+import { handleSignUp } from "../service/Auth.Firebase";
 import notifications from "../constants/notifications";
-import SyncLoader from 'react-spinners/SyncLoader';
 
-const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () => void, setLoginModal: (value: boolean) => void, setSignupModal: (value: boolean) => void }) => {
-    const [form, setForm] = useState({ name: "", email: "", password: "", phone_no: "", avatar: undefined as File | undefined });
-    // const [preview, setPreview] = useState<string | null>(null);
+const SignupModal = ({
+    onClose,
+    setLoginModal,
+    setSignupModal,
+}: {
+    onClose: () => void;
+    setLoginModal: (value: boolean) => void;
+    setSignupModal: (value: boolean) => void;
+}) => {
+    const [form, setForm] = useState({
+        name: "",
+        email: "",
+        password: "",
+        phone_no: "",
+        avatar: undefined as File | undefined,
+    });
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +31,6 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
         const file = e.target.files?.[0];
         if (file) {
             setForm({ ...form, avatar: file });
-            // setPreview(URL.createObjectURL(file));
         }
     };
 
@@ -47,25 +55,15 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
     };
 
     return (
-        <Box p={{ xs: "20px", md: "0px" }} className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md">
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                className="relative w-full max-w-md p-6 bg-white shadow-xl rounded-2xl"
-            >
+        <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-md bg-gray-900/30">
+            <div className="relative w-full max-w-md p-6 bg-white shadow-xl rounded-2xl">
                 {/* Close Button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-3 right-3 text-gray-500"
-                >
-                    <X size={24} />
+                <button onClick={onClose} className="absolute top-3 right-3 text-gray-500">
+                    <FiX size={24} />
                 </button>
 
                 {/* Title */}
-                <h2 className="text-2xl font-bold text-center text-gray-800">
-                    Create an Account
-                </h2>
+                <h2 className="text-2xl font-bold text-center text-gray-800">Create an Account</h2>
 
                 {/* Form Fields */}
                 <form className="mt-5 space-y-4" onSubmit={handleSubmit}>
@@ -128,27 +126,15 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                             onChange={handleAvatarChange}
                             className="w-full p-3 mt-1 text-gray-800 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
                         />
-                        {/* {preview && (
-                            <img
-                                src={preview}
-                                alt="Avatar Preview"
-                                className="mt-2 w-24 h-24 rounded-full object-cover"
-                            />
-                        )} */}
                     </div>
 
                     {/* Signup Button */}
                     <button
                         type="submit"
-                        className="w-full p-3 mt-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition font-semibold flex justify-center items-center"
+                        className="w-full p-3 mt-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition font-semibold"
+                        disabled={loading}
                     >
-                        {loading ? (
-                            <div className="flex justify-center items-center">
-                                <SyncLoader color={"#ffffff"} size={8} />
-                            </div>
-                        ) : (
-                            "Sign Up"
-                        )}
+                        {loading ? "Signing Up..." : "Sign Up"}
                     </button>
                 </form>
 
@@ -165,11 +151,8 @@ const SignupModal = ({ onClose, setLoginModal, setSignupModal }: { onClose: () =
                         Log in
                     </button>
                 </p>
-
-                {/* Google login */}
-                <GoogleButton CloseModel={setSignupModal} />
-            </motion.div>
-        </Box>
+            </div>
+        </div>
     );
 };
 
