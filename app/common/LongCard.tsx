@@ -16,12 +16,12 @@ const LongCard: React.FC<HeadlineProps> = ({ headline }) => {
 
                 {/* Like Button - Positioned in the top-right corner */}
                 <div className="absolute top-3 right-3  rounded-full shadow-md z-10">
-                    <LikeButton article={headline} isProfile={false} />
+                    {/* <LikeButton article={headline} isProfile={false} /> */}
                 </div>
 
                 {/* This link redirects to detail/id page and stores the object in localStorage */}
                 <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`}>
-                    <div className="" onClick={() => handleShareArticle(headline)}>
+                    <div className="">
                         {/* Article Image */}
                         <Box height={{ xs: "250px", md: "300px" }} className="w-full overflow-hidden">
                             <img

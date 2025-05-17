@@ -29,13 +29,13 @@ const HorizontalCard = ({ headline, isProfilePage, onRemove }: { headline: Headl
       {/* Like Button (Only if not in profile page) */}
       {!isProfilePage && (
         <div className="absolute top-3 left-3 z-10 rounded-full">
-          <LikeButton article={headline} isProfile={isProfilePage} />
+          {/* <LikeButton article={headline} isProfile={isProfilePage} /> */}
         </div>
       )}
 
       {/* Card Content */}
       <Link href={`/detail/${slugify(headline.abstract).toLowerCase()}`}>
-        <div className={`hover:cursor-pointer ${isProfilePage ? 'flex flex-col items-center' : 'flex items-center'}`} onClick={() => handleShareArticle(headline)}>
+        <div className={`hover:cursor-pointer ${isProfilePage ? 'flex flex-col items-center' : 'flex items-center'}`}>
           {/* Image Section */}
           <div className={`${isProfilePage ? 'w-full h-60' : 'w-1/3 h-40'} overflow-hidden p-2`}>
             <img

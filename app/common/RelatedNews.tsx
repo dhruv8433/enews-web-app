@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import useHeadlines from '../hooks/useHeadlines';
 import SmallCard from './SmallCard';
-import ErrorComponent from './ErrorComponent';
-import { SmallCardSkeleton } from './Skeleton.Site';
 import MyHeading from './MyHeading';
-import useSharedArticle from '../hooks/useSharedArticle';
 import { Grid } from '@mui/material';
+import ErrorComponent from './ErrorComponent';
+import useHeadlines from '../hooks/useHeadlines';
 import { Headline } from '../types/headline.types';
+import React, { useEffect, useState } from 'react';
+import { SmallCardSkeleton } from './Skeleton.Site';
+import useSharedArticle from '../hooks/useSharedArticle';
 
 const RelatedNews = ({ slug }: { slug: string }) => {
     const [isClient, setIsClient] = useState(false);
@@ -39,7 +39,7 @@ const RelatedNews = ({ slug }: { slug: string }) => {
             {articleLoading ? <h1>Loading...</h1> : <Grid spacing={3} container className="mt-14">
                 {headlines.length > 0 && headlines.slice(0, 5).map((article: Headline, index: number) => (
                     <Grid item xs={12} sm={6} md={12} className="my-4" key={index} >
-                        <SmallCard headline={article} />
+                        {/* <SmallCard headline={article} /> */}
                     </Grid>
                 ))}
             </Grid>}
