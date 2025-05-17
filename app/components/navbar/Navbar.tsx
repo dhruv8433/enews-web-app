@@ -16,8 +16,15 @@ import LoginModal from '@/app/overlays/LoginModal'
 import ThemeManager from '@/app/util/ThemeProvideWrapper'
 import MyDiv from '@/app/common/MyDiv'
 import { FormDataType } from '@/app/types/formData.types'
+import useSettings from '@/app/hooks/useSettigs'
+import { WebSettings } from '@/app/types/setting.types'
 
 const Navbar: React.FC = () => {
+    const { settings, loading } = useSettings();
+    
+    !loading && console.log("Settings in Navbar:", settings);
+
+
     const [openDrawer, setOpenDrawer] = useState(false);
     const [userInfo, setUserInfo] = useState<FormDataType>({
         name: "",
@@ -65,8 +72,7 @@ const Navbar: React.FC = () => {
 
                         {/* Logo and title */}
                         <Link href={'/'} className="flex items-center gap-2 group">
-                            <img src="/asset/logo.png" alt="Logo" className='h-14 w-14 object-cover group-hover:animate-spin' />
-                            <h1 className='font-bold text-2xl hover:cursor-pointer hover:text-blue-900'>ENews</h1>
+                            <img src={settings ? settings?.headerLogo :"/asset/logo.png"} alt="Logo" className='w-32 object-cover group-hover:animate-spin' />
                         </Link>
                     </div>
 
@@ -95,7 +101,7 @@ const Navbar: React.FC = () => {
                         )}
 
                         {/* theme button */}
-                        <ThemeManager />
+                        <ThemeManager settings={settings as WebSettings}/>
 
                     </div>
                 </div>

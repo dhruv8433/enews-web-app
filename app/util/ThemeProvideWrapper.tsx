@@ -1,35 +1,42 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from "react";
 import { getTheme, themes } from "./theme";
 import { Menu, MenuItem, IconButton, Box } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
+import { WebSettings } from "../types/setting.types";
 
-export default function ThemeManager() {
+interface ThemeManagerProps {
+  settings: WebSettings;
+}
+
+export default function ThemeManager({ settings }: ThemeManagerProps) {
   const [theme, setTheme] = useState<string>("default"); // Default theme
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Ensure it runs only on the client
-      console.log(theme);
-      const savedTheme = localStorage.getItem("theme") || "default";
+      const savedTheme = localStorage.getItem("theme") || settings?.themeName || "default";
       setTheme(savedTheme);
       applyTheme(savedTheme);
     }
-  }, []);
+  }, [settings]);
 
   const applyTheme = (themeName: string) => {
-    const themeColors = getTheme(themeName);
-    document.documentElement.style.setProperty("--background", themeColors.background);
-    document.documentElement.style.setProperty("--text", themeColors.text);
-    document.documentElement.style.setProperty("--primarytext", themeColors.primarytext);
-    document.documentElement.style.setProperty("--primary", themeColors.primary);
-    document.documentElement.style.setProperty("--secondary", themeColors.primary);
-    document.documentElement.style.setProperty("--button", themeColors.primary);
-    document.documentElement.style.setProperty("--gradient", themeColors.gradient);
-    document.documentElement.style.setProperty("--icon", themeColors.icon);
+    const selectedTheme = settings?.config?.themes.find(theme => theme.name === themeName);
+    if (!selectedTheme) return;
+
+    const { background, text, icon } = selectedTheme;
+
+    document.documentElement.style.setProperty("--background", background.body);
+    document.documentElement.style.setProperty("--text", text.primary);
+    document.documentElement.style.setProperty("--primarytext", text.primary);
+    document.documentElement.style.setProperty("--primary", text.heading);
+    document.documentElement.style.setProperty("--secondary", text.secondary);
+    document.documentElement.style.setProperty("--button", background.button);
+    document.documentElement.style.setProperty("--gradient", "linear-gradient(to right, #00f, #0ff)");
+    document.documentElement.style.setProperty("--icon", icon.default);
   };
 
   const changeTheme = (themeName: string) => {
@@ -38,7 +45,7 @@ export default function ThemeManager() {
       localStorage.setItem("theme", themeName);
     }
     applyTheme(themeName);
-    setAnchorEl(null); // Close menu after selection
+    setAnchorEl(null);
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,25 +62,19 @@ export default function ThemeManager() {
         <PaletteIcon />
       </IconButton>
 
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} >
-        {Object.keys(themes).map((t) => (
-          <MenuItem key={t} onClick={() => changeTheme(t)}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-              }}
-            >
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+        {settings?.config?.themes?.map((t) => (
+          <MenuItem key={t._id} onClick={() => changeTheme(t.name)}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <Box
                 sx={{
                   width: 12,
                   height: 12,
                   borderRadius: "50%",
-                  backgroundColor: getTheme(t).primary,
+                  backgroundColor: t.background.button,
                 }}
               />
-              {t.charAt(0).toUpperCase() + t.slice(1)}
+              {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
             </Box>
           </MenuItem>
         ))}
