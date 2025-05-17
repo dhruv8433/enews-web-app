@@ -16,7 +16,7 @@ type SwiperCardProps = {
 const SwiperCard: React.FC<SwiperCardProps> = ({ article, isSmallSwiper = false }) => {
   return (
     <div className="relative h-full">
-      <div className="absolute right-3 top-3 z-10 rounded-full like-button">
+      <div className="absolute right-3 top-3 z-10 like-button">
         <LikeButton article={article} isProfile={false} />
       </div>
 
@@ -30,7 +30,7 @@ const SwiperCard: React.FC<SwiperCardProps> = ({ article, isSmallSwiper = false 
           <div className="absolute bottom-0 left-0 p-4 w-full bg-black bg-opacity-60 backdrop-blur-md">
             <div className="md:p-4 md:min-h-[150px]">
               <div className="flex items-center justify-between mb-1">
-                <h1 className="rounded-md text-white p-1">{article.category.name}</h1>
+                <h1 className="rounded-md text-white py-1 px-2 card">{article.category.name}</h1>
                 {/* Optionally add a date here if you have */}
                 <div className="flex items-center gap-2">
                   <CalendarMonthIcon className="text-white" fontSize="small" />

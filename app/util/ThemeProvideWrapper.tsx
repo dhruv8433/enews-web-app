@@ -18,21 +18,22 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme") || settings?.themeName || "default";
       setTheme(savedTheme);
+      const config = settings?.config;
       const selectedTheme = settings?.config?.themes.find(t => t.name === savedTheme);
       if (selectedTheme) {
-        setThemeVariables(selectedTheme);
+        setThemeVariables(selectedTheme, config);
       }
     }
   }, [settings]);
 
   // New function you provided, to set all theme CSS variables dynamically
-  function setThemeVariables(theme: any) {
+  function setThemeVariables(theme: any, config?: any) {
     const root = document.documentElement;
 
-    root.style.setProperty('--font-family', theme.fontFamily);
-    root.style.setProperty('--font-size-base', theme.fontSizeBase);
-    root.style.setProperty('--heading-font-size', theme.headingFontSize);
-    root.style.setProperty('--border-radius', theme.borderRadius);
+    root.style.setProperty('--font-family', config.fontFamily);
+    root.style.setProperty('--font-size-base', config.fontSizeBase);
+    root.style.setProperty('--heading-font-size', config.headingFontSize);
+    root.style.setProperty('--border-radius', config.borderRadius);
 
     // Background colors
     Object.entries(theme.background).forEach(([key, value]) => {

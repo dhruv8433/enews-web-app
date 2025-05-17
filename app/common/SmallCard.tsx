@@ -13,7 +13,7 @@ type SmallCardProps = {
 
 const SmallCard: React.FC<SmallCardProps> = ({ article }) => {
   return (
-    <div className="relative rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+    <div className="relative overflow-hidden hover:shadow-lg transition-all duration-300 my-rounded">
       {/* Like button */}
       <div className="absolute right-2 top-2 z-10">
         <LikeButton article={article} isProfile={false} />
