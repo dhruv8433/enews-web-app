@@ -5,11 +5,15 @@ import { Menu, MenuItem, IconButton, Box } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
 import { WebSettings } from "../types/setting.types";
 
-interface ThemeManagerProps {
-  settings: WebSettings;
+interface ThemeColors {
+  background: Record<string, string>;
+  text: Record<string, string>;
+  icon: Record<string, string>;
 }
 
-interface Theme {
+interface ThemeConfig {
+  name: string;
+  _id: string;
   background: Record<string, string>;
   text: Record<string, string>;
   icon: Record<string, string>;
@@ -20,7 +24,11 @@ interface Config {
   fontSizeBase: string;
   headingFontSize: string;
   borderRadius: string;
-  [key: string]: any;
+  themes: ThemeConfig[];
+}
+
+interface ThemeManagerProps {
+  settings: WebSettings & { config: Config };
 }
 
 export default function ThemeManager({ settings }: ThemeManagerProps) {
@@ -30,24 +38,25 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme") || settings?.themeName || "default";
+      const savedTheme =
+        localStorage.getItem("theme") || settings?.themeName || "default";
       setTheme(savedTheme);
+
       const config = settings?.config;
-      const selectedTheme = settings?.config?.themes.find(t => t.name === savedTheme);
+      const selectedTheme = config?.themes.find((t) => t.name === savedTheme);
       if (selectedTheme) {
         setThemeVariables(selectedTheme, config);
       }
     }
   }, [settings]);
 
-  // New function you provided, to set all theme CSS variables dynamically
-  function setThemeVariables(theme: Theme, config: Config) {
+  function setThemeVariables(theme: ThemeConfig, config: Config) {
     const root = document.documentElement;
 
-    root.style.setProperty('--font-family', config.fontFamily);
-    root.style.setProperty('--font-size-base', config.fontSizeBase);
-    root.style.setProperty('--heading-font-size', config.headingFontSize);
-    root.style.setProperty('--border-radius', config.borderRadius);
+    root.style.setProperty("--font-family", config.fontFamily);
+    root.style.setProperty("--font-size-base", config.fontSizeBase);
+    root.style.setProperty("--heading-font-size", config.headingFontSize);
+    root.style.setProperty("--border-radius", config.borderRadius);
 
     // Background colors
     Object.entries(theme.background).forEach(([key, value]) => {
@@ -70,9 +79,12 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
     if (typeof window !== "undefined") {
       localStorage.setItem("theme", themeName);
     }
-    const selectedTheme = settings?.config?.themes.find(t => t.name === themeName);
+
+    const selectedTheme = settings?.config?.themes.find(
+      (t) => t.name === themeName
+    );
     const config = settings?.config;
-    if (selectedTheme) {
+    if (selectedTheme && config) {
       setThemeVariables(selectedTheme, config);
     }
     setAnchorEl(null);
@@ -88,7 +100,11 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
 
   return (
     <Box>
-      <IconButton onClick={handleClick} sx={{ color: "var(--icon-default)" }} aria-label="choose theme">
+      <IconButton
+        onClick={handleClick}
+        sx={{ color: "var(--icon-default)" }}
+        aria-label="choose theme"
+      >
         <PaletteIcon />
       </IconButton>
 
