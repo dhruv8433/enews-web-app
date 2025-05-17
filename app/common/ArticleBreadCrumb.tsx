@@ -65,7 +65,7 @@ const ArticleBreadCrumb: React.FC<HeadlineProps> = ({ headline }) => {
                     </div>
                     {/* Action Buttons */}
                     <div className="flex items-center justify-end space-x-4 mt-6">
-                        <LikeButton article={headline} isProfile={false} />
+                        {/* <LikeButton article={headline} isProfile={false} /> */}
                         <ReadLaterButton headline={headline} />
                         <IconButton aria-label="priny" style={{color: `var(--text)`}} onClick={handlePrint}><PrintOutlined /></IconButton>
                         <IconButton aria-label="share"  style={{color: `var(--text)`}} onClick={handleShare}><ShareOutlined /></IconButton>
