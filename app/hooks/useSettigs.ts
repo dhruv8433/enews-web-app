@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getSettings } from "../service/settings.service";
-import { WebSettings } from "../types/setting.types";
+import { WebSettings } from "../types/settings.types";
 
 const useSettings = () => {
     const [settings, setSettings] = useState<WebSettings | null>(null);
