@@ -22,7 +22,7 @@ const CareerSection = () => {
             <MySwiperFlipEffect>
                 {headlines.map((headline) =>
                     <SwiperSlide className='h-[600px]' key={headline._id}>
-                        <SwiperCard headline={headline} isSmallSwiper={true}/>
+                        {/* <SwiperCard headline={headline} isSmallSwiper={true}/> */}
                     </SwiperSlide>
                 )}
             </MySwiperFlipEffect>
