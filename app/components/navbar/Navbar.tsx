@@ -46,7 +46,7 @@ const Navbar = () => {
 
                         {/* Dark Mode Toggle */}
 
-                        <ThemeManager settings={settings} />
+                        {settings && <ThemeManager settings={settings} />}
                         {/* Mobile Menu Button */}
                         <div className="md:hidden">
                             <button onClick={toggleMenu} className="text-2xl ">
