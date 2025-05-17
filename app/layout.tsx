@@ -1,10 +1,10 @@
 'use client'
 
 import "./globals.css";
-import GlobalAdvertise from "./components/headers/GlobalAdvertise";
 import { Toaster } from 'react-hot-toast'
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
+import GlobalAdvertise from "./components/headers/GlobalAdvertise";
 
 export default function RootLayout({
   children,

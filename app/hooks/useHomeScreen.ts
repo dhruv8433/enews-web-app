@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { getHomeScreen } from '../service/home.service';
-import { ErrorType } from '../types/error,types'; // Fixed typo from "error,types"
-import { HomeScreenData } from '../types/home.types'; // Add this type
+import { HomeScreenData } from '../types/home.types';
+import { ErrorType } from '../types/error.types';
 
 const useHomeScreen = () => {
   const [homeData, setHomeData] = useState<HomeScreenData | null>(null);
