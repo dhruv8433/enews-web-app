@@ -9,6 +9,19 @@ interface ThemeManagerProps {
   settings: WebSettings;
 }
 
+interface Theme {
+  background: Record<string, string>;
+  [key: string]: any;
+}
+
+interface Config {
+  fontFamily: string;
+  fontSizeBase: string;
+  headingFontSize: string;
+  borderRadius: string;
+  [key: string]: any;
+}
+
 export default function ThemeManager({ settings }: ThemeManagerProps) {
   const [theme, setTheme] = useState<string>("default"); // Default theme
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -27,7 +40,7 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
   }, [settings]);
 
   // New function you provided, to set all theme CSS variables dynamically
-  function setThemeVariables(theme: any, config?: any) {
+  function setThemeVariables(theme: Theme, config: Config) {
     const root = document.documentElement;
 
     root.style.setProperty('--font-family', config.fontFamily);

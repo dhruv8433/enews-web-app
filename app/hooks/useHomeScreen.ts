@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import { getHomeScreen } from "../service/home.service";
 import { ErrorType } from "../types/error,types";

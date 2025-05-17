@@ -22,9 +22,6 @@ import { WebSettings } from '@/app/types/setting.types'
 const Navbar: React.FC = () => {
     const { settings, loading } = useSettings();
 
-    !loading && console.log("Settings in Navbar:", settings);
-
-
     const [openDrawer, setOpenDrawer] = useState(false);
     const [userInfo, setUserInfo] = useState<FormDataType>({
         name: "",

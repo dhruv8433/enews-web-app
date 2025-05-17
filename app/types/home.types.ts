@@ -21,7 +21,7 @@ export interface NewsArticle {
 }
 
 export interface NewsData {
-    _id: String;
+    _id: string;
     categories: Category[];
     popularNews: NewsArticle[];
     recentNews: NewsArticle[];
