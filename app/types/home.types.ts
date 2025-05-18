@@ -14,6 +14,7 @@ export interface NewsItem {
     category: {
         _id: string;
         name: string;
+        slug?: string; // slug is present in categories but not inside news.category, so optional here
     };
 }
 

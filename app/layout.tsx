@@ -14,10 +14,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`antialiased`} suppressHydrationWarning>
-        <div>
+        <div className="">
           <GlobalAdvertise />
           <Navbar />
-          {children}
+          <div className="container">
+
+            {children}
+          </div>
           <Toaster position="top-center" reverseOrder={false} />
 
           <Footer />

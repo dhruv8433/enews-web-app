@@ -7,8 +7,8 @@ interface MarqueeSectionProps {
 
 const MarqueeSection: React.FC<MarqueeSectionProps> = ({ category }) => {
   return (
-    <div className="text-white overflow-hidden whitespace-nowrap group">
-      <div className="flex items-center gap-10 animate-marquee group-hover:animation-paused">
+    <div className="container overflow-hidden whitespace-nowrap group ">
+      <div className="flex items-center gap-10 animate-marquee group-hover:animation-paused my-2">
         {category.map((cat) => (
           <span
             key={cat._id}
