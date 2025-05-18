@@ -12,8 +12,6 @@ interface HorizontalCardProps {
 
 const HorizontalCard: React.FC<HorizontalCardProps> = ({ news }) => {
     const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
-
-    console.log("favs from swiper", favorites)
     const isFavorited = favorites.some(fav => fav?._id === news._id);
 
 

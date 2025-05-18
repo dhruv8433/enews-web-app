@@ -14,7 +14,7 @@ const UserFavorites = () => {
             <hr className='border-dashed' />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
                 {favorites.map((favorite) => (
-                    <VerticalCard news={favorite} isGrid />
+                    <VerticalCard key={favorite._id} news={favorite} isGrid />
                 ))}
             </div>
         </div>
