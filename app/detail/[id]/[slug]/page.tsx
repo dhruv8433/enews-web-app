@@ -9,7 +9,7 @@ import VerticalCard from '@/app/common/VerticalCard';
 import { FavoriteButton } from '@/app/common/FavoriteButton';
 import { useFavorites } from '@/app/hooks/useFavorites';
 
-import { FaThumbsUp, FaEye, FaShareAlt } from 'react-icons/fa';
+import { FaThumbsUp, FaEye, FaShareAlt, FaPrint } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { ShareButton } from '@/app/common/ShareButton';
 import { httpAxios } from '@/app/httpAxios';
@@ -64,19 +64,29 @@ const ArticleDetailPage = () => {
         </div>
 
         {/* Stats: Likes, Reads, Shares - outside the image */}
-        <div className="flex gap-6 text-sm text-gray-600 mb-4">
-          <div className="flex items-center gap-1">
+        <div className="flex justify-between  mb-4">
+          <div className='flex items-center gap-6 text-sm'><div className="flex items-center gap-1">
             <FaThumbsUp className="text-blue-600" />
             <span>{article.total_likes}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <FaEye className="text-green-600" />
-            <span>{article.total_reads}</span>
+            <div className="flex items-center gap-1">
+              <FaEye className="text-green-600" />
+              <span>{article.total_reads}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <FaShareAlt className="text-purple-600" />
+              <span>{article.total_shares}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-1">
-            <FaShareAlt className="text-purple-600" />
-            <span>{article.total_shares}</span>
+          {/* New Print Icon */}
+          <div
+            className="flex items-center gap-1 cursor-pointer hover:text-gray-800"
+            onClick={() => window.print()}
+            title="Print Article"
+          >
+            <FaPrint className='text-heading' />
           </div>
+
         </div>
 
         {/* Image with top overlay action buttons */}
