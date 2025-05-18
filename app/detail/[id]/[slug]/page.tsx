@@ -48,7 +48,7 @@ const ArticleDetailPage = () => {
           url: window.location.href,
         })
       // -------- share ---------
-      await httpAxios.put(`/articles/${article._id}/share`)
+      await httpAxios.put(`/articles/${article._id}/share`).then(() => article.total_shares++)
     } else {
       toast('Share not supported in this browser.');
     }
