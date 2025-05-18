@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { searchArticles } from '../service/search.service';
+import { Article } from '../types/article.types';
+import { ErrorType } from '../types/error.types';
 
 
 export const useSearchArticles = (query: string) => {
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<Article[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState<ErrorType | null>(null);
 
     useEffect(() => {
         if (!query) return;
@@ -19,7 +21,10 @@ export const useSearchArticles = (query: string) => {
                 console.log(result);
                 setData(result.data.articles || []);
             } catch (err) {
-                setError(err as Error);
+                setError({
+                    message: 'Failed to fetch articles',
+                    details: (err as Error).message,
+                });
             } finally {
                 setLoading(false);
             }
