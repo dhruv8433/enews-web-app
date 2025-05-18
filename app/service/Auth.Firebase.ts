@@ -1,11 +1,11 @@
 import toast from "react-hot-toast";
 import { httpAxios } from "../httpAxios";
-import { FormDataType } from "../types/formData.types";
+import { LoginFormData, SignupFormData } from "../types/auth.types";
 
 // Sign up a new user
-const handleSignUp = async (userData: FormDataType) => {
+const handleSignUp = async (userData: SignupFormData) => {
     const formData = new FormData();
-    formData.append("fullname", userData.name || "");
+    formData.append("fullname", userData.fullname || "");
     formData.append("email", userData.email);
     formData.append("password", userData.password);
     formData.append("phone_no", userData.phone_no || "");
@@ -22,7 +22,6 @@ const handleSignUp = async (userData: FormDataType) => {
             },
         });
         console.log("User signed up:", user);
-        toast.success(user.data?.message || "User signed up successfully!");
         return user;
     } catch (error) {
         console.error("Error signing up:", error);
@@ -30,7 +29,7 @@ const handleSignUp = async (userData: FormDataType) => {
 };
 
 // Log in an existing user
-const handleLogin = async (formData: FormDataType) => {
+const handleLogin = async (formData: LoginFormData) => {
     try {
         const user = await httpAxios.post("/auth/login", { email: formData.email, password: formData.password });
         console.log("User logged in:", user);
