@@ -14,7 +14,7 @@ const Navbar = () => {
     const { loading, settings } = useSettings();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
 
 
     const router = useRouter();
@@ -81,7 +81,7 @@ const Navbar = () => {
                                 />
                             </Link>
                         ) : (
-                            <AuthModals />
+                            <AuthModals setUser={setUser}/>
                         )}
 
                     </div>
