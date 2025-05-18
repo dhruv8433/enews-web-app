@@ -33,15 +33,25 @@ const Navbar = () => {
         <nav className="w-full nav z-50">
             <div className="mx-auto px-4 container">
                 <div className="flex justify-between items-center h-16">
-                    {/* Logo */}
-                    <Link href="/">
-                        <img
-                            src={settings?.headerLogo}
-                            alt="logo"
-                            aria-label="logo"
-                            className="logo"
-                        />
-                    </Link>
+                    <div className='flex items-center gap-2'>
+
+                        {/* Mobile Menu Button */}
+                        <div className="md:hidden">
+                            <button onClick={toggleMenu} className="text-2xl text-heading">
+                                {isMobileMenuOpen ? <FiX /> : <FiMenu />}
+                            </button>
+                        </div>
+
+                        {/* Logo */}
+                        <Link href="/">
+                            <img
+                                src={settings?.headerLogo}
+                                alt="logo"
+                                aria-label="logo"
+                                className="logo"
+                            />
+                        </Link>
+                    </div>
 
                     <div className="flex items-center gap-4">
                         {/* Desktop Menu */}
@@ -63,13 +73,6 @@ const Navbar = () => {
                         {/* Dark Mode Toggle */}
                         {settings && <ThemeManager settings={settings} />}
 
-                        {/* Mobile Menu Button */}
-                        <div className="md:hidden">
-                            <button onClick={toggleMenu} className="text-2xl">
-                                {isMobileMenuOpen ? <FiX /> : <FiMenu />}
-                            </button>
-                        </div>
-
                         {/* here conditional render avatar and button */}
                         {user ? (
                             <Link href="/profile" className="block" aria-label="User Profile">
@@ -81,7 +84,7 @@ const Navbar = () => {
                                 />
                             </Link>
                         ) : (
-                            <AuthModals setUser={setUser}/>
+                            <AuthModals setUser={setUser} />
                         )}
 
                     </div>
