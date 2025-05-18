@@ -26,9 +26,8 @@ export interface LoginData {
     user: User;
 }
 
-export interface SignupResponse extends ApiResponse<SignupData> { }
-
-export interface LoginResponse extends ApiResponse<LoginData> { }
+export type SignupResponse = ApiResponse<SignupData>;
+export type LoginResponse = ApiResponse<LoginData>;
 
 export interface SignupFormData {
     fullname: string;

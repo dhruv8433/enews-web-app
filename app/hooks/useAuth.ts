@@ -4,8 +4,12 @@ import toast from "react-hot-toast";
 import { httpAxios } from "../httpAxios";
 import { LoginFormData, SignupFormData } from "../types/auth.types";
 import { LoginResponse, SignupResponse } from "../types/auth.types";
+import { ErrorType } from "../types/error.types";
+import { useState } from "react";
 
 export const useAuth = () => {
+    const [error, setError] = useState<ErrorType | null>(null);
+
     const handleSignUp = async (userData: SignupFormData): Promise<SignupResponse | undefined> => {
         const formData = new FormData();
         formData.append("fullname", userData.fullname || "");
@@ -26,8 +30,11 @@ export const useAuth = () => {
             });
             toast.success(res.data?.message || "User signed up successfully!");
             return res.data;
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || "Signup failed");
+        } catch (error) {
+            setError({
+                message: 'Failed to fetch articles',
+                details: (error as Error).message,
+            });
             console.error("Signup error:", error);
         }
     };
@@ -38,8 +45,11 @@ export const useAuth = () => {
             localStorage.setItem("user", JSON.stringify(res.data?.data?.user));
             toast.success(res.data?.message || "User logged in successfully!");
             return res.data;
-        } catch (error: any) {
-            toast.error(error.response?.data?.message || "Login failed");
+        } catch (error) {
+            setError({
+                message: 'Failed to fetch articles',
+                details: (error as Error).message,
+            });
             console.error("Login error:", error);
         }
     };
