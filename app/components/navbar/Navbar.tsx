@@ -72,7 +72,7 @@ const Navbar = () => {
 
                         {/* here conditional render avatar and button */}
                         {user ? (
-                            <span className="text-sm font-medium text-heading">{user.fullname}</span>
+                            <span className="text-sm font-medium text-card">{user.fullname}</span>
                         ) : (
                             <AuthModals />
                         )}
