@@ -30,16 +30,16 @@ const Navbar = () => {
                     <div className="flex items-center gap-2">
                         {/* Desktop Menu */}
                         <div className="hidden md:flex items-center space-x-6">
-                            <Link href="/" className="text-heading transition">
+                            <Link href="/" className="text-card transition">
                                 Home
                             </Link>
-                            <Link href="/services" className="text-heading transition">
+                            <Link href="/services" className="text-card transition">
                                 Services
                             </Link>
-                            <Link href="/about" className="text-heading transition">
+                            <Link href="/about" className="text-card transition">
                                 About
                             </Link>
-                            <Link href="/contact" className="text-heading transition">
+                            <Link href="/contact" className="text-card transition">
                                 Contact
                             </Link>
                         </div>
@@ -60,16 +60,16 @@ const Navbar = () => {
             {/* Mobile Dropdown Menu */}
             {isMobileMenuOpen && (
                 <div className="md:hidden px-4 pb-4">
-                    <Link href="/" className="block py-2 text-heading">
+                    <Link href="/" className="block py-2 text-card">
                         Home
                     </Link>
-                    <Link href="/popular" className="block py-2 text-heading">
+                    <Link href="/popular" className="block py-2 text-card">
                         Popular
                     </Link>
-                    <Link href="/about" className="block py-2 text-heading">
+                    <Link href="/about" className="block py-2 text-card">
                         About
                     </Link>
-                    <Link href="/contact" className="block py-2 text-heading">
+                    <Link href="/contact" className="block py-2 text-card">
                         Contact
                     </Link>
                 </div>
