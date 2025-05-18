@@ -1,13 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import VerticalCard from '@/app/common/VerticalCard';
 import { useSearchArticles } from '@/app/hooks/useSearchArticles';
+import toast from 'react-hot-toast';
 
 const SearchPage = () => {
     const { q } = useParams();
     const { data, loading, error } = useSearchArticles(q as string);
+
+    useEffect(() => { toast.dismiss() }, [])
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-12">
