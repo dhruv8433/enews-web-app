@@ -26,7 +26,10 @@ export const useFavorites = () => {
 
     const addToFavorites = useCallback(
         async (articleId: string) => {
-            if (!user) return; // Prevent adding if no user
+            if (!user) {
+                toast.error("please login to add Favorite")
+                return
+            };
             const res = await addFavorite(articleId);
             if (res) {
                 setFavorites((prev) => [...prev, res.data.article]);
