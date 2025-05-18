@@ -14,7 +14,7 @@ const GlobalAdvertise: React.FC = () => {
                 {/* Left Section: Displays a lightning icon, trending link, and tagline */}
                 <div className="left flex items-center text-white">
                     {/* <Bolt /> Lightning Icon */}
-                    <Link href={`/query?q=trending`} className="underline px-1">
+                    <Link href={`/query/trending`} className="underline px-1">
                         Trending
                     </Link>
                     <h1>News of the whole world</h1>
