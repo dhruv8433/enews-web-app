@@ -72,7 +72,14 @@ const Navbar = () => {
 
                         {/* here conditional render avatar and button */}
                         {user ? (
-                            <span className="text-sm font-medium text-card">{user.fullname}</span>
+                            <Link href="/profile" className="block" aria-label="User Profile">
+                                <img
+                                    src={user.avatar_url || '/default-avatar.png'}
+                                    alt={`${user.fullname || 'User'} avatar`}
+                                    className="h-8 w-8 rounded-full object-cover border-2 border-primary hover:ring-2 hover:ring-primary transition"
+                                    loading="lazy"
+                                />
+                            </Link>
                         ) : (
                             <AuthModals />
                         )}
