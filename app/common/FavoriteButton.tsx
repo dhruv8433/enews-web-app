@@ -30,7 +30,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
             onClick={handleClick}
             disabled={disabled}
             className={`
-      z-20 absolute right-2 top-2 p-1 rounded-full
+      z-20 absolute right-2 top-2 body p-1 rounded-full
       text-[1.4rem]
       transition-colors duration-300
       ${disabled ? "cursor-not-allowed" : "cursor-pointer"}
