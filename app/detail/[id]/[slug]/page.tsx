@@ -5,11 +5,27 @@ import { useParams } from 'next/navigation';
 import DOMPurify from 'dompurify';
 import { useSearchArticles } from '@/app/hooks/useSearchArticles';
 import VerticalCard from '@/app/common/VerticalCard';
+import { FavoriteButton } from '@/app/common/FavoriteButton';
+import { useFavorites } from '@/app/hooks/useFavorites';
 
 const ArticleDetailPage = () => {
   const { id } = useParams() as { id: string };
   const { data, loading, error } = useArticle(id);
   const article = data?.article;
+  const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+
+  console.log("favs from swiper", favorites)
+  const isFavorited = favorites.some(fav => fav?._id === article?._id);
+
+
+  const toggleFavorite = (articleId: string) => {
+    if (isFavorited) {
+      removeFromFavorites(articleId);
+    } else {
+      addToFavorites(articleId);
+    }
+  };
+
 
   const {
     data: relatedArticles,
@@ -29,7 +45,12 @@ const ArticleDetailPage = () => {
           Published on {formatPublishedDate(article.published_at)} · {article.read_time} min read
         </div>
 
-        <div className="mb-8">
+        <div className="mb-8 relative">
+          <FavoriteButton
+            articleId={article._id}
+            isFavorited={isFavorited}
+            onToggleFavorite={toggleFavorite}
+          />
           <img
             src={article.image_url}
             alt={article.title}
