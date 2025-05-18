@@ -10,7 +10,7 @@ interface SwiperSlideCardProps {
 const SwiperSlideCard: React.FC<SwiperSlideCardProps> = ({ news, isSwiper }) => {
   return (
     <a
-      href={`/news/${news.slug}`}
+      href={`/detail/${news._id}/${news.slug}`}
       target="_blank"
       rel="noopener noreferrer"
       className="relative block rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 group"

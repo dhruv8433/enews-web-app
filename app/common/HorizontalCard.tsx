@@ -10,7 +10,7 @@ interface HorizontalCardProps {
 
 const HorizontalCard: React.FC<HorizontalCardProps> = ({ news }) => {
     return (
-        <Link href={`/news/${news.slug}`} passHref>
+        <Link href={`/detail/${news._id}/${news.slug}`} passHref>
             <div className="flex flex-col md:flex-row card shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer my-4">
                 {/* Image Section */}
                 <div className="relative w-full md:w-1/3 h-48 md:h-auto">
