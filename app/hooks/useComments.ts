@@ -1,9 +1,10 @@
 // hooks/useComments.ts
 import { useState, useEffect, useCallback } from 'react';
 import { createComments, getComments } from '../service/comment.service';
+import { Comment } from '../types/comment.types';
 
 export function useComments(articleId: string) {
-    const [comments, setComments] = useState<any[]>([]);
+    const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
 
