@@ -14,7 +14,6 @@ const useHomeScreen = () => {
     setLoading(true);
     try {
       const response = await getHomeScreen();
-      console.log('Home screen data:', response.data);
       setHomeData(response.data);
     } catch (err) {
       console.error('Error fetching home screen:', err);
