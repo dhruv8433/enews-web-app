@@ -1,6 +1,7 @@
 // components/home/SwiperSlideCard.tsx
 import React from "react";
 import { NewsItem } from "@/app/types/home.types";
+import Link from "next/link";
 
 interface SwiperSlideCardProps {
   news: NewsItem;
@@ -9,9 +10,8 @@ interface SwiperSlideCardProps {
 
 const SwiperSlideCard: React.FC<SwiperSlideCardProps> = ({ news, isSwiper }) => {
   return (
-    <a
+    <Link
       href={`/detail/${news._id}/${news.slug}`}
-      target="_blank"
       rel="noopener noreferrer"
       className="relative block rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 group"
       style={{ height: isSwiper ? "480px" : "230px" }}
@@ -32,7 +32,7 @@ const SwiperSlideCard: React.FC<SwiperSlideCardProps> = ({ news, isSwiper }) => 
         </p>
         <h3 className={`${isSwiper ? "text-2xl" : "text-sm"} font-bold line-clamp-2 text-primary`}>{news.title}</h3>
       </div>
-    </a>
+    </Link>
   );
 };
 
