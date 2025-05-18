@@ -6,6 +6,7 @@ import { LoginFormData, SignupFormData } from "../types/auth.types";
 import { LoginResponse, SignupResponse } from "../types/auth.types";
 import { ErrorType } from "../types/error.types";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 export const useAuth = () => {
     const [error, setError] = useState<ErrorType | null>(null);
@@ -42,7 +43,7 @@ export const useAuth = () => {
     const handleLogin = async (formData: LoginFormData): Promise<LoginResponse | undefined> => {
         try {
             const res = await httpAxios.post<LoginResponse>("/auth/login", formData);
-            localStorage.setItem("user", JSON.stringify(res.data?.data?.user));
+            Cookies.set("user", encodeURIComponent(JSON.stringify(res.data?.data?.user)), { expires: 7 }); // optional expiration
             toast.success(res.data?.message || "User logged in successfully!");
             return res.data;
         } catch (error) {

@@ -1,45 +1,24 @@
-"use client";
+// AuthContext.tsx (or wherever your AuthProvider is)
 
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-  Dispatch,
-  SetStateAction,
-  useMemo,
-} from "react";
+import React, { createContext, useContext, useEffect, useState, ReactNode, useMemo } from "react";
 import Cookies from "js-cookie";
+import { httpAxios } from "../httpAxios"; // your axios instance
+import toast from "react-hot-toast";
+import { LoginFormData, User, LoginResponse } from "../types/auth.types";
 
-// ✅ User interface based on API response
-export interface User {
-  _id: string;
-  fullname: string;
-  email: string;
-  role: "admin" | "author" | "user";
-  avatar_url: string;
-  status: "active" | "inactive" | string;
-  created_at: string;
-  updated_at: string;
-}
-
-// ✅ Auth context type
 interface AuthContextType {
   user: User | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
-  // Optional: logout: () => void;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  login: (formData: LoginFormData) => Promise<void>;
+  logout: () => void;
 }
 
-// ✅ Create context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// ✅ Provider props type
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-// ✅ AuthProvider component
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
@@ -55,16 +34,34 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, []);
 
-  const value = useMemo(() => ({ user, setUser /*, logout */ }), [user]);
+  const login = async (formData: LoginFormData) => {
+    try {
+      const res = await httpAxios.post<LoginResponse>("/auth/login", formData);
+      const loggedInUser = res.data?.data?.user;
+      if (loggedInUser) {
+        Cookies.set("user", encodeURIComponent(JSON.stringify(loggedInUser)), { expires: 7 });
+        setUser(loggedInUser);
+        toast.success(res.data?.message || "User logged in successfully!");
+      }
+    } catch (error) {
+      toast.error("Login failed");
+      console.error("Login error:", error);
+    }
+  };
+
+  const logout = () => {
+    Cookies.remove("user");
+    setUser(null);
+    toast.success("Logged out successfully");
+  };
+
+  const value = useMemo(() => ({ user, setUser, login, logout }), [user]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// ✅ Custom hook for accessing auth context
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
   return context;
 };

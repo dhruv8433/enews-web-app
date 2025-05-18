@@ -5,11 +5,27 @@ import { useParams } from 'next/navigation';
 import DOMPurify from 'dompurify';
 import { useSearchArticles } from '@/app/hooks/useSearchArticles';
 import VerticalCard from '@/app/common/VerticalCard';
+import { FavoriteButton } from '@/app/common/FavoriteButton';
+import { useFavorites } from '@/app/hooks/useFavorites';
 
 const ArticleDetailPage = () => {
   const { id } = useParams() as { id: string };
   const { data, loading, error } = useArticle(id);
   const article = data?.article;
+  const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+
+  console.log("favs from swiper", favorites)
+  const isFavorited = favorites.some(fav => fav?._id === article?._id);
+
+
+  const toggleFavorite = (articleId: string) => {
+    if (isFavorited) {
+      removeFromFavorites(articleId);
+    } else {
+      addToFavorites(articleId);
+    }
+  };
+
 
   const {
     data: relatedArticles,
@@ -21,15 +37,20 @@ const ArticleDetailPage = () => {
   if (error || !article) return <div className="text-center py-10 text-red-500">Failed to load article.</div>;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div className="container grid grid-cols-1 lg:grid-cols-12 gap-8">
       {/* Left: Main Article */}
-      <div className="lg:col-span-9">
+      <div className="lg:col-span-9 mt-10">
         <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 heading">{article.title}</h1>
         <div className="text-sm text-secondary mb-6">
           Published on {formatPublishedDate(article.published_at)} · {article.read_time} min read
         </div>
 
-        <div className="mb-8">
+        <div className="mb-8 relative">
+          <FavoriteButton
+            articleId={article._id}
+            isFavorited={isFavorited}
+            onToggleFavorite={toggleFavorite}
+          />
           <img
             src={article.image_url}
             alt={article.title}
@@ -66,7 +87,7 @@ const ArticleDetailPage = () => {
       </div>
 
       {/* Related Articles */}
-      <div className="lg:col-span-3 space-y-6">
+      <div className="lg:col-span-3 space-y-6 mt-10">
         <h2 className="text-xl font-semibold mb-4 heading">Related Articles</h2>
 
         {relatedLoading && <p>Loading related articles...</p>}
