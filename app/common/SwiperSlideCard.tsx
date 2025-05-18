@@ -2,6 +2,8 @@
 import React from "react";
 import { NewsItem } from "@/app/types/home.types";
 import Link from "next/link";
+import { useFavorites } from "../hooks/useFavorites";
+import { FavoriteButton } from "./FavoriteButton";
 
 interface SwiperSlideCardProps {
   news: NewsItem;
@@ -9,6 +11,19 @@ interface SwiperSlideCardProps {
 }
 
 const SwiperSlideCard: React.FC<SwiperSlideCardProps> = ({ news, isSwiper }) => {
+  const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+
+  console.log("favs from swiper", favorites)
+  const isFavorited = favorites.some(fav => fav?._id === news._id);
+
+
+  const toggleFavorite = (articleId: string) => {
+    if (isFavorited) {
+      removeFromFavorites(articleId);
+    } else {
+      addToFavorites(articleId);
+    }
+  };
   return (
     <Link
       href={`/detail/${news._id}/${news.slug}`}
@@ -16,6 +31,11 @@ const SwiperSlideCard: React.FC<SwiperSlideCardProps> = ({ news, isSwiper }) => 
       className="relative block rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 group"
       style={{ height: isSwiper ? "480px" : "230px" }}
     >
+      <FavoriteButton
+        articleId={news._id}
+        isFavorited={isFavorited}
+        onToggleFavorite={toggleFavorite}
+      />
       {/* Background image with zoom on hover */}
       <div
         className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 filter brightness-90"
