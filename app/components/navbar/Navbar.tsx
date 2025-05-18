@@ -7,11 +7,16 @@ import { useRouter } from 'next/navigation';
 import useSettings from '@/app/hooks/useSettigs';
 import ThemeManager from '@/app/util/ThemeProvideWrapper';
 import toast from 'react-hot-toast';
+import AuthModals from '@/app/overlays/AuthModals';
+import { useAuth } from '@/app/context/AuthContext';
 
 const Navbar = () => {
     const { loading, settings } = useSettings();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const { user } = useAuth();
+
+
     const router = useRouter();
 
     const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -42,9 +47,7 @@ const Navbar = () => {
                         {/* Desktop Menu */}
                         <div className="hidden md:flex items-center space-x-6">
                             <Link href="/" className="text-card transition">Home</Link>
-                            <Link href="/services" className="text-card transition">Services</Link>
-                            <Link href="/about" className="text-card transition">About</Link>
-                            <Link href="/contact" className="text-card transition">Contact</Link>
+                            <Link href="query/popular" className="text-card transition">Popular</Link>
                         </div>
 
                         {/* Search Input */}
@@ -66,17 +69,24 @@ const Navbar = () => {
                                 {isMobileMenuOpen ? <FiX /> : <FiMenu />}
                             </button>
                         </div>
+
+                        {/* here conditional render avatar and button */}
+                        {user ? (
+                            <span className="text-sm font-medium text-heading">{user.fullname}</span>
+                        ) : (
+                            <AuthModals />
+                        )}
+
                     </div>
                 </div>
+
             </div>
 
             {/* Mobile Dropdown Menu */}
             {isMobileMenuOpen && (
                 <div className="md:hidden px-4 pb-4 space-y-2">
                     <Link href="/" className="block text-card">Home</Link>
-                    <Link href="/services" className="block text-card">Services</Link>
-                    <Link href="/about" className="block text-card">About</Link>
-                    <Link href="/contact" className="block text-card">Contact</Link>
+                    <Link href="/query/popular" className="block text-card">Popular</Link>
                     {/* Mobile Search */}
                     <input
                         type="text"
