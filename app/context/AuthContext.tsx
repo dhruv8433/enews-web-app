@@ -14,6 +14,7 @@ interface AuthContextType {
   login: (formData: LoginFormData) => Promise<void>;
   logout: () => void;
   deleteAccount: () => void;
+  updateUser: (updatedUser: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -79,7 +80,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }
 
-  const value = useMemo(() => ({ user, setUser, login, logout, deleteAccount }), [user]);
+  const updateUser = (updatedUser: User) => {
+    Cookies.set("user", encodeURIComponent(JSON.stringify(updatedUser)), { expires: 7 });
+    setUser(updatedUser);
+  };
+
+  const value = useMemo(() => ({ user, setUser, login, logout, deleteAccount, updateUser }), [user]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

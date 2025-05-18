@@ -1,5 +1,4 @@
 // hooks/useAuth.ts
-
 import toast from "react-hot-toast";
 import { httpAxios } from "../httpAxios";
 import { LoginFormData, SignupFormData } from "../types/auth.types";
@@ -33,7 +32,7 @@ export const useAuth = () => {
             return res.data;
         } catch (error) {
             setError({
-                message: 'Failed to fetch articles',
+                message: 'Signup failed',
                 details: (error as Error).message,
             });
             console.error("Signup error:", error);
@@ -43,17 +42,43 @@ export const useAuth = () => {
     const handleLogin = async (formData: LoginFormData): Promise<LoginResponse | undefined> => {
         try {
             const res = await httpAxios.post<LoginResponse>("/auth/login", formData);
-            Cookies.set("user", encodeURIComponent(JSON.stringify(res.data?.data?.user)), { expires: 7 }); // optional expiration
+            Cookies.set("user", encodeURIComponent(JSON.stringify(res.data?.data?.user)), { expires: 7 });
             toast.success(res.data?.message || "User logged in successfully!");
             return res.data;
         } catch (error) {
             setError({
-                message: 'Failed to fetch articles',
+                message: 'Login failed',
                 details: (error as Error).message,
             });
             console.error("Login error:", error);
         }
     };
 
-    return { handleSignUp, handleLogin };
+    const handleUpdateProfile = async (userData: { fullname: string; email: string; avatar: File | null }) => {
+        const formData = new FormData();
+        formData.append("fullname", userData.fullname);
+        formData.append("email", userData.email);
+        if (userData.avatar) {
+            formData.append("avatar", userData.avatar);
+        }
+
+        try {
+            const res = await httpAxios.put("/auth/update", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            toast.success("Profile updated successfully!");
+            return res.data;
+        } catch (error) {
+            setError({
+                message: 'Profile update failed',
+                details: (error as Error).message,
+            });
+            toast.error("Failed to update profile");
+            console.error("Profile update error:", error);
+        }
+    };
+
+    return { handleSignUp, handleLogin, handleUpdateProfile, error };
 };

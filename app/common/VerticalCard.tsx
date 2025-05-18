@@ -12,8 +12,6 @@ interface VerticalCardProps {
 
 const VerticalCard: React.FC<VerticalCardProps> = ({ news, isGrid }) => {
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
-
-  console.log("favs from swiper", favorites)
   const isFavorited = favorites.some(fav => fav?._id === news._id);
 
   const toggleFavorite = (articleId: string) => {

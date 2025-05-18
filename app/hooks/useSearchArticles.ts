@@ -18,7 +18,6 @@ export const useSearchArticles = (query: string) => {
 
             try {
                 const result = await searchArticles(query);
-                console.log(result);
                 setData(result.data.articles || []);
             } catch (err) {
                 setError({

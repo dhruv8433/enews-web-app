@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { SignupFormData } from "../types/auth.types";
+import { SignupFormData, User } from "../types/auth.types";
 import toast from "react-hot-toast";
 
-const AuthModal = () => {
+type AuthModalProps = {
+    setUser: React.Dispatch<React.SetStateAction<User | null>>;  // you can type your user better
+};
+
+const AuthModal = ({ setUser }: AuthModalProps) => {
     const { handleSignUp, handleLogin } = useAuth();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,21 +41,31 @@ const AuthModal = () => {
         setLoading(true);
 
         try {
+            let loggedInUser = null;
+
             if (isLoginMode) {
-                await handleLogin({ email: formData.email, password: formData.password });
+                loggedInUser = await handleLogin({ email: formData.email, password: formData.password });
             } else {
                 if (formData.password !== confirmPassword) {
                     toast.error("Passwords do not match");
+                    setLoading(false);
                     return;
                 }
-                await handleSignUp(formData);
+                loggedInUser = await handleSignUp(formData);
+            }
+
+            if (loggedInUser) {
+                setUser(loggedInUser.data.user); // Update the user in context immediately
             }
 
             setIsModalOpen(false);
+        } catch (error) {
+            toast.error("Authentication failed");
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <>

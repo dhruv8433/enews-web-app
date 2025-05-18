@@ -13,12 +13,19 @@ import { FaThumbsUp, FaEye, FaShareAlt, FaPrint } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { ShareButton } from '@/app/common/ShareButton';
 import { httpAxios } from '@/app/httpAxios';
+import { useComments } from '@/app/hooks/useComments';
+import { useState } from 'react';
+import CommentCard from '@/app/common/CommentCard';
 
 const ArticleDetailPage = () => {
   const { id } = useParams() as { id: string };
   const { data, loading, error } = useArticle(id);
   const article = data?.article;
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+  const { comments, loading: commentsLoading, error: commentsError, addComment } = useComments(id);
+
+  const [newComment, setNewComment] = useState('');
+
 
   const isFavorited = favorites.some(fav => fav?._id === article?._id);
 
@@ -38,6 +45,18 @@ const ArticleDetailPage = () => {
 
   if (loading) return <div className="text-center py-10">Loading...</div>;
   if (error || !article) return <div className="text-center py-10 text-red-500">Failed to load article.</div>;
+
+  const handleCommentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newComment.trim()) return toast.error("Comment cannot be empty");
+    try {
+      await addComment(newComment);
+      setNewComment('');
+      toast.success("Comment added!");
+    } catch {
+      toast.error("Failed to add comment");
+    }
+  };
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -136,9 +155,51 @@ const ArticleDetailPage = () => {
             <strong>Subcategory:</strong> {article.subcategory.name}
           </p>
         </div>
+
+        {/* ----------------- Comments ----------------- */}
+        {/* Comments Section */}
+        <section className="mt-12">
+          <h2 className="text-2xl font-semibold mb-4">Comments</h2>
+
+          <form onSubmit={handleCommentSubmit} className="mb-6">
+            <textarea
+              className="w-full border border-gray-300 rounded p-2 mb-2 text-black"
+              placeholder="Write your comment..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              rows={4}
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              disabled={commentsLoading}
+            >
+              {commentsLoading ? 'Posting...' : 'Post Comment'}
+            </button>
+          </form>
+
+          {commentsLoading && <p>Loading comments...</p>}
+          {commentsError && <p className="text-red-500">Failed to load comments.</p>}
+
+          {comments.length === 0 && !commentsLoading && (
+            <p className="text-gray-500">No comments yet. Be the first to comment!</p>
+          )}
+
+          <ul className="space-y-4">
+            {comments.map((comment) => (
+              <li key={comment._id}>
+                <CommentCard comment={comment} />
+              </li>
+            ))}
+          </ul>
+
+        </section>
       </div>
 
-      {/* Related Articles */}
+
+
+
+      {/* ----------------- Related Articles ----------------------- */}
       <div className="lg:col-span-3 space-y-6 mt-10">
         <h2 className="text-xl font-semibold mb-4 heading">Related Articles</h2>
 
@@ -153,7 +214,7 @@ const ArticleDetailPage = () => {
           <VerticalCard news={related} key={related._id} />
         ))}
       </div>
-    </div>
+    </div >
   );
 };
 
