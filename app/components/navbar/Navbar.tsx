@@ -20,7 +20,7 @@ const Navbar = () => {
 
     return (
         <nav className="w-full nav z-50">
-            <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+            <div className=" mx-auto px-4 container">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <Link href="/">

@@ -9,7 +9,7 @@ const GlobalAdvertise: React.FC = () => {
 
     return (
         <div className="bg-[url('/asset/header.png')] bg-cover bg-center bg-no-repeat h-14 w-full flex items-center px-10">
-            <div className="flex h-full items-center justify-between w-full">
+            <div className="flex h-full items-center justify-between w-full container">
 
                 {/* Left Section: Displays a lightning icon, trending link, and tagline */}
                 <div className="left flex items-center text-white">

@@ -68,7 +68,7 @@ export default function ThemeManager({ settings }: ThemeManagerProps) {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 card border  rounded shadow-md z-10">
+        <div className="absolute right-0 mt-2 w-48 card border  rounded shadow-md z-50">
           <ul className="py-1">
             {settings?.config?.themes?.map((t) => (
               <li key={t._id}>

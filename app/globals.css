@@ -62,6 +62,10 @@ body {
   color: var(--text-card);
 }
 
+.text-secondary {
+  color: var(--text-secondary);
+}
+
 .body {
   background: var(--background-body);
   color: var(--text-primary);
@@ -133,3 +137,12 @@ body {
 }
 
 /* ---------- Next component ----------- */
+
+.tag{
+  background: var(--background-body);
+  color: var(--text-primary);
+  border-radius: var(--border-radius);
+  padding: 5px 10px;
+  margin-right: 10px;
+  width: max-content;
+}

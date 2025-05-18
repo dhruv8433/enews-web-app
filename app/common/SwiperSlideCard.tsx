@@ -26,11 +26,11 @@ const SwiperSlideCard: React.FC<SwiperSlideCardProps> = ({ news, isSwiper }) => 
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
 
       {/* Text content */}
-      <div className="absolute bottom-4 left-4 right-4 text-white z-10">
-        <p className="text-xs font-semibold uppercase opacity-80 tracking-wider mb-1">
+      <div className="absolute bottom-4 left-4 right-4  z-10">
+        <p className="text-xs font-semibold opacity-80 tracking-wider mb-1 tag">
           {news.category.name}
         </p>
-        <h3 className="text-sm font-bold line-clamp-2">{news.title}</h3>
+        <h3 className={`${isSwiper ? "text-2xl" : "text-sm"} font-bold line-clamp-2 text-primary`}>{news.title}</h3>
       </div>
     </a>
   );
