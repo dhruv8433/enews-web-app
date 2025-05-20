@@ -24,3 +24,29 @@ eNews is a full-featured news platform that allows users to read articles, engag
 - **APIs:** Custom REST APIs for articles and comments
 - **Cloudinary:** Image storage for avatars and articles
 - **Deployment:** Vercel / Render / Netlify
+
+## ⚙️ Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/enews.git
+cd enews
+```
+
+2. Install Dependencies
+```bash
+Copy
+Edit
+npm install
+# or
+yarn install
+```
+3. Run the App
+```bash
+Copy
+Edit
+npm run dev
+# or
+yarn dev
+```
