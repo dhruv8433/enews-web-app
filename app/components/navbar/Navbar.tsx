@@ -48,8 +48,8 @@ const Navbar = () => {
                                 src={settings?.headerLogo}
                                 alt="logo"
                                 aria-label="logo"
-                                className="logo"
-                            />
+                                className="logo h-20"
+                          />
                         </Link>
                     </div>
 
