@@ -163,7 +163,7 @@ const ArticleDetailPage = () => {
 
           <form onSubmit={handleCommentSubmit} className="mb-6">
             <textarea
-              className="w-full border border-gray-300 rounded p-2 mb-2 text-black"
+              className="w-full border border-gray-300 rounded p-2 mb-2 text-black bg-trasparent"
               placeholder="Write your comment..."
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}

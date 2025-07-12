@@ -29,7 +29,7 @@ interface CommentCardProps {
 
 const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
     return (
-        <div className="flex gap-4 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow bg-white">
+        <div className="flex gap-4 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow card">
             {/* User Avatar */}
             <img
                 src={comment.user.avatar_url}
