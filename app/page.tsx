@@ -19,9 +19,9 @@ export default function Home() {
 
   return (
     <main>
-      <GridSection1 slides={popularNews} />
+      <GridSection1 slides={popularNews} loading={loading}/>
       <MarqueeSection category={categories} />
-      <GridSection2 slides={technologyNews.slice(0, 4)} />
+      <GridSection2 slides={technologyNews.slice(0, 8)} loading={loading}/>
       <GridSection1 slides={travelNews} isTravel />
       <GridSection3 breakingNews={breakingNews} recentNews={recentNews} title1="Breaking News" title2="Recent News" />
       {/* Add more sections as needed */}
